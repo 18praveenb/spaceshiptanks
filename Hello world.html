@@ -1,70 +1,90 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-<head>
-</head>
-<body>
-</body>
+    <head>
+        <script>
+        var svgn = "http://www.w3.org/2000/svg"
+        var unit = 75
+        
+        function start() {
+            for (var i = 0; i < 4; ++i) {
+                for (var j = 0; j < 4; ++j) {
+                    var gridBox = document.createElementNS(svgn, "rect");
+                    gridBox.setAttribute("x", String(unit*i))
+                    gridBox.setAttribute("y", String(unit*j))
+                    gridBox.setAttribute("width", unit)
+                    gridBox.setAttribute("height", unit)
+                    gridBox.setAttribute("fill", "#03A")
+                    gridBox.setAttribute("stroke", "#6AF")
+                    gridBox.setAttribute("stroke-width", "3")
+                    gridBox.setAttribute("id", i + "" + j)
+                    scene.appendChild(gridBox)
+                }
+            }
+            scene.appendChild(soldier)
+            scene.addEventListener("click", sceneClicked)
+        }
+        
+        function soldierClicked() {
+            if (soldier.getAttribute("xlink:href") == "soldier tint.png") {soldierUnclick()}
+            else {
+                soldier.setAttribute("xlink:href", "soldier tint.png")
+                var validMoves = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+                for (var i = 0; i < validMoves.length; ++i) {
+                    var move = validMoves[i]
+                    move[0] += soldierGrid()[0]
+                    move[1] += soldierGrid()[1]
+                    if ((move[0]) >= 0 && (move[1] >= 0)) {
+                        var gridItem = document.getElementById(move[0]+""+move[1])
+                        gridItem.setAttribute("fill", "#FFF")
+                    }
+                }
+            }
+        }
+        
+        function soldierUnclick() {
+            soldier.setAttribute("xlink:href", "soldier.png")
+            for (var i = 0; i < 4; ++i) {
+                for (var j = 0; j < 4; ++j) {
+                    scene.getElementById(i+""+j).setAttribute("fill", "#03A")
+                }
+            }
+        }
+        
+        function moveSoldier(newGrid) {
+            if (soldier.getAttribute("xlink:href") == "soldier tint.png") {
+            soldier.setAttribute("x", newGrid[0]*unit)
+            soldier.setAttribute("y", newGrid[1]*unit)
+            soldierUnclick()
+            }
+        }
+        
+        function sceneClicked(event) {
+            var oldGrid = soldierGrid()
+            var newGrid = eventGrid(event)
+            var gridDiff = [oldGrid[0]-newGrid[0], oldGrid[1]-newGrid[1]]
+            switch (gridDiff.join("")) {
+                case "00": soldierClicked(); break
+                case "01": moveSoldier(newGrid); break
+                case "10": moveSoldier(newGrid); break
+                case "0-1": moveSoldier(newGrid); break
+                case "-10": moveSoldier(newGrid); break
+                default: soldierUnclick(); break
+            }
+        }
+        
+        function soldierGrid() {
+            return [Math.floor(soldier.getAttribute("x")/unit), Math.floor(soldier.getAttribute("y")/unit)]
+        }
+        
+        function eventGrid(event) {
+            return [Math.floor((event.clientX)/unit), Math.floor((event.clientY)/unit)]
+        }
+        
+        </script>
+    </head>
+    <body onload="start()">
+        <svg id="scene" width=300 height=300 fill=#F00>
+            <image xlink:href="soldier.png" height="75" width="75" preserveAspectRatio="none" id="soldier" />
+        </svg>
+    </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
