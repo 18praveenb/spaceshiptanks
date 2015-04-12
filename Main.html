@@ -59,6 +59,12 @@
         }
         
         function sceneClicked(event) {
+            for (var i = 0; i < scene.childNodes.length; ++i) {
+                var iNode = scene.childNodes[i]
+                if (iNode.nodeType == 1) {
+                console.log(iNode.player)
+                }
+            }
             var oldGrid = soldierGrid()
             var newGrid = eventGrid(event)
             var gridDiff = [oldGrid[0]-newGrid[0], oldGrid[1]-newGrid[1]]
@@ -84,7 +90,7 @@
     </head>
     <body onload="start()">
         <svg id="scene" width=300 height=300 fill=#F00>
-            <image xlink:href="soldier.png" height="75" width="75" preserveAspectRatio="none" id="soldier" />
+            <image xlink:href="soldier.png" height="75" width="75" preserveAspectRatio="none" id="soldier" player="IGOR"/>
         </svg>
     </body>
 </html>
