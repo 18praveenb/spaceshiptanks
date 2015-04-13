@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <script>
+            
+            var unit = 75
+            
+            function start() {
+                for (var i = 0; i < 4; ++i) {
+                    for (var j = 0; j < 4; ++j) {
+                        var gridBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                        gridBox.setAttribute("x", String(unit*i))
+                        gridBox.setAttribute("y", String(unit*j))
+                        gridBox.setAttribute("width", unit)
+                        gridBox.setAttribute("height", unit)
+                        gridBox.setAttribute("fill", "#03A")
+                        gridBox.setAttribute("stroke", "#6AF")
+                        gridBox.setAttribute("stroke-width", "3")
+                        gridBox.setAttribute("id", i + "" + j)
+                        scene.appendChild(gridBox)
+                    }
+                }
+                var soldier = document.createElementNS("http://www.w3.org/2000/svg", "image")
+                soldier.setAttributeNS("http://www.w3.org/1999/xlink", "href", "soldier.png")
+                soldier.setAttribute("height", "75")
+                soldier.setAttribute("width", "75")
+                soldier.setAttribute("x", "0")
+                soldier.setAttribute("y", "0")
+                soldier.setAttribute("preserveAspectRatio", "none")
+                soldier.setAttribute("id", "Joe")
+                soldier.setAttribute("player", "1")
+                scene.appendChild(soldier)
+                
+                scene.addEventListener("click", sceneClicked)
+            }
+        
+        function sceneClicked(event) {
+            var eventGrid = gridPoint(event.x, event.y)
+            for (var i=0; i < scene.childNodes.length; ++i) {
+                if ((scene.childNodes[i].nodeType == 1) && (scene.childNodes[i].getAttribute("player") == "1") /*todo: update to support multiple players and player alternation*/) {
+                    var childGrid = gridPoint(scene.childNodes[i].getAttribute("x"), scene.childNodes[i].getAttribute("y"))
+                    if ((childGrid.x == eventGrid.x) && (childGrid.y == eventGrid.y)) {
+                        select(scene.childNodes[i])
+                    }
+                }
+            }
+        }
+        
+        function select(node) {
+            //todo: add regex support to, for arbitrary '[name]', replace '[name].png' with '[name] tint.png' or '[name] selected.png' would be better (would require renaming of the soldier file)
+            if (isSelected(node)) {
+                node.setAttribute("href", "soldier.png")
+            }
+            else {
+                node.setAttribute("href", "soldier tint.png")
+            }
+        }
+        
+        function isSelected(node) {
+            if (node.getAttribute("href") == "soldier tint.png" /*update for more units than just soldier*/) {
+                return true
+            }
+            return false
+        }
+        
+        function gridPoint(x, y) {
+            return {
+                "x": Math.floor(x/unit),
+                "y": Math.floor(y/unit)
+            }
+        }
+        
+        function location(gridPoint) {
+            return {
+                "x": gridPoint.x*unit,
+                "y": gridPoint.y*unit
+            }
+        }
+        
+        </script>
+    </head>
+    <body onload="start()">
+        <svg id="scene" width="300" height="300">
+        </svg>
+    </body>
+</html>
