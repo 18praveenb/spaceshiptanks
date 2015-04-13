@@ -1,3 +1,2 @@
 # spaceshiptanks
-Spaceship Tanks: An HTML5 RTS that, as of writing, involves neither spaceships nor tanks.  
-However, it is possible that tanks may appear in a later build.
+The Reengineering branch is meant to create a scalable turn based engine for the game. There are two todos in the main HTML file—a regex find and replace operation which I don't know how to do yet and a player alternation system. This branch also needs a scalable movement system and highlighting of available moves to achieve feature parity with the master branch. Since this is Reengineering, the movement system should also be built to support arbitrary movement 'speeds' (1, 2, 3, etc. moves per turn, with diagonal moves).
