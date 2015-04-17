@@ -5,7 +5,7 @@
             
             var unit = 75
             
-            function start() {
+            function start() { //Creates the grid through nested loops. Creates the soldier.
                 for (var i = 0; i < 4; ++i) {
                     for (var j = 0; j < 4; ++j) {
                         var gridBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
@@ -35,29 +35,32 @@
             }
         
         function sceneClicked(event) {
-            var eventGrid = gridPoint(event.x, event.y)
-            for (var i=0; i < scene.childNodes.length; ++i) {
-                if ((scene.childNodes[i].nodeType == 1) && (scene.childNodes[i].getAttribute("player") == "1") /*todo: update to support multiple players and player alternation*/) {
-                    var childGrid = gridPoint(scene.childNodes[i].getAttribute("x"), scene.childNodes[i].getAttribute("y"))
-                    if ((childGrid.x == eventGrid.x) && (childGrid.y == eventGrid.y)) {
-                        select(scene.childNodes[i])
-                    }
+            var eventGrid = gridPointForEvent(event)
+            enumerate(scene.childNodes, selectIfPlayer)
+        }
+        
+        function selectIfPlayer(player) {
+            var eventGrid = gridPoint
+            if ((player.nodeType == 1) && (player.getAttribute("player") == "1") /*todo: update to support multiple players and player alternation*/) {
+                var childGrid = gridPoint(player.getAttribute("x"), player.getAttribute("y"))
+                if ((childGrid.x == eventGrid.x) && (childGrid.y == eventGrid.y)) {
+                    select(player)
                 }
             }
         }
         
         function select(node) {
-            //todo: add regex support to, for arbitrary '[name]', replace '[name].png' with '[name] tint.png' or '[name] selected.png' would be better (would require renaming of the soldier file)
+            //todo: add regex support to, for arbitrary '[name]', replace '[name].png' with '[name] tint.png'
             if (isSelected(node)) {
                 node.setAttribute("href", "soldier.png")
             }
             else {
-                node.setAttribute("href", "soldier tint.png")
+                node.setAttribute("href", "soldier selected.png")
             }
         }
         
         function isSelected(node) {
-            if (node.getAttribute("href") == "soldier tint.png" /*update for more units than just soldier*/) {
+            if (node.getAttribute("href") == "soldier selected.png" /*update for more units than just soldier*/) {
                 return true
             }
             return false
@@ -70,10 +73,20 @@
             }
         }
         
+        function gridPointForEvent(event) {
+            return gridPoint(event.x, event.y)
+        }
+        
         function location(gridPoint) {
             return {
                 "x": gridPoint.x*unit,
                 "y": gridPoint.y*unit
+            }
+        }
+        
+        function enumerate(array, block) {
+            for (var i=0; i<array.length; ++i) {
+                block(array[i])
             }
         }
         
