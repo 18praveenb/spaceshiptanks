@@ -3,73 +3,56 @@
     <head>
         <script>
             
-            var unit = 75
+            var sizeUnit = 75
+            var selectedUnit = -1;
+            var units = [] /* Keys: */
             
-            function start() { //Creates the grid through nested loops. Creates the soldier.
+            function start() {
                 for (var i = 0; i < 4; ++i) {
                     for (var j = 0; j < 4; ++j) {
-                        var gridBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        gridBox.setAttribute("x", String(unit*i))
-                        gridBox.setAttribute("y", String(unit*j))
-                        gridBox.setAttribute("width", unit)
-                        gridBox.setAttribute("height", unit)
-                        gridBox.setAttribute("fill", "#03A")
-                        gridBox.setAttribute("stroke", "#6AF")
-                        gridBox.setAttribute("stroke-width", "3")
-                        gridBox.setAttribute("id", i + "" + j)
-                        scene.appendChild(gridBox)
+                        var tile = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                        tile.setAttribute("x", String(sizeUnit*i))
+                        tile.setAttribute("y", String(sizeUnit*j))
+                        tile.setAttribute("width", sizeUnit)
+                        tile.setAttribute("height", sizeUnit)
+                        tile.setAttribute("fill", "#009")
+                        tile.setAttribute("stroke", "#9CF")
+                        tile.setAttribute("stroke-width", "3")
+                        tile.setAttribute("id", i + "" + j)
+                        tile.addEventListener("click", tileClicked)
+                        scene.appendChild(tile)
                     }
                 }
-                var soldier = document.createElementNS("http://www.w3.org/2000/svg", "image")
-                soldier.setAttributeNS("http://www.w3.org/1999/xlink", "href", "soldier.png")
-                soldier.setAttribute("height", "75")
-                soldier.setAttribute("width", "75")
-                soldier.setAttribute("x", "0")
-                soldier.setAttribute("y", "0")
-                soldier.setAttribute("preserveAspectRatio", "none")
-                soldier.setAttribute("id", "Joe")
-                soldier.setAttribute("player", "1")
-                scene.appendChild(soldier)
-                
-                scene.addEventListener("click", sceneClicked)
+                createUnit({imageName:"Spaceship", HP:100, player:1, gridLocation:{"x":0,"y":2}})
+                createUnit({imageName:"Soldier", HP:100, player:2, gridLocation:{"x":2,"y":1}})
             }
         
-        function sceneClicked(event) {
-            var eventGrid = gridPointForEvent(event)
-            enumerate(scene.childNodes, selectIfPlayer)
+        function tileClicked() {
+            console.log("foo")
         }
         
-        function selectIfPlayer(player) {
-            var eventGrid = gridPoint
-            if ((player.nodeType == 1) && (player.getAttribute("player") == "1") /*todo: update to support multiple players and player alternation*/) {
-                var childGrid = gridPoint(player.getAttribute("x"), player.getAttribute("y"))
-                if ((childGrid.x == eventGrid.x) && (childGrid.y == eventGrid.y)) {
-                    select(player)
-                }
-            }
+        function unitClicked() {
+            select(this)
         }
         
         function select(node) {
-            //todo: add regex support to, for arbitrary '[name]', replace '[name].png' with '[name] tint.png'
-            if (isSelected(node)) {
-                node.setAttribute("href", "soldier.png")
+            if (node == selectedUnit) {
+                selectedUnit = -1
+                node.setAttribute("href", imageNameForNode(node) + ".png")
             }
             else {
-                node.setAttribute("href", "soldier selected.png")
+                if (selectedUnit != -1) {
+                    select(selectedUnit)
+                }
+                selectedUnit = node
+                node.setAttribute("href", imageNameForNode(node) + " selected.png")
             }
-        }
-        
-        function isSelected(node) {
-            if (node.getAttribute("href") == "soldier selected.png" /*update for more units than just soldier*/) {
-                return true
-            }
-            return false
         }
         
         function gridPoint(x, y) {
             return {
-                "x": Math.floor(x/unit),
-                "y": Math.floor(y/unit)
+                "x": Math.floor(x/sizeUnit),
+                "y": Math.floor(y/sizeUnit)
             }
         }
         
@@ -77,23 +60,63 @@
             return gridPoint(event.x, event.y)
         }
         
+        function gridPointForNode(node) {
+            return gridPoint(node.getAttribute("x"), node.getAttribute("y"))
+        }
+        
         function location(gridPoint) {
             return {
-                "x": gridPoint.x*unit,
-                "y": gridPoint.y*unit
+                "x": gridPoint.x*sizeUnit,
+                "y": gridPoint.y*sizeUnit
             }
+        }
+        
+        function gridPointsEqual(point1, point2) {
+            return ((point1.x == point2.x) && (point1.y == point2.y))
+        }
+        
+        function imageNameForNode(node) {
+            return node.getAttribute("href").match(RegExp("[^\\s\\.]*"))[0]
+        }
+        
+        function createUnit(parameters) {
+            var unit = document.createElementNS("http://www.w3.org/2000/svg", "image")
+            unit.setAttributeNS("http://www.w3.org/1999/xlink", "href", "Resources/Images/"+parameters.imageName+".png")
+            unit.setAttribute("height", "75")
+            unit.setAttribute("width", "75")
+            unit.setAttribute("x", parameters.gridLocation.x*sizeUnit)
+            unit.setAttribute("y", parameters.gridLocation.y*sizeUnit)
+            unit.setAttribute("preserveAspectRatio", "none")
+            units.push({"node":unit, "gridLocation": parameters.gridLocation, "player": parameters.player, "HP": parameters.HP})
+            
+            unit.setAttribute("id", "Unit " + units.length)
+            scene.appendChild(unit)
+            
+            unit.addEventListener("click", unitClicked)
+
         }
         
         function enumerate(array, block) {
             for (var i=0; i<array.length; ++i) {
-                block(array[i])
+                var shouldContinue = block(array[i])
+                if (shouldContinue == false) {break}
             }
+        }
+        
+        function enumerateChildNodes(childNodes, block) {
+            function checkingBlock(node) {
+                if (node.nodeType == 1) {
+                    return block(node)
+                }
+            }
+            enumerate(childNodes, checkingBlock)
         }
         
         </script>
     </head>
     <body onload="start()">
         <svg id="scene" width="300" height="300">
+            <image xlink:href="Resources/Images/spaceship.png" width=75 height=75 x=150 y=150 preserveAspectRatio="none">
         </svg>
     </body>
 </html>
