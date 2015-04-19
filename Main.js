@@ -11,7 +11,7 @@ function start() {
             tile.setAttribute("y", String(sizeUnit*j))
             tile.setAttribute("width", sizeUnit)
             tile.setAttribute("height", sizeUnit)
-            tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", imageDirectory + "tile grass.png")
+            tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", imageDirectory + "grass.png")
             tile.setAttribute("preserveAspectRatio", "none")
             tile.setAttribute("id", i + "" + j)
             tile.setAttribute("type", "tile")
