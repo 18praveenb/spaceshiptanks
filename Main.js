@@ -11,7 +11,7 @@ function start() {
             tile.setAttribute("y", String(sizeUnit*j))
             tile.setAttribute("width", sizeUnit)
             tile.setAttribute("height", sizeUnit)
-            tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", imageDirectory + "grass.png")
+            tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", imageDirectory + "Grass.png")
             tile.setAttribute("preserveAspectRatio", "none")
             tile.setAttribute("id", i + "" + j)
             tile.setAttribute("type", "tile")
@@ -126,7 +126,7 @@ function createTile(parameters) {
 function resetTileHighlighting() {
     function reset(node) {
         if (node.getAttribute("type") == "tile") {
-            node.setAttribute("href", imageDirectory+"grass.png")
+            node.setAttribute("href", imageDirectory+"Grass.png")
         }
     }
     enumerateChildNodes(scene.childNodes, reset)
@@ -136,7 +136,7 @@ function highlightTilesAroundNode(node) {
     function highlight(tile) {
         if (tile.getAttribute("type") == "tile") {
             if (gridPointDifference(gridPointForNode(tile), gridPointForNode(node)) <= paramsForNode(node).speed) {
-                tile.setAttribute("href", imageDirectory+"grass highlighted.png")
+                tile.setAttribute("href", imageDirectory+"Grass highlighted.png")
             }
         }
     }
