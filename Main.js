@@ -2,8 +2,12 @@ var sizeUnit = 75
 var selectedUnit = -1;
 var units = [] /* Keys: */
 var imageDirectory = "Resources/Images/"
+var offset = {"x": 0, "y": 0}
 
 function start() {
+    var sceneBounds = document.getElementById("scene")
+    offset["x"] = sceneBounds.getAttribute("left")
+    offset["y"] = sceneBounds.getAttribute("top")
     for (var i = 0; i < 9; ++i) {
         for (var j = 0; j < 4; ++j) {
             var tile = document.createElementNS("http://www.w3.org/2000/svg", "image");
@@ -26,9 +30,9 @@ function start() {
 function tileClicked(event) {
     if (selectedUnit != -1) {
         var unitGridLocation = gridPointForNode(selectedUnit)
-        var clickLocation = gridPointForEvent(event)
-        if (gridPointDifference(unitGridLocation, clickLocation) <= paramsForNode(selectedUnit).speed) {
-            setGridLocation(selectedUnit, clickLocation)
+        var tileGridLocation = gridPointForNode(this)
+        if (gridPointDifference(unitGridLocation, tileGridLocation) <= paramsForNode(selectedUnit).speed) {
+            setGridLocation(selectedUnit, tileGridLocation)
         }
         select(selectedUnit)
     }
@@ -71,7 +75,7 @@ function gridPointForNode(node) {
 
 function location(gridPoint) {
     return {
-        "x": gridPoint.x*sizeUnit,
+        "x": gridPoint.x*sizeUnit - document.getElementById("scene").getBoundingClientRect(),
         "y": gridPoint.y*sizeUnit
     }
 }
