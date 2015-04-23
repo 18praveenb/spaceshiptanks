@@ -1,7 +1,3 @@
 # Spaceship Tanks: Reengineering  
 
-Checkpoint 1 features that still need to be implemented:  
- * Turn system with two players
- * Unit hitpoints and attack
- * Unit abilities with multiple turn cooldowns
- * CSS unit and tile highlighting to eliminate need for separate image files for selected units and highlighted tiles (new!)
+Hello and welcome to Spaceship Tanks, my turn based web game! It's still a work in progress. Contribute to design brainstorming and view current development checkpoint goals [here](https://docs.google.com/document/d/1TEw6CzAde2VCFwxgVFuDKXhTJUOJbG-bqeQpIXw_f6o/edit?usp=sharing).
