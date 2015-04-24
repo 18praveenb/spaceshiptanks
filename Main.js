@@ -126,7 +126,7 @@ function createUnit(parameters) {
 }
 
 function unitMousedOver(event) {
-    document.getElementById("info").
+    document.getElementById("info")
 }
 
 function createTile(parameters) {
