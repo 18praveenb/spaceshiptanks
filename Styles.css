@@ -1,3 +1,7 @@
 body {
-    font-family: Iceland, sans-serif;
+    font-family: "Iceland", sans-serif;
+}
+
+.highlight {
+    /*do something to highlighted units*/
 }

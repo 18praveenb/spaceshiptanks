@@ -1,15 +1,14 @@
-var sizeUnit = 75
+var sizeUnit = 50
+var imageDirectory = "Resources/Images/"
+
 var selectedUnit = -1;
 var units = [] /* Keys: */
-var imageDirectory = "Resources/Images/"
-var offset = {"x": 0, "y": 0}
+var player = 0; /* player -1 is the enemy. */
+var turn = 1;
 
 function start() {
-    var sceneBounds = document.getElementById("scene")
-    offset["x"] = sceneBounds.getAttribute("left")
-    offset["y"] = sceneBounds.getAttribute("top")
-    for (var i = 0; i < 9; ++i) {
-        for (var j = 0; j < 4; ++j) {
+    for (var i = 0; i < 7; ++i) {
+        for (var j = 0; j < 7; ++j) {
             var tile = document.createElementNS("http://www.w3.org/2000/svg", "image");
             tile.setAttribute("x", String(sizeUnit*i))
             tile.setAttribute("y", String(sizeUnit*j))
@@ -24,7 +23,8 @@ function start() {
         }
     }
     createUnit({imageName:"Spaceship", HP:100, speed:2, player:1, gridLocation:{"x":0,"y":2}})
-    createUnit({imageName:"Soldier", HP:100, speed:1, player:2, gridLocation:{"x":2,"y":1}})
+    createUnit({imageName:"Spaceship", HP:100, speed:2, player:0, gridLocation:{"x":5,"y":4}})
+    createUnit({imageName:"Soldier", HP:100, speed:1, player:-1, gridLocation:{"x":2,"y":1}})
 }
 
 function tileClicked(event) {
@@ -39,7 +39,9 @@ function tileClicked(event) {
 }
 
 function unitClicked(event) {
-    select(this)
+    if (player == paramsForNode(this).player) {
+        select(this)
+    }
 }
 
 function select(node) {
@@ -119,7 +121,12 @@ function createUnit(parameters) {
     scene.appendChild(unit)
     
     unit.addEventListener("click", unitClicked)
+    unit.addEventListener("mouseover", unitMousedOver)
     
+}
+
+function unitMousedOver(event) {
+    document.getElementById("info").
 }
 
 function createTile(parameters) {
@@ -161,4 +168,9 @@ function enumerateChildNodes(childNodes, block) {
         }
     }
     enumerate(childNodes, checkingBlock)
+}
+
+function nextTurn() {
+    player = (player + 1) % 2;
+    ++turn;
 }
