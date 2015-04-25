@@ -2,6 +2,10 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
-.highlight {
-    /*do something to highlighted units*/
+[highlight="true"] {
+    border: 1px solid black;
+}
+
+#ship {
+    fill: #FF0;
 }
