@@ -2,10 +2,6 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
-[highlight="true"] {
-    border: 1px solid black;
-}
-
-#ship {
+#thePath2 {
     fill: #FF0;
 }
