@@ -4,14 +4,14 @@ function createTile(parameters) {
     tile.setAttribute("y", parameters.gridLocation.y*sizeUnit)
     tile.setAttribute("width", sizeUnit)
     tile.setAttribute("height", sizeUnit)
-    tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", imageDirectory + parameters.imageName + ".png")
+    tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", "Resources/Images/" + parameters.imageName + ".png")
     tile.setAttribute("preserveAspectRatio", "none")
     tile.setAttribute("type", "tile")
     parameters["node"]=tile
     tiles.push(parameters)
     
-    tile.setAttribute("id", "tile" + tiles.length-1)
-    tile.setAttribute("arrayNumber", tiles.length-1)
+    tile.setAttribute("id", "tile" + String(tiles.length-1))
+    tile.setAttribute("arrayNumber", String(tiles.length-1))
     
     tile.addEventListener("click", tileClicked)
     scene.appendChild(tile)
@@ -31,7 +31,7 @@ function tileClicked(event) {
 function resetTileHighlighting() {
     function reset(tile) {
         if (tile.getAttribute("type") == "tile") {
-            tile.setAttribute("href", imageDirectory+"Grass.png")
+            tile.setAttribute("href", "Resources/Images/Grass.png")
             tile.setAttribute("highlight", "false")
         }
     }
@@ -42,7 +42,7 @@ function highlightTilesAroundUnit(unit) {
     function highlight(tile) {
         if (tile.getAttribute("type") == "tile") {
             if (gridPointDifference(gridPointForNode(tile), gridPointForNode(unit)) <= paramsForUnit(unit).speed) {
-                tile.setAttribute("href", imageDirectory+"Grass highlighted.png")
+                tile.setAttribute("href", "Resources/Images/Grass highlighted.png")
                 tile.setAttribute("highlight", "true")
             }
         }

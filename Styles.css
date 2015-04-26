@@ -2,6 +2,6 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
-#thePath2 {
-    fill: #FF0;
+[highlight="true"] .selection * {
+    fill-opacity: 0.3;
 }

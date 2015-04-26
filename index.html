@@ -2,14 +2,14 @@
 <html>
     <head>
         <script src="Code/Extensions.js"></script>
-        <script src="Code/Main.js"></script>
+        <script src="Code/Main.js" ></script>
         <script src="Code/Tile.js"></script>
         <script src="Code/Unit.js"></script>
         <script src="Code/GridPoint.js"></script>
         <link href="http://fonts.googleapis.com/css?family=Iceland" rel="stylesheet" type="text/css">
         <link href="Styles.css" rel="stylesheet">
     </head>
-    <body onload="start()">
+    <body>
         <h1>Spaceship Tanks</h1>
         <svg id="scene" width="350" height="350">
         </svg>
@@ -18,5 +18,8 @@
         <button onclick="nextTurn()">Finish Turn</button>
         <br>
         <p> View the source code and contribute <a href="https://github.com/18praveenb/spaceshiptanks">here </a> </p>
+        <!-- The objects below hold the SVG files that are used to create units from Javascript and should not be themselves visible on the page.> </-->
+        <object height="0" width="0" id="svg_spaceship_anim" data="Resources/SVG/spaceship_anim.svg" type="image/svg+xml"></object>
+        <object height="0" width="0" id="svg_spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
     </body>
 </html>
