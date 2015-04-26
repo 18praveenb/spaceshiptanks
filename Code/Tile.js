@@ -7,7 +7,7 @@ function createTile(parameters) {
     tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", "Resources/Images/" + parameters.imageName + ".png")
     tile.setAttribute("preserveAspectRatio", "none")
     tile.setAttribute("type", "tile")
-    parameters["node"]=tileR
+    parameters["node"]=tile
     tiles.push(parameters)
     
     tile.setAttribute("id", "tile" + String(tiles.length-1))
