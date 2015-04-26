@@ -11,7 +11,7 @@ window.setTimeout(start, 500) /*may have to increase this if there is more to lo
 function start() {
     for (var i = 0; i < 7; ++i) {
         for (var j = 0; j < 7; ++j) {
-            createTile({imageName:"grass", gridLocation:{"x":i,"y":j}})
+            createTile({imageName:"Grass", gridLocation:{"x":i,"y":j}})
         }
     }
     createUnit({svg:"svg_spaceship_anim", HP:100, speed:2, player:1, gridLocation:{"x":0,"y":2}})
