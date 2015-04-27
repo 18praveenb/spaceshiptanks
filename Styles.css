@@ -2,6 +2,7 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
+/*increase opacity of .selection overlay on the selected sprites*/
 [highlight="true"] .selection * {
     fill-opacity: 0.3;
 }

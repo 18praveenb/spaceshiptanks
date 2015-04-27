@@ -1,24 +1,30 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <!-- Link scripts to HTML, allowing them to access each other -->
         <script src="Code/Extensions.js"></script>
         <script src="Code/Main.js" ></script>
         <script src="Code/Tile.js"></script>
         <script src="Code/Unit.js"></script>
         <script src="Code/GridPoint.js"></script>
-        <link href="http://fonts.googleapis.com/css?family=Iceland" rel="stylesheet" type="text/css">
-        <link href="Styles.css" rel="stylesheet">
+        
+        <!-- Load Iceland font from Google Fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Iceland" rel="stylesheet" type="text/css" />
+        <!-- Load main stylesheet -->
+        <link href="Styles.css" rel="stylesheet" />
     </head>
     <body>
         <h1>Spaceship Tanks</h1>
+        <!-- Main SVG scene with units, tiles, etc. -->
         <svg id="scene" width="350" height="350">
         </svg>
         <br>
-        <p id="info">Mouse over a unit for details</p>
+        <!-- Info paragraph shows unit and turn information -->
+        <p id="info"></p>
         <button onclick="nextTurn()">Finish Turn</button>
         <br>
         <p> View the source code and contribute <a href="https://github.com/18praveenb/spaceshiptanks">here </a> </p>
-        <!-- The objects below hold the SVG files that are used to create units from Javascript and should not be themselves visible on the page.> </-->
+        <!-- The objects below hold the SVG files that are used to create units from Javascript and should not be themselves visible on the page. Any external SVG file added to the Resources/SVG folder must also be added here as a 0 width, 0 height object with the appropriate id-->
         <object height="0" width="0" id="svg_spaceship_anim" data="Resources/SVG/spaceship_anim.svg" type="image/svg+xml"></object>
         <object height="0" width="0" id="svg_spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
     </body>
