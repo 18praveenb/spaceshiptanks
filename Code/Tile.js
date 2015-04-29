@@ -1,26 +1,27 @@
 /* Global vars */
-var tiles = [] /* Keys: imageName, gridLocation*/
+var tiles = [] /* Keys: svg, gridLocation*/
 
 /* Functions */
 
-function createTile(parameters) {
+function createTile(parameters) { /* It might be worth merging this an createUnit into a general createNode function as they are similar */
     /* Create the tile as an SVG image node (TODO: this should be changed to an actual SVG node so that the tile can be easily highlighted without loading a new image) */
-    var tile = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    var tile = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     tile.setAttribute("x", parameters.gridLocation.x*sizeUnit)
     tile.setAttribute("y", parameters.gridLocation.y*sizeUnit)
     tile.setAttribute("width", sizeUnit)
     tile.setAttribute("height", sizeUnit)
-    /* Load the appropriate image file and set it to fill the dimensions of the tile */
-    tile.setAttributeNS("http://www.w3.org/1999/xlink", "href", "Resources/Images/" + parameters.imageName + ".png")
-    tile.setAttribute("preserveAspectRatio", "none")
     tile.setAttribute("type", "tile")
     /* Append an object with the tile's parameters and a reference to the SVG node to the tile array */
     parameters["node"]=tile
+    /* Add the tile parameters to the tiles array */
     tiles.push(parameters)
     
     tile.setAttribute("id", "tile" + String(tiles.length-1))
     /* Add a reference to the array index of the tile's parameters object to the tile SVG node */
     tile.setAttribute("arrayNumber", String(tiles.length-1))
+    /* Get the SVG file with the given ID from the objects list and copy it to the unit node – this code is literally copied from the createUnit function */
+    var svg = document.getElementById("svg_"+parameters.svg).contentDocument.documentElement.cloneNode(true)
+    tile.appendChild(svg)
     
     tile.addEventListener("click", tileClicked)
     scene.appendChild(tile)
@@ -44,8 +45,6 @@ function tileClicked(event) {
 function resetTileHighlighting() {
     function reset(tile) {
         if (tile.getAttribute("type") == "tile") {
-            /* Currently this sets all tiles to unhighlighted grass appearance. TODO: update to support arbitrary tile appearance */
-            tile.setAttribute("href", "Resources/Images/Grass.png")
             /* Disables CSS highlighting of the tile. */
             tile.setAttribute("highlight", "false")
         }
@@ -59,7 +58,6 @@ function highlightTilesAroundUnit(unit) {
         if (tile.getAttribute("type") == "tile") {
             /* Checks if the distance between the unit and the tile is less than or equal to the distance the unit can move. */
             if (gridPointDifference(gridPointForNode(tile), gridPointForNode(unit)) <= paramsForUnit(unit).speed) {
-                tile.setAttribute("href", "Resources/Images/Grass highlighted.png")
                 /* Enables CSS highlighting of the tile. */
                 tile.setAttribute("highlight", "true")
             }

@@ -15,14 +15,14 @@ function createUnit(parameters) {
     unit.setAttribute("type", "unit")
     /* Add a reference to the unit SVG node to the parameters object */
     parameters["node"] = unit
-    /* Add the parameter to the units array */
+    /* Add the parameters to the units array */
     units.push(parameters)
     
     unit.setAttribute("id", "Unit" + String(units.length-1))
     /* Add a reference to the unit's parameters list to the unit SVG node */
     unit.setAttribute("arrayNumber", units.length-1)
     /* Get the SVG file with the given ID from the objects list and copy it to the unit node */
-    var svg = document.getElementById(parameters.svg).contentDocument.documentElement.cloneNode(true)
+    var svg = document.getElementById("svg_"+parameters.svg).contentDocument.documentElement.cloneNode(true)
     unit.appendChild(svg)
     
     scene.appendChild(unit)

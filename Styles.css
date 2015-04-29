@@ -2,7 +2,7 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
-/*increase opacity of .selection overlay on the selected sprites*/
-[highlight="true"] .selection * {
+/* All highlighted nodes have their "selection" group's child paths set to high opacity to make them more visible */
+[highlight="true"] #selection * {
     fill-opacity: 0.3;
 }

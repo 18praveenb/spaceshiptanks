@@ -10,11 +10,11 @@ window.setTimeout(start, 500)
 function start() {
     for (var i = 0; i < 7; ++i) {
         for (var j = 0; j < 7; ++j) {
-            createTile({imageName:"Grass", gridLocation:{"x":i,"y":j}})
+            createTile({svg:"grass", gridLocation:{"x":i,"y":j}})
         }
     }
-    createUnit({svg:"svg_spaceship_anim", HP:100, speed:2, player:1, gridLocation:{"x":0,"y":2}})
-    createUnit({svg:"svg_spaceship", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}})
+    createUnit({svg:"spaceship_anim", HP:100, speed:2, player:1, gridLocation:{"x":0,"y":2}})
+    createUnit({svg:"spaceship", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}})
     updateTurnText();
 }
 
