@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <meta http-quiv="content-type" content="text/html;charset=utf-8" />
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
         <title>Spaceship Tanks</title>
         <script src="code.js"></script>
         <link href="styles.css" rel="stylesheet" />
@@ -22,25 +22,9 @@
         <p> View the source code and contribute
             <a href="https://github.com/18praveenb/spaceshiptanks">here </a>
         </p>
+        <!-- Invisible objects store SVGs so that the JS can access them -->
+        <object height="0" width="0" id="spaceship_animated" data="Resources/SVG/spaceship_animated.svg" type="image/svg+xml"></object>
+        <object height="0" width="0" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
+        <object height="0" width="0" id="grass" data="Resources/SVG/grass.svg"></object>
     </body>
 </html>
-
-<!-- SVGs -->
-
-<svg id="tile grass" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50">
-    <g id="tile">
-        <rect x="0" y="0" width="50" height="50" fill="lime" stroke="green" stroke-width="5"/>
-    </g>
-    <g id="selection">
-        <rect x="0" y="0" width="50" height="50" fill="#0080D0" fill-opacity="0.01"/>
-    </g>
-</svg>
-
-<svg id="unit circle" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50">
-    <g id="tile">
-        <circle cx="25" cy="25" r="23" fill="aqua" stroke="blue" stroke-width="4"/>
-    </g>
-    <g id="selection">
-        <rect x="0" y="0" width="50" height="50" fill="#D08000" fill-opacity="0.01"/>
-    </g>
-</svg>

@@ -10,11 +10,11 @@ window.setTimeout(start, 500);
 function start() {
     for (var i = 0; i < 7; ++i) {
         for (var j = 0; j < 7; ++j) {
-            createNode({type:"tile", svg:"tile grass", gridLocation:{"x":i,"y":j}});
+            createNode({type:"tile", svg:"grass", gridLocation:{"x":i,"y":j}});
         }
     }
-    createNode({type:"unit", svg:"unit circle", HP:100, speed:2, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"unit circle", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}});
+    createNode({type:"unit", svg:"spaceship", HP:100, speed:2, player:0, gridLocation:{"x":0,"y":2}});
+    createNode({type:"unit", svg:"spaceship_animated", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}});
     updateTurnText();
 }
 
@@ -93,7 +93,7 @@ function gridPointDifference(point1, point2) {
 
 function createNode(parameters) {
     
-    var node = document.getElementById(parameters.svg).cloneNode(true);
+    var node = document.getElementById(parameters.svg).contentDocument.documentElement.cloneNode(true);
     
     node.setAttribute("x", parameters.gridLocation.x*sizeUnit);
     node.setAttribute("y", parameters.gridLocation.y*sizeUnit);
