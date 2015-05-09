@@ -20,9 +20,9 @@ function gridPointForNode(node) {
 }
 
 /* Convert a grid point to scene coordinates by multiplying by the size unit */
-function location(gridPoint) {
+function locationForGridPoint(gridPoint) {
     return {
-        "x": gridPoint.x*sizeUnit - document.getElementById("scene").getBoundingClientRect(),
+        "x": gridPoint.x*sizeUnit,
         "y": gridPoint.y*sizeUnit
     }
 }

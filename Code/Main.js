@@ -14,7 +14,7 @@ function start() {
         }
     }
     createUnit({svg:"spaceship_anim", HP:100, speed:2, player:1, gridLocation:{"x":0,"y":2}})
-    createUnit({svg:"spaceship", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}})
+    createUnit({svg:"spaceship", HP:100, speed:1, player:2, gridLocation:{"x":2,"y":1}})
     updateTurnText();
 }
 

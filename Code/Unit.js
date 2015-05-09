@@ -56,8 +56,8 @@ function select(unit) {
 /* Moves a unit SVG node to a new location on the grid and updates the parameters object for that unit with the new location (this will be useful for saving and restoring state later) */
 function setGridLocation(unit, newGridLocation) {
     units[unit.getAttribute("arrayNumber")].gridLocation = newGridLocation
-    unit.setAttribute("x", newGridLocation.x*sizeUnit)
-    unit.setAttribute("y", newGridLocation.y*sizeUnit)
+    unit.setAttribute("x", locationForGridPoint(newGridLocation).x)
+    unit.setAttribute("y", locationForGridPoint(newGridLocation).y)
 }
 
 /* Get the parameters list for a unit SVG node. */
@@ -75,7 +75,7 @@ function unitClicked(event) {
 function unitMousedOver(event) {
     /* This function displays information about a unit in the info paragraph when the mouse is held over the unit */
     var params = paramsForUnit(this)
-    var unitDetailString = params.svg + " with " + params.HP + " HP and " + params.speed + " movement belongs to " + (params.player ? "you." : "the enemy.")
+    var unitDetailString = params.svg + ": " + params.HP + " HP and " + params.speed + " speed; player " + String(params.player)
     document.getElementById("info").textContent = unitDetailString
 }
 
