@@ -9,7 +9,7 @@
         <!-- Load fonts from Google fonts -->
         <link href="http://fonts.googleapis.com/css?family=Iceland" rel="stylesheet" type="text/css" />
     </head>
-    <body>
+    <body onload="start()">
         <h1>Spaceship Tanks</h1>
         <!-- Main SVG scene with units, tiles, etc. -->
         <svg id="scene" width="350" height="350">
@@ -20,11 +20,11 @@
         <button onclick="nextTurn()">Finish Turn</button>
         <br />
         <p> View the source code and contribute
-            <a href="https://github.com/18praveenb/spaceshiptanks">here </a>
+            <a href="https://github.com/18praveenb/spaceshiptanks">here</a>
         </p>
         <!-- Invisible objects store SVGs so that the JS can access them -->
-        <object height="0" width="0" id="spaceship_animated" data="Resources/SVG/spaceship_animated.svg" type="image/svg+xml"></object>
-        <object height="0" width="0" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
-        <object height="0" width="0" id="grass" data="Resources/SVG/grass.svg"></object>
+        <object onload="objectLoaded()" height="0" width="0" id="spaceship_animated" data="Resources/SVG/spaceship_animated.svg" type="image/svg+xml"></object>
+        <object onload="objectLoaded()" height="0" width="0" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
+        <object onload="objectLoaded()" height="0" width="0" id="grass" data="Resources/SVG/grass.svg"></object>
     </body>
 </html>

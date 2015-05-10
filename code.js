@@ -3,11 +3,25 @@ tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, palyer, gridLocation */
 }
 
+var objectsNotLoaded = 0;
 
-/* Calls the start function after a delay because the 'object' elements do not load immediately and are needed to access SVGs. May be removed if SVGs are added inline to the index.html document */
-window.setTimeout(start, 500);
-
+/* Iterate through all objects which will alert upon load and ensures that the build function is not called until all objects have loaded */
 function start() {
+    function checkIfObject(node) {
+        console.log(node)
+        if (node.getAttribute("onload") == "objectLoaded()") {
+            ++objectsNotLoaded;
+        }
+    }
+    enumerateChildNodes(document.body.childNodes, checkIfObject)
+}
+
+function objectLoaded() {
+    --objectsNotLoaded;
+    if (objectsNotLoaded == 0) {buildScene()}
+}
+
+function buildScene() {
     for (var i = 0; i < 7; ++i) {
         for (var j = 0; j < 7; ++j) {
             createNode({type:"tile", svg:"grass", gridLocation:{"x":i,"y":j}});
@@ -108,7 +122,8 @@ function createNode(parameters) {
     parameterArrays[parameters.type].push(parameters);
     
     node.addEventListener("click", nodeClicked);
-    //if (node.type == )
+    node.addEventListener("mouseover", nodeMouseOver);
+    node.addEventListener("mouseout", nodeMouseOut);
     
     scene.appendChild(node);
     
@@ -119,6 +134,14 @@ function nodeClicked(event) {
         case "unit": unitClicked(this); break;
         case "tile": tileClicked(this); break;
     }
+}
+
+function nodeMouseOver(event) {
+    console.log("foo")
+}
+
+function nodeMouseOut(event) {
+    console.log("bar")
 }
 
 function parametersForNode(node) {
