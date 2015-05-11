@@ -1,20 +1,10 @@
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
-unit: [] /* Keys: type, svg, HP, speed, palyer, gridLocation */
+unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
 
-var objectsNotLoaded = 0;
-
-/* Iterate through all objects which will alert upon load and ensures that the build function is not called until all objects have loaded */
-function start() {
-    function checkIfObject(node) {
-        console.log(node)
-        if (node.getAttribute("onload") == "objectLoaded()") {
-            ++objectsNotLoaded;
-        }
-    }
-    enumerateChildNodes(document.body.childNodes, checkIfObject)
-}
+/* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
+var objectsNotLoaded = 3;
 
 function objectLoaded() {
     --objectsNotLoaded;
@@ -22,13 +12,13 @@ function objectLoaded() {
 }
 
 function buildScene() {
-    for (var i = 0; i < 7; ++i) {
-        for (var j = 0; j < 7; ++j) {
-            createNode({type:"tile", svg:"grass", gridLocation:{"x":i,"y":j}});
+    for (var x = 0; x < 7; ++x) {
+        for (var y = 0; y < 5; ++y) {
+            createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});
         }
     }
-    createNode({type:"unit", svg:"spaceship", HP:100, speed:2, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship_animated", HP:100, speed:1, player:0, gridLocation:{"x":2,"y":1}});
+    createNode({type:"unit", svg:"spaceship", HP:50, speed:2, attack:10, player:0, gridLocation:{"x":0,"y":2}});
+    createNode({type:"unit", svg:"spaceship_animated", HP:20, speed:3, attack:15, player:1, gridLocation:{"x":6,"y":2}});
     updateTurnText();
 }
 
@@ -52,18 +42,26 @@ function enumerateChildNodes(childNodes, block) {
     enumerate(childNodes, checkingBlock);
 }
 
+function stringOfPropertiesOfObject(object) {
+    var str = "";
+    for (key in object) {
+        str += key + ": " + object[key] + ", ";
+    }
+    return str;
+}
+
 /*** Turn system ***/
 
 var turn = 1;
-
 var currentPlayer = 0;
 
 function updateTurnText() {
-    document.getElementById("info").textContent = "Turn " + turn;
+    document.getElementById("info").textContent = "Turn " + turn + ", player " + currentPlayer
 }
 
-function nextTurn() {
-    ++turn;
+function finishTurn() {
+    currentPlayer = (currentPlayer + 1) % 2;
+    if (currentPlayer == 0) {++turn}
     updateTurnText();
 }
 
@@ -114,6 +112,7 @@ function createNode(parameters) {
     node.setAttribute("width", sizeUnit);
     node.setAttribute("height", sizeUnit);
     
+    node.setAttribute("player", parameters.player)
     node.setAttribute("type", parameters.type);
     node.setAttribute("arrayNumber", parameterArrays[parameters.type].length);
     node.setAttribute("id", parameters.type + " " + String(parameterArrays[parameters.type].length));
@@ -130,18 +129,29 @@ function createNode(parameters) {
 }
 
 function nodeClicked(event) {
-    switch (this.getAttribute("type")) {
-        case "unit": unitClicked(this); break;
-        case "tile": tileClicked(this); break;
+    var location = parametersForNode(this).gridLocation
+    if (selectedUnit == "none") {
+        if ((this.getAttribute("type") == "unit") && (parametersForNode(this).player == currentPlayer)) {
+            toggleSelectionOfUnit(this);
+        }
+    }
+    else {
+        switch (unitMoveTypeForPoint(parametersForNode(this).gridLocation)) {
+            case "move": setGridLocation(selectedUnit, parametersForNode(this).gridLocation); break;
+            case "attack": attack(selectedUnit, unitAtPoint(location)); break;
+        }
+        toggleSelectionOfUnit(selectedUnit)
     }
 }
 
 function nodeMouseOver(event) {
-    console.log("foo")
+    if (this.getAttribute("type") == "unit") {
+        document.getElementById("info").textContent = stringOfPropertiesOfObject(parametersForNode(this))
+    }
 }
 
 function nodeMouseOut(event) {
-    console.log("bar")
+    updateTurnText();
 }
 
 function parametersForNode(node) {
@@ -151,22 +161,10 @@ function parametersForNode(node) {
 
 /*** Tile system ***/
 
-function tileClicked(tile) {
-    if (selectedUnit != "none") {
-        var unitGridLocation = gridPointForNode(selectedUnit)
-        var tileGridLocation = gridPointForNode(tile)
-        if (gridPointDifference(unitGridLocation, tileGridLocation) <= parametersForNode(selectedUnit).speed) {
-            setGridLocation(selectedUnit, tileGridLocation)
-        }
-        toggleSelectionOfUnit(selectedUnit)
-    }
-}
-
 function resetTileHighlighting() {
     function reset(tile) {
         if (tile.getAttribute("type") == "tile") {
-            /* Disables CSS highlighting of the tile. */
-            tile.setAttribute("highlight", "false")
+            tile.setAttribute("highlight", "none")
         }
     }
     enumerateChildNodes(scene.childNodes, reset)
@@ -175,13 +173,40 @@ function resetTileHighlighting() {
 function highlightTilesAroundUnit(unit) {
     function highlight(tile) {
         if (tile.getAttribute("type") == "tile") {
-            if (gridPointDifference(gridPointForNode(tile), gridPointForNode(unit)) <= parametersForNode(unit).speed) {
-                /* Enables CSS highlighting of the tile. */
-                tile.setAttribute("highlight", "true")
+            switch (unitMoveTypeForPoint(parametersForNode(tile).gridLocation)) {
+                case "move": tile.setAttribute("highlight", "blue"); break;
+                case "attack": tile.setAttribute("highlight", "red"); break;
             }
         }
     }
     enumerateChildNodes(scene.childNodes, highlight)
+}
+
+function unitAtPoint(point) {
+    var unit = "none";
+    function checkIfUnitIsAtPoint(aUnit) {
+        if (aUnit.getAttribute("type") == "unit") {
+        if (gridPointsEqual(parametersForNode(aUnit).gridLocation, point) ) {
+            unit = aUnit;
+            }
+        }
+    }
+    enumerateChildNodes(scene.childNodes, checkIfUnitIsAtPoint);
+    return unit;
+}
+
+function unitMoveTypeForPoint(point) {
+    var unit = unitAtPoint(point);
+    var difference = gridPointDifference(point, gridPointForNode(selectedUnit));
+    if (difference <= parametersForNode(selectedUnit).speed && difference > 0) {
+        if (unit == "none") {
+            return "move";
+        }
+        else {
+            return "attack";
+        }
+    }
+    return "none";
 }
 
 /*** Unit system ***/
@@ -207,29 +232,23 @@ function toggleSelectionOfUnit(unit) {
 
 /* Moves a unit SVG node to a new location on the grid, and updates the parameters object for that unit with the new location (which will be useful for saving and restoring state later) */
 function setGridLocation(unit, newGridLocation) {
-    parameterArrays.unit[unit.getAttribute("arrayNumber")].gridLocation = newGridLocation
-    unit.setAttribute("x", locationForGridPoint(newGridLocation).x)
-    unit.setAttribute("y", locationForGridPoint(newGridLocation).y)
+    parameterArrays.unit[unit.getAttribute("arrayNumber")].gridLocation = newGridLocation;
+    unit.setAttribute("x", locationForGridPoint(newGridLocation).x);
+    unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
+    finishTurn();
 }
 
-function unitClicked(unit) {
-    if (parametersForNode(unit).player == currentPlayer) {
-        toggleSelectionOfUnit(unit);
+function attack(from, to) {
+    finishTurn();
+    parametersForNode(to).HP -= parametersForNode(from).attack;
+    var str = parametersForNode(from).svg + " attacked " + parametersForNode(to).svg + " for " + parametersForNode(from).attack + " damage. " + parametersForNode(to).svg + " now has " + parametersForNode(to).HP + " HP";
+    alert(str);
+    if (parametersForNode(to).HP <= 0) {
+        alert(parametersForNode(to).svg + " has fallen.")
+        to.remove()
+        alert("player " + parametersForNode(from).player + " has won!")
     }
 }
-
-function unitMousedOver(event) {
-    /* Displays information about a unit in the info paragraph when the mouse is held over the unit */
-    var parameters = parametersForNode(this);
-    var unitDetailString = parameters.svg + ": " + parameters.HP + " HP and " + parameters.speed + " speed; player " + String(parameters.player);
-    document.getElementById("info").textContent = unitDetailString;
-}
-
-function unitMouseOut(event) {
-    /* Info paragraphs shows the turn when not showing unit info. */
-    updateTurnText();
-}
-
 
 /*
     This is a poem

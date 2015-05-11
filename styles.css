@@ -2,6 +2,37 @@ body {
     font-family: "Iceland", sans-serif;
 }
 
-[highlight="true"] #selection * {
-    fill-opacity: 0.3;
+[type="unit"] #highlight * {
+    fill-opacity: 0.25
+}
+
+[highlight="blue"] #highlight * {
+    fill-opacity: 0.5;
+    fill: blue;
+}
+
+[highlight="red"] #highlight * {
+    fill-opacity: 0.5;
+    fill: red;
+}
+
+[highlight="true"] #highlight * {
+    fill-opacity: 0.5;
+}
+
+[highlight="none"] #highlight * {
+    fill-opacity: 0;
+}
+
+[player="0"] #highlight * {
+    fill: aqua;
+}
+
+[player="1"] #highlight * {
+    fill: red;
+}
+
+#scene {
+    -webkit-user-select: none;
+    user-select: none;
 }
