@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="50" height="50" viewBox="0, 0, 50, 50">
-  <g id="Background">
-    <rect x="0" y="0" width="50" height="50" fill="#FFFFFF"/>
-  </g>
-  <g id="tile">
+  <g class="tile">
     <path d="M-0,-0 L50,-0 L50,50 L-0,50 L-0,-0 z" fill="#00CE4B"/>
     <g opacity="0.23">
       <path d="M6.681,8.734 L12.886,1.969 L20.215,7.749 z" fill="#00FF9E"/>
@@ -40,7 +37,7 @@
     </g>
     <path d="M50,0 L50,50 L0,50 L0,0 L50,0 z M48,2 L2,2 L2,48 L48,48 L48,2 z" fill="#1FC000" fill-opacity="0.444"/>
   </g>
-  <g id="highlight">
+  <g class="highlight">
     <path d="M-0,-0 L50,-0 L50,50 L-0,50 L-0,-0 z" fill="#0079D0" fill-opacity="0.051"/>
   </g>
 </svg>

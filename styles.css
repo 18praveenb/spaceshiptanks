@@ -1,34 +1,42 @@
+/*
+    TODO: Use CSS to animate the spaceships' moves, attacks, and deaths.
+        Overhaul this document.
+        Move opacity controls to the SVG files themselves.
+ */
+
 body {
     font-family: "Iceland", sans-serif;
 }
 
-[type="unit"] #highlight * {
-    fill-opacity: 0.25
-}
-
-[highlight="blue"] #highlight * {
-    fill-opacity: 0.5;
-    fill: blue;
-}
-
-[highlight="red"] #highlight * {
-    fill-opacity: 0.5;
-    fill: red;
-}
-
-[highlight="true"] #highlight * {
-    fill-opacity: 0.5;
-}
-
-[highlight="none"] #highlight * {
+[highlight="none"] .highlight * {
     fill-opacity: 0;
 }
 
-[player="0"] #highlight * {
+/* TODO: Below fill opacities should be removed from here and specified in the SVGs themselves. */
+
+[type="unit"] .highlight * {
+    fill-opacity: 0.2
+}
+
+[highlight="blue"] .highlight * {
+    fill-opacity: 0.4;
+    fill: blue;
+}
+
+[highlight="red"] .highlight * {
+    fill-opacity: 0.4;
+    fill: red;
+}
+
+[highlight="true"] .highlight * {
+    fill-opacity: 0.4;
+}
+
+[player="0"] .highlight * {
     fill: aqua;
 }
 
-[player="1"] #highlight * {
+[player="1"] .highlight * {
     fill: red;
 }
 
@@ -36,3 +44,72 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
+
+[highlight="true"] * {
+    -webkit-transform-origin: 15.5px 18px;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: rotategun;
+    -webkit-animation-iteration-count: infinite;a
+}
+
+@-webkit-keyframes rotategun {
+    from {
+        opacity: 1;
+    }
+    
+    50% {
+        opacity: .7;
+    }
+    
+    to {
+        opacity: 1;
+    }
+}
+
+/*
+ This is a poem
+ about coding.
+ There is a problem:
+ Xcode does not allow
+ for extra scrolling.
+ 
+ How, then, you ask,
+ is it possible
+ to scroll
+ past the limits
+ of the code?
+ 
+ The answer
+ is simple.
+ Either add
+ line breaks
+ or a poem,
+ whitespace
+ or words.
+ 
+ I have chosen
+ the latter.
+ You can probably
+ tell
+ because this
+ is not
+ whitespace.
+ 
+ It is a poem
+ (which is,
+ in this case,
+ just a set of
+ sentences
+ with some line breaks
+ in between).
+ 
+ How would this poem look
+ without line breaks?
+ 
+ This is prose about coding. There is a problem: Xcode does not allow for extra scrolling.
+ How, then, you as, is it possible to scroll past the limits of the code?
+ The answer is simple. Either add line breaks or prose, whitespace or words.
+ I have chosen the latter. You can probably tell because this is not whitespace.
+ It is prose (which is, in this case, just a poem without line breaks).
+ How would this prose look with some line breaks? See above.
+ */

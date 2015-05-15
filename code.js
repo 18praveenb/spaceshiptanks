@@ -4,7 +4,8 @@ unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
 
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
-var objectsNotLoaded = 3;
+/* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
+var objectsNotLoaded = 2;
 
 function objectLoaded() {
     --objectsNotLoaded;
@@ -18,7 +19,7 @@ function buildScene() {
         }
     }
     createNode({type:"unit", svg:"spaceship", HP:50, speed:2, attack:10, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship_animated", HP:20, speed:3, attack:15, player:1, gridLocation:{"x":6,"y":2}});
+    createNode({type:"unit", svg:"spaceship", HP:20, speed:3, attack:15, player:1, gridLocation:{"x":6,"y":2}});
     updateTurnText();
 }
 
@@ -146,7 +147,9 @@ function nodeClicked(event) {
 
 function nodeMouseOver(event) {
     if (this.getAttribute("type") == "unit") {
-        document.getElementById("info").textContent = stringOfPropertiesOfObject(parametersForNode(this))
+        var params = parametersForNode(this)
+        var shortlistParams = {"unit": params.svg, "speed": params.speed, "HP": params.HP, "attack": params.attack, "player": params.player}
+        document.getElementById("info").textContent = stringOfPropertiesOfObject(shortlistParams)
     }
 }
 
@@ -241,12 +244,8 @@ function setGridLocation(unit, newGridLocation) {
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
-    var str = parametersForNode(from).svg + " attacked " + parametersForNode(to).svg + " for " + parametersForNode(from).attack + " damage. " + parametersForNode(to).svg + " now has " + parametersForNode(to).HP + " HP";
-    alert(str);
     if (parametersForNode(to).HP <= 0) {
-        alert(parametersForNode(to).svg + " has fallen.")
         to.remove()
-        alert("player " + parametersForNode(from).player + " has won!")
     }
 }
 
