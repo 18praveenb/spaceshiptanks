@@ -1,10 +1,10 @@
 /* test comment */
-console.log("HI");
+console.log("HEEE");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
-
+var playerArray = Array();
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
@@ -53,9 +53,9 @@ function stringOfPropertiesOfObject(object) {
     return str;
 }
 /*** Put beginning Stats ***/
-/*for(var i = 1; i < 3; i++){
+for(var i = 1; i < 3; i++){
     document.getElementById("statsp"+i+"health").innerHTML=50;
-}*/
+}
 /*** Turn system ***/
 
 var turn = 1;
