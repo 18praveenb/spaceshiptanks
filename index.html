@@ -12,14 +12,55 @@
     <body>
         <h1>Spaceship Tanks</h1>
         <!-- Main SVG scene with units, tiles, etc. -->
-        <svg id="scene" width="350" height="250">
+        <svg style = "position: absolute" id="scene" width="350" height="250">
         </svg>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
         <br />
         <!-- Info paragraph shows unit and turn information. -->
         <p id="info"></p>
-        <p> View the source code and contribute
-            <a href="https://github.com/18praveenb/spaceshiptanks">here</a>
-        </p>
+        
+        <!-- The new Stat tables -->
+        <!-- Stat table for player 1 -->
+        <table style = "position: absolute">
+            <tr>
+                <th style = "border: 5px solid black; border-bottom: none">Stats P1</th>  
+            </tr>
+            <tr>
+              <td><b>Health:</b>&nbsp&nbsp<span id = "statsp1health"></span></td>
+            </tr>
+            <tr>
+                <td><b>Attack:</b>&nbsp&nbsp<span id = "statsp1attack"></span></td>
+            </tr>
+            <tr>
+                <td><b>Speed:</b>&nbsp&nbsp&nbsp<span id = "statsp1speed"></span></td>
+            </tr>
+        </table>
+
+        <!-- Stat table for player 2 -->
+        <table style = "position: absolute; margin-left: 490px">
+            <tr>
+                <th style = "border: 5px solid black; border-bottom: none">Stats P2</th>
+            </tr>
+            <tr>
+                <td><b>Health:</b>&nbsp&nbsp<span id = "statsp2health"></span></td>
+            </tr>
+            <tr>
+                <td><b>Attack:</b>&nbsp&nbsp<span id = "statsp2attack"></span></td>
+            </tr>
+            <tr>
+                <td><b>Speed:</b>&nbsp&nbsp&nbsp<span id = "statsp2speed"></span></td>
+            </tr>
+        </table>
+
+        
+        
         <!-- Invisible objects store SVGs so that the JS can access them -->
         <object onload="objectLoaded()" height="0" width="0" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
         <object onload="objectLoaded()" height="0" width="0" id="grass" data="Resources/SVG/grass.svg"></object>
