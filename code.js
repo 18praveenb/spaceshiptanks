@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HE");
+console.log("HIIIIII");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -132,7 +132,7 @@ function createNode(parameters) {
     node.addEventListener("mouseout", nodeMouseOut);
     
     scene.appendChild(node);
-    return(node);
+    //return(node);
 }
 
 function nodeClicked(event) {
