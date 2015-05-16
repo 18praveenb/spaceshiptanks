@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HI");
+console.log("HE");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
