@@ -68,7 +68,13 @@ body {
 
 /* courtesy of Patrick Zhong */
 svg {
-    margin-left: 50px;
+    margin-left: 140px;
+}
+
+table{
+    border: 5px solid black;
+    width: 140px;
+    height: 250px;
 }
 
 /*
