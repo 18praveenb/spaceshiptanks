@@ -4,6 +4,12 @@ var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
+
+window.onload = function(){
+    document.getElementById("statsp1health").innerHTML=50;
+    document.getElementById("statsp2health").innerHTML=20;
+}
+
 var playerArray = Array();
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
@@ -250,8 +256,7 @@ function setGridLocation(unit, newGridLocation) {
     unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
     finishTurn();
 }
-document.getElementById("statsp1health").innerHTML=50;
-document.getElementById("statsp2health").innerHTML=20;
+
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
