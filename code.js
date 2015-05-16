@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HEEEEEEEEEEEEEEEEEE");
+console.log("HEEEEE");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -52,10 +52,14 @@ function stringOfPropertiesOfObject(object) {
     }
     return str;
 }
+
 /*** Put beginning Stats ***/
+/* RANDOM ERROR CANNOT GET innerHTML of NULL I DONT EVEN KNOW
 for(var i = 1; i < 3; i++){
     document.getElementById("statsp1health").innerHTML=50;
 }
+*/
+
 /*** Turn system ***/
 
 var turn = 1;
