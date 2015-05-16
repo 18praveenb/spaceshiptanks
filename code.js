@@ -4,7 +4,7 @@ var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
-
+var playerArray = [];
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
@@ -52,17 +52,21 @@ function stringOfPropertiesOfObject(object) {
     }
     return str;
 }
-
+/*** Put beginning Stats ***/
+for(var i = 1; i < 3; i++){
+    document.getElementById("statsp"+i+"health")=50;
+}
 /*** Turn system ***/
 
 var turn = 1;
 var currentPlayer = 0;
 
 function updateTurnText() {
-    document.getElementById("info").textContent = "Turn " + turn + ", player " + currentPlayer
+    document.getElementById("info").textContent = "Turn " + turn + ", player " + (currentPlayer+1)
 }
 
 function finishTurn() {
+    
     currentPlayer = (currentPlayer + 1) % 2;
     if (currentPlayer == 0) {++turn}
     updateTurnText();
@@ -128,7 +132,7 @@ function createNode(parameters) {
     node.addEventListener("mouseout", nodeMouseOut);
     
     scene.appendChild(node);
-    
+    return(node);
 }
 
 function nodeClicked(event) {
