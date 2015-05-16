@@ -1,9 +1,21 @@
 /* test comment */
+console.log();
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
 
+window.onload = function(){
+    document.getElementById("statsp1health").innerHTML=50;
+    document.getElementById("statsp1speed").innerHTML=2;
+    document.getElementById("statsp1attack").innerHTML=10;
+    
+    document.getElementById("statsp2health").innerHTML=20;
+    document.getElementById("statsp2speed").innerHTML=3;
+    document.getElementById("statsp2attack").innerHTML=15;
+}
+
+var playerArray = Array();
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
@@ -52,16 +64,18 @@ function stringOfPropertiesOfObject(object) {
     return str;
 }
 
+
 /*** Turn system ***/
 
 var turn = 1;
 var currentPlayer = 0;
 
 function updateTurnText() {
-    document.getElementById("info").textContent = "Turn " + turn + ", player " + currentPlayer
+    document.getElementById("info").textContent = "Turn " + turn + ", player " + (currentPlayer+1);
 }
 
 function finishTurn() {
+    
     currentPlayer = (currentPlayer + 1) % 2;
     if (currentPlayer == 0) {++turn}
     updateTurnText();
@@ -127,7 +141,7 @@ function createNode(parameters) {
     node.addEventListener("mouseout", nodeMouseOut);
     
     scene.appendChild(node);
-    
+    //return(node);
 }
 
 function nodeClicked(event) {
@@ -220,17 +234,17 @@ var selectedUnit = "none";
 function toggleSelectionOfUnit(unit) {
     if (unit == selectedUnit) {
         selectedUnit = "none";
-        unit.setAttribute("highlight", "false")
-        resetTileHighlighting()
+        unit.setAttribute("highlight", "false");
+        resetTileHighlighting();
     }
     else {
         /* Deselect the currently selected unit before selecting this one. Only one unit can be selected at a time. */
         if (selectedUnit != "none") {
             toggleSelectionOfUnit(selectedUnit);
         }
-        selectedUnit = unit
-        unit.setAttribute("highlight", "true")
-        highlightTilesAroundUnit(unit)
+        selectedUnit = unit;
+        unit.setAttribute("highlight", "true");
+        highlightTilesAroundUnit(unit);
     }
 }
 
@@ -246,8 +260,11 @@ function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
     if (parametersForNode(to).HP <= 0) {
-        to.remove()
+        to.remove();
+        parametersForNode(to).HP = 0;
     }
+    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
+    
 }
 
 /*
