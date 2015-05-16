@@ -245,6 +245,7 @@ function setGridLocation(unit, newGridLocation) {
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
+    console.log(to.player);
     if (parametersForNode(to).HP <= 0) {
         to.remove()
     }
