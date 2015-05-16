@@ -234,17 +234,17 @@ var selectedUnit = "none";
 function toggleSelectionOfUnit(unit) {
     if (unit == selectedUnit) {
         selectedUnit = "none";
-        unit.setAttribute("highlight", "false")
-        resetTileHighlighting()
+        unit.setAttribute("highlight", "false");
+        resetTileHighlighting();
     }
     else {
         /* Deselect the currently selected unit before selecting this one. Only one unit can be selected at a time. */
         if (selectedUnit != "none") {
             toggleSelectionOfUnit(selectedUnit);
         }
-        selectedUnit = unit
-        unit.setAttribute("highlight", "true")
-        highlightTilesAroundUnit(unit)
+        selectedUnit = unit;
+        unit.setAttribute("highlight", "true");
+        highlightTilesAroundUnit(unit);
     }
 }
 
@@ -259,10 +259,12 @@ function setGridLocation(unit, newGridLocation) {
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
-    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
     if (parametersForNode(to).HP <= 0) {
-        to.remove()
+        to.remove();
+        parametersForNode(to).HP = 0;
     }
+    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
+    
 }
 
 /*
