@@ -54,7 +54,7 @@ function stringOfPropertiesOfObject(object) {
 }
 /*** Put beginning Stats ***/
 for(var i = 1; i < 3; i++){
-    document.getElementById("statsp"+i+"health")=50;
+    document.getElementById("statsp"+i+"health").innerHTML=50;
 }
 /*** Turn system ***/
 
