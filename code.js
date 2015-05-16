@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HEEEEE");
+console.log("HEEEEEEEE");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -250,7 +250,8 @@ function setGridLocation(unit, newGridLocation) {
     unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
     finishTurn();
 }
-
+document.getElementById("statsp1health").innerHTML=50;
+document.getElementById("statsp2health").innerHTML=20;
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
