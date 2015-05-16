@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HEEEEEEEE");
+console.log();
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -7,7 +7,12 @@ unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 
 window.onload = function(){
     document.getElementById("statsp1health").innerHTML=50;
+    document.getElementById("statsp1speed").innerHTML=2;
+    document.getElementById("statsp1attack").innerHTML=10;
+    
     document.getElementById("statsp2health").innerHTML=20;
+    document.getElementById("statsp2speed").innerHTML=3;
+    document.getElementById("statsp2attack").innerHTML=15;
 }
 
 var playerArray = Array();
@@ -59,12 +64,6 @@ function stringOfPropertiesOfObject(object) {
     return str;
 }
 
-/*** Put beginning Stats ***/
-/* RANDOM ERROR CANNOT GET innerHTML of NULL I DONT EVEN KNOW
-for(var i = 1; i < 3; i++){
-    document.getElementById("statsp1health").innerHTML=50;
-}
-*/
 
 /*** Turn system ***/
 
