@@ -1,5 +1,5 @@
 /* test comment */
-console.log("HEEE");
+console.log("HEEEEEEEEEEEEEEEEEE");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -54,7 +54,7 @@ function stringOfPropertiesOfObject(object) {
 }
 /*** Put beginning Stats ***/
 for(var i = 1; i < 3; i++){
-    document.getElementById("statsp"+i+"health").innerHTML=50;
+    document.getElementById("statsp1health").innerHTML=50;
 }
 /*** Turn system ***/
 
