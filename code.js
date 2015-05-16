@@ -1,5 +1,4 @@
 /* test comment */
-console.log("HI");
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
@@ -246,7 +245,7 @@ function setGridLocation(unit, newGridLocation) {
 function attack(from, to) {
     finishTurn();
     parametersForNode(to).HP -= parametersForNode(from).attack;
-    console.log(parametersForNode(from).player);
+    document.getElementById("statsp"+parametersForNode(to).player+"health").innerHTML = parametersForNode(to).HP;
     if (parametersForNode(to).HP <= 0) {
         to.remove()
     }
