@@ -2,19 +2,22 @@
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
 var playerArray = Array();
+var player1;
+var player2;
+
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
 }
 
 window.onload = function(){
-    console.log("Window width is "+window.innerWidth+"pixels");
+    console.log("Window width is "+window.innerWidth+"pixels yeha");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
 }
 
 function buildScene() {
-    createNode({svg:"spaceship", player:1, x:0, y:0});
-    createNode({svg:"spaceship", player:2, x:100, y:0});
+    player1 = createNode({svg:"spaceship", player:1, x:0, y:0});
+    player2 = createNode({svg:"spaceship", player:2, x:100, y:0});
     
     setStat({player: p1, key: "health", value: 20});
     setStat({player: p1, key: "attack", value: 1});
@@ -70,6 +73,7 @@ function createNode(parameters) {
     
     scene.appendChild(node);
     playerArray.push(node);
+    return node;
 }
 
 /*** Keyboard integration ***/
@@ -99,10 +103,12 @@ function keyDown(event) {
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            //playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
+            player1.setAttribute("x", player1.getAttribute("x")+10);
+            console.log(player1.getAttribute("x"));
             break;
         case 38 /* up arrow */: 
             p("up");
+            console.log(player1.getAttribute("y"));
             //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
             break;
         case 40 /* down arrow */: 
