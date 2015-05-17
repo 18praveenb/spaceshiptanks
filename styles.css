@@ -1,80 +1,40 @@
-/*
-    TODO: Use CSS to animate the spaceships' moves, attacks, and deaths.
-        Overhaul this document.
-        Move opacity controls to the SVG files themselves.
- */
-
 body {
     font-family: "Iceland", sans-serif;
 }
 
-[highlight="none"] .highlight * {
-    fill-opacity: 0;
-}
-
-/* TODO: Below fill opacities should be removed from here and specified in the SVGs themselves. */
-
-[type="unit"] .highlight * {
-    fill-opacity: 0.2
-}
-
-[highlight="blue"] .highlight * {
-    fill-opacity: 0.4;
-    fill: blue;
-}
-
-[highlight="red"] .highlight * {
-    fill-opacity: 0.6;
-    fill: red;
-}
-
-[highlight="true"] .highlight * {
-    fill-opacity: 1;
-}
-
-[player="0"] .highlight * {
-    fill: aqua;
-}
-
-[player="1"] .highlight * {
-    fill: red;
-}
-
 #scene {
-    -webkit-user-select: none;
-    user-select: none;
+    background-color: lime;
+    position: absolute;
 }
 
-[highlight="true"] .highlight * {
-    -webkit-transform-origin: 15.5px 18px;
-    -webkit-animation-duration: 1.2s;
-    -webkit-animation-name: rotategun;
-    -webkit-animation-iteration-count: infinite;a
-}
-
-@-webkit-keyframes rotategun {
-    from {
-        opacity: 0.2;
-    }
+table.stat {
+    background-color: white;
+    border: 3px solid black;
     
-    40% {
-        opacity: 0.6;
-    }
-    
-    to {
-        opacity: 0.2;
-    }
+    bottom:10px;
+    width: 150px;
+    position: fixed;
 }
 
-/* courtesy of Patrick Zhong */
-svg {
-    margin-left: 140px;
+table.stat.p1 {
+    left: 10px;
 }
 
-table{
-    border: 5px solid black;
-    width: 140px;
-    height: 250px;
+table.stat.p2 {
+    right: 10px;
+}
+
+th.stat {
+    font-size: 200%;
+}
+
+.key {
+    font-weight: bold;
+    text-align: center;
+}
+
+.value {
+    text-align: center;
 }
 
 /*

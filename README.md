@@ -1,3 +1,3 @@
-# Spaceship Tanks: Reengineering  
+# Spaceship Tanks: *Realtime*
 
-Hello and welcome to Spaceship Tanks, a turn based web game! View current development checkpoint goals [here](https://docs.google.com/document/d/1TEw6CzAde2VCFwxgVFuDKXhTJUOJbG-bqeQpIXw_f6o/edit?usp=sharing). Play the game [here](http://18praveenb.github.io/spaceshiptanks).
+This is not a turn based strategy game. It is an experimental realtime spaceship combat game based off of Spaceship Tanks.

@@ -1,21 +1,3 @@
-/* test comment */
-console.log();
-var parameterArrays = {
-tile: [], /* Keys: type, svg, gridLocation */
-unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
-}
-
-window.onload = function(){
-    document.getElementById("statsp1health").innerHTML=50;
-    document.getElementById("statsp1speed").innerHTML=2;
-    document.getElementById("statsp1attack").innerHTML=10;
-    
-    document.getElementById("statsp2health").innerHTML=20;
-    document.getElementById("statsp2speed").innerHTML=3;
-    document.getElementById("statsp2attack").innerHTML=15;
-}
-
-var playerArray = Array();
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
@@ -26,17 +8,23 @@ function objectLoaded() {
 }
 
 function buildScene() {
-    for (var x = 0; x < 7; ++x) {
-        for (var y = 0; y < 5; ++y) {
-            createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});
-        }
-    }
-    createNode({type:"unit", svg:"spaceship", HP:50, speed:2, attack:10, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship", HP:20, speed:3, attack:15, player:1, gridLocation:{"x":6,"y":2}});
-    updateTurnText();
+    createNode({svg:"spaceship", player:1, x:0, y:0});
+    createNode({svg:"spaceship", player:2, x:100, y:0});
+    
+    setStat({player: p1, key: "health", value: 20});
+    setStat({player: p1, key: "attack", value: 1});
+    setStat({player: p2, key: "health", value: 10});
+    setStat({player: p2, key: "attack", value: 2});
+    
+    window.addEventListener("keydown", keyDown);
+    window.addEventListener("keyup", keyUp);
 }
 
 /*** Helper functions ***/
+
+function p(str) {
+    console.log(str)
+}
 
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
@@ -64,207 +52,64 @@ function stringOfPropertiesOfObject(object) {
     return str;
 }
 
-
-/*** Turn system ***/
-
-var turn = 1;
-var currentPlayer = 0;
-
-function updateTurnText() {
-    document.getElementById("info").textContent = "Turn " + turn + ", player " + (currentPlayer+1);
-}
-
-function finishTurn() {
-    
-    currentPlayer = (currentPlayer + 1) % 2;
-    if (currentPlayer == 0) {++turn}
-    updateTurnText();
-}
-
-/*** Grid point system ***/
-
-/* Converts between SVG scene coordinates and abstract grid coordinates */
-
-var sizeUnit = 50; /* Size of tile on the grid */
-
-/* Receives scene coordinates, returns a grid point */
-function gridPoint(x, y) {
-    return {
-        "x": Math.floor(x/sizeUnit),
-        "y": Math.floor(y/sizeUnit)
-    };
-}
-
-function gridPointForNode(node) {
-    return gridPoint(node.getAttribute("x"), node.getAttribute("y"));
-}
-
-/* Receives grid point, returns scene coordinates */
-function locationForGridPoint(gridPoint) {
-    return {
-        "x": gridPoint.x*sizeUnit,
-        "y": gridPoint.y*sizeUnit
-    };
-}
-
-/* Checks equality of grid points */
-function gridPointsEqual(point1, point2) {
-    return ((point1.x == point2.x) && (point1.y == point2.y));
-}
-
-/* Diagonal counts as two squares because of the way this is implemented */
-function gridPointDifference(point1, point2) {
-    return Math.abs(point1.x - point2.x) + Math.abs(point1.y - point2.y);
-}
-
 /*** Node system ***/
 
 function createNode(parameters) {
     
     var node = document.getElementById(parameters.svg).contentDocument.documentElement.cloneNode(true);
     
-    node.setAttribute("x", parameters.gridLocation.x*sizeUnit);
-    node.setAttribute("y", parameters.gridLocation.y*sizeUnit);
-    node.setAttribute("width", sizeUnit);
-    node.setAttribute("height", sizeUnit);
-    
+    node.setAttribute("x", parameters.x);
+    node.setAttribute("y", parameters.y);
     node.setAttribute("player", parameters.player)
-    node.setAttribute("type", parameters.type);
-    node.setAttribute("arrayNumber", parameterArrays[parameters.type].length);
-    node.setAttribute("id", parameters.type + " " + String(parameterArrays[parameters.type].length));
-    
-    parameters["node"] = node;
-    parameterArrays[parameters.type].push(parameters);
-    
-    node.addEventListener("click", nodeClicked);
-    node.addEventListener("mouseover", nodeMouseOver);
-    node.addEventListener("mouseout", nodeMouseOut);
+    node.setAttribute("id", "node_p"+parameters.player);
     
     scene.appendChild(node);
-    //return(node);
 }
 
-function nodeClicked(event) {
-    var location = parametersForNode(this).gridLocation
-    if (selectedUnit == "none") {
-        if ((this.getAttribute("type") == "unit") && (parametersForNode(this).player == currentPlayer)) {
-            toggleSelectionOfUnit(this);
-        }
-    }
-    else {
-        switch (unitMoveTypeForPoint(parametersForNode(this).gridLocation)) {
-            case "move": setGridLocation(selectedUnit, parametersForNode(this).gridLocation); break;
-            case "attack": attack(selectedUnit, unitAtPoint(location)); break;
-        }
-        toggleSelectionOfUnit(selectedUnit)
+/*** Keyboard integration ***/
+
+function keyUp(event) {
+    switch (event.keyCode) {
+        case 37 /* left arrow */:
+            break;
+        case 39 /* right arrow */:
+            break;
+        case 38 /* up arrow */:
+            break;
+        case 40 /* down arrow */:
+            break;
     }
 }
 
-function nodeMouseOver(event) {
-    if (this.getAttribute("type") == "unit") {
-        var params = parametersForNode(this)
-        var shortlistParams = {"unit": params.svg, "speed": params.speed, "HP": params.HP, "attack": params.attack, "player": params.player}
-        document.getElementById("info").textContent = stringOfPropertiesOfObject(shortlistParams)
+function keyDown(event) {
+    switch (event.keyCode) {
+        case 37 /* left arrow */: p("left"); break;
+        case 39 /* right arrow */: p("right"); break;
+        case 38 /* up arrow */: p("up"); break;
+        case 40 /* down arrow */: p("down"); break;
     }
 }
 
-function nodeMouseOut(event) {
-    updateTurnText();
+/*** Player data & info ***/
+
+var p1 = {
+health:0,
+attack:0,
 }
 
-function parametersForNode(node) {
-    var array = parameterArrays[node.getAttribute("type")];
-    return array[node.getAttribute("arrayNumber")]
+var p2 = {
+health:0,
+attack:0,
 }
 
-/*** Tile system ***/
-
-function resetTileHighlighting() {
-    function reset(tile) {
-        if (tile.getAttribute("type") == "tile") {
-            tile.setAttribute("highlight", "none")
-        }
+function setStat(params) {
+    params.player[params.key] = params.value
+    var player;
+    switch (params.player) {
+    case p1: player = "p1"; break;
+    case p2: player = "p2"; break;
     }
-    enumerateChildNodes(scene.childNodes, reset)
-}
-
-function highlightTilesAroundUnit(unit) {
-    function highlight(tile) {
-        if (tile.getAttribute("type") == "tile") {
-            switch (unitMoveTypeForPoint(parametersForNode(tile).gridLocation)) {
-                case "move": tile.setAttribute("highlight", "blue"); break;
-                case "attack": tile.setAttribute("highlight", "red"); break;
-            }
-        }
-    }
-    enumerateChildNodes(scene.childNodes, highlight)
-}
-
-function unitAtPoint(point) {
-    var unit = "none";
-    function checkIfUnitIsAtPoint(aUnit) {
-        if (aUnit.getAttribute("type") == "unit") {
-        if (gridPointsEqual(parametersForNode(aUnit).gridLocation, point) ) {
-            unit = aUnit;
-            }
-        }
-    }
-    enumerateChildNodes(scene.childNodes, checkIfUnitIsAtPoint);
-    return unit;
-}
-
-function unitMoveTypeForPoint(point) {
-    var unit = unitAtPoint(point);
-    var difference = gridPointDifference(point, gridPointForNode(selectedUnit));
-    if (difference <= parametersForNode(selectedUnit).speed && difference > 0) {
-        if (unit == "none") {
-            return "move";
-        }
-        else {
-            return "attack";
-        }
-    }
-    return "none";
-}
-
-/*** Unit system ***/
-
-var selectedUnit = "none";
-
-function toggleSelectionOfUnit(unit) {
-    if (unit == selectedUnit) {
-        selectedUnit = "none";
-        unit.setAttribute("highlight", "false");
-        resetTileHighlighting();
-    }
-    else {
-        /* Deselect the currently selected unit before selecting this one. Only one unit can be selected at a time. */
-        if (selectedUnit != "none") {
-            toggleSelectionOfUnit(selectedUnit);
-        }
-        selectedUnit = unit;
-        unit.setAttribute("highlight", "true");
-        highlightTilesAroundUnit(unit);
-    }
-}
-
-/* Moves a unit SVG node to a new location on the grid, and updates the parameters object for that unit with the new location (which will be useful for saving and restoring state later) */
-function setGridLocation(unit, newGridLocation) {
-    parameterArrays.unit[unit.getAttribute("arrayNumber")].gridLocation = newGridLocation;
-    unit.setAttribute("x", locationForGridPoint(newGridLocation).x);
-    unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
-    finishTurn();
-}
-
-function attack(from, to) {
-    finishTurn();
-    parametersForNode(to).HP -= parametersForNode(from).attack;
-    if (parametersForNode(to).HP <= 0) {
-        to.remove();
-        parametersForNode(to).HP = 0;
-    }
-    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
-    
+    document.getElementById(player+"_"+params.key).textContent = params.value
 }
 
 /*
