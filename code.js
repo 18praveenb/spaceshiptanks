@@ -92,19 +92,22 @@ function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             p("left"); 
-            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")-10);
+            /** HERE ONLY THE RIGHT ARROW MOVES IT FOR SOME REASON
+             *  ALSO THE SPACESHIP BLINKS OUT AFTER MOVING IT RIGHT SOME PIXELS, MAYBE NODE OVERLAPPING?
+            **/
+            //playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")-10);
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
+            //playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
             break;
         case 38 /* up arrow */: 
             p("up");
-            playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
+            //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
             break;
         case 40 /* down arrow */: 
             p("down"); 
-            playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")+10);
+            //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")+10);
             break;
     }
 }
