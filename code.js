@@ -179,7 +179,7 @@ function nodeMouseOut(event) {
     document.getElementById("statsunit").innerHTML = "";
     document.getElementById("statshealth").innerHTML = "";
     document.getElementById("statsattack").innerHTML = "";
-    document.getElementById("statsspeed").innerHTM = "";
+    document.getElementById("statsspeed").innerHTML = "";
     
     
 }
