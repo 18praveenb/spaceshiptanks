@@ -3,6 +3,7 @@
 var objectsNotLoaded = 2;
 var player1;
 var player2;
+/** Dictionary of all movement aspects of players **/
 var p1move = {node: "", left: false, right: false, up: false, down: false};
 var p2move = {node: "", left: false, right: false, up: false, down: false};
 
@@ -12,12 +13,12 @@ function objectLoaded() {
 }
 
 window.onload = function(){
-    console.log("Window width is "+window.innerWidth+" pixels");
+    console.log("Window width is "+window.innerWidth+" pixels yha");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
 }
 
 function buildScene() {
-    player1 = createNode({svg:"spaceship", player:1, x:0, y:0});
+    p1move.node = createNode({svg:"spaceship", player:1, x:0, y:0});
     p2move.node = createNode({svg:"spaceship", player:2, x:100, y:0});
     
     setStat({player: p1, key: "health", value: 20});
@@ -103,20 +104,20 @@ function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             p("left");
-            player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)-10);
+            p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)-10);
             move();
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)+10);
+            p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)+10);
             break;
         case 38 /* up arrow */: 
             p("up");
-            player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)-10);
+            p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)-10);
             break;
         case 40 /* down arrow */: 
             p("down"); 
-            player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)+10);
+            p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)+10);
             break;
     }
 }
