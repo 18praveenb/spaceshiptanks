@@ -11,7 +11,7 @@ function objectLoaded() {
 }
 
 window.onload = function(){
-    console.log("Window width is "+window.innerWidth+"pixels yeha");
+    console.log("Window width is "+window.innerWidth+"pixels");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
 }
 
@@ -99,20 +99,27 @@ function keyDown(event) {
             /** HERE ONLY THE RIGHT ARROW MOVES IT FOR SOME REASON
              *  ALSO THE SPACESHIP BLINKS OUT AFTER MOVING IT RIGHT SOME PIXELS, MAYBE NODE OVERLAPPING?
             **/
+            player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)-10);
+            console.log(player1.getAttribute("x"));
+            
             //playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")-10);
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            player1.setAttribute("x", player1.getAttribute("x")+10);
+            player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)+10);
             console.log(player1.getAttribute("x"));
             break;
         case 38 /* up arrow */: 
             p("up");
+            player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)-10);
             console.log(player1.getAttribute("y"));
+            
             //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
             break;
         case 40 /* down arrow */: 
             p("down"); 
+            player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)+10);
+            console.log(player1.getAttribute("y"));
             //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")+10);
             break;
     }
