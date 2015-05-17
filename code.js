@@ -79,11 +79,27 @@ function createNode(parameters) {
 }
 /*** Movement Functions ***/
 function move(){
-    p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor);
-    p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver);
+    /* Future positions */
+    var p1x = parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor;
+    var p1y = parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver;
+    var p2x = parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor;
+    var p2y = parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver;
+    /* Check if outside bounds */
+    if(p1x < 0){p1x = 0;}
+    if(p1y < 0){p1y = 0;}
+    if(p1x > 950){p1x = 950;}
+    if(p1y > 950){p1y = 950;}
     
-    p2move.node.setAttribute("x", parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor);
-    p2move.node.setAttribute("y", parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver);
+    if(p2x < 0){p2x = 0;}
+    if(p2y < 0){p2y = 0;}
+    if(p2x > 950){p2x = 950;}
+    if(p2y > 950){p2y = 950;}
+    /* Set new positions */
+    p1move.node.setAttribute("x", p1x);
+    p1move.node.setAttribute("y", p1y);
+    
+    p2move.node.setAttribute("x", p2x);
+    p2move.node.setAttribute("y", p2y);
 }
 
 
