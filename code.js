@@ -73,7 +73,6 @@ function createNode(parameters) {
     node.setAttribute("id", "node_p"+parameters.player);
     
     scene.appendChild(node);
-    playerArray.push(node);
     return node;
 }
 /*** Movement Functions ***/
