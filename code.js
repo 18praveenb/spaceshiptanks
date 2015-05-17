@@ -7,6 +7,10 @@ function objectLoaded() {
     if (objectsNotLoaded == 0) {buildScene()}
 }
 
+window.onload = function(){
+    console.log(window.innerWidth);
+}
+
 function buildScene() {
     createNode({svg:"spaceship", player:1, x:0, y:0});
     createNode({svg:"spaceship", player:2, x:100, y:0});
