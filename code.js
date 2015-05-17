@@ -8,7 +8,8 @@ function objectLoaded() {
 }
 
 window.onload = function(){
-    console.log(window.innerWidth);
+    console.log("Window width is "+window.innerWidth+"pixels");
+    document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
 }
 
 function buildScene() {
