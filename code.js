@@ -2,7 +2,6 @@
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
 var playerArray = Array();
-console.log("hi");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -80,7 +79,7 @@ function keyUp(event) {
         case 37 /* left arrow */:
             break;
         case 39 /* right arrow */:
-            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
+            
             break;
         case 38 /* up arrow */:
             break;
@@ -91,10 +90,22 @@ function keyUp(event) {
 
 function keyDown(event) {
     switch (event.keyCode) {
-        case 37 /* left arrow */: p("left"); break;
-        case 39 /* right arrow */: p("right"); break;
-        case 38 /* up arrow */: p("up"); break;
-        case 40 /* down arrow */: p("down"); break;
+        case 37 /* left arrow */: 
+            p("left"); 
+            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")-10);
+            break;
+        case 39 /* right arrow */: 
+            p("right"); 
+            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
+            break;
+        case 38 /* up arrow */: 
+            p("up");
+            playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
+            break;
+        case 40 /* down arrow */: 
+            p("down"); 
+            playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")+10);
+            break;
     }
 }
 
