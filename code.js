@@ -81,6 +81,7 @@ function createNode(parameters) {
 function move(){
     p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor);
     p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver);
+    
     p2move.node.setAttribute("x", parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor);
     p2move.node.setAttribute("y", parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver);
 }
@@ -101,6 +102,19 @@ function keyUp(event) {
             break;
         case 40 /* down arrow */:
             p1move.ver = 0;
+            break;
+            
+        case 65 /* A(left) */:
+            p2move.hor = 0;
+            break;
+        case 68 /* D(right) */:
+            p2move.hor = 0;
+            break;
+        case 87 /* W(up) */:
+            p2move.ver= 0;
+            break;
+        case 83 /* S(down) */:
+            p2move.ver= 0;
             break;
     }
 }
@@ -123,6 +137,20 @@ function keyDown(event) {
             p("down"); 
             p1move.ver= 1;
             break;
+            
+        case 65 /* A(left) */:
+            p2move.hor = -1;
+            break;
+        case 68 /* D(right) */:
+            p2move.hor = 1;
+            break;
+        case 87 /* W(up) */:
+            p2move.ver= -1;
+            break;
+        case 83 /* S(down) */:
+            p2move.ver= 1;
+            break;
+        
     }
 }
 
