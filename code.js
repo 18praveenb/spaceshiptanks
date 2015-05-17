@@ -3,9 +3,9 @@
 var objectsNotLoaded = 2;
 var player1;
 var player2;
-/** Dictionary of all movement aspects of players **/
-var p1move = {node: "", left: false, right: false, up: false, down: false};
-var p2move = {node: "", left: false, right: false, up: false, down: false};
+/** Dictionary of all movement aspects of players: node for the nodes, hor(horizontal) and ver(vertical) for how many pixels to move in each direction, speed for pixels moved per sec **/
+var p1move = {node: "", hor: 0, ver: 0, speed: 10};
+var p2move = {node: "", hor: 0, ver: 0, speed: 10};
 
 function objectLoaded() {
     --objectsNotLoaded;
@@ -13,8 +13,9 @@ function objectLoaded() {
 }
 
 window.onload = function(){
-    console.log("Window width is "+window.innerWidth+" pixels yha");
+    console.log("Window width is "+window.innerWidth+" pixels");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
+    setInterval(function(){move();},500);
 }
 
 function buildScene() {
@@ -78,9 +79,10 @@ function createNode(parameters) {
 }
 /*** Movement Functions ***/
 function move(){
-    p(p1move.right);
-    p1move.right = true;
-    p(p1move.right);
+    p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor);
+    p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver);
+    p2move.node.setAttribute("x", parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor);
+    p2move.node.setAttribute("y", parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver);
 }
 
 
@@ -104,20 +106,19 @@ function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             p("left");
-            p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)-10);
-            move();
+            p1move.hor = -1;
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            p1move.node.setAttribute("x", parseInt(p1move.node.getAttribute("x"),10)+10);
+            p1move.hor = 1;
             break;
         case 38 /* up arrow */: 
             p("up");
-            p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)-10);
+            p1move.ver= -1;
             break;
         case 40 /* down arrow */: 
             p("down"); 
-            p1move.node.setAttribute("y", parseInt(p1move.node.getAttribute("y"),10)+10);
+            p1move.ver= 1;
             break;
     }
 }
