@@ -1,7 +1,8 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-
+var playerArray = Array();
+console.log("hi");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -69,6 +70,7 @@ function createNode(parameters) {
     node.setAttribute("id", "node_p"+parameters.player);
     
     scene.appendChild(node);
+    playerArray.push(node);
 }
 
 /*** Keyboard integration ***/
@@ -78,6 +80,7 @@ function keyUp(event) {
         case 37 /* left arrow */:
             break;
         case 39 /* right arrow */:
+            playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")+10);
             break;
         case 38 /* up arrow */:
             break;
