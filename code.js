@@ -91,13 +91,16 @@ function move(){
 function keyUp(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
+            p1move.hor = 0;
             break;
         case 39 /* right arrow */:
-            
+            p1move.hor = 0;
             break;
         case 38 /* up arrow */:
+            p1move.ver = 0;
             break;
         case 40 /* down arrow */:
+            p1move.ver = 0;
             break;
     }
 }
