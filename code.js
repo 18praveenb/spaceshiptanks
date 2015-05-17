@@ -3,8 +3,8 @@
 var objectsNotLoaded = 2;
 var player1;
 var player2;
-var p1move = {left: false, right: false, up: false, down: false};
-var p2move = {left: false, right: false, up: false, down: false};
+var p1move = {node: "", left: false, right: false, up: false, down: false};
+var p2move = {node: "", left: false, right: false, up: false, down: false};
 
 function objectLoaded() {
     --objectsNotLoaded;
@@ -18,7 +18,7 @@ window.onload = function(){
 
 function buildScene() {
     player1 = createNode({svg:"spaceship", player:1, x:0, y:0});
-    player2 = createNode({svg:"spaceship", player:2, x:100, y:0});
+    p2move.node = createNode({svg:"spaceship", player:2, x:100, y:0});
     
     setStat({player: p1, key: "health", value: 20});
     setStat({player: p1, key: "attack", value: 1});
