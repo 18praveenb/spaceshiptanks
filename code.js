@@ -1,9 +1,10 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-var playerArray = Array();
 var player1;
 var player2;
+var p1move = {left: false, right: false, up: false, down: false};
+var p2move = {left: false, right: false, up: false, down: false};
 
 function objectLoaded() {
     --objectsNotLoaded;
@@ -11,7 +12,7 @@ function objectLoaded() {
 }
 
 window.onload = function(){
-    console.log("Window width is "+window.innerWidth+"pixels");
+    console.log("Window width is "+window.innerWidth+" pixels");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
 }
 
@@ -75,6 +76,13 @@ function createNode(parameters) {
     playerArray.push(node);
     return node;
 }
+/*** Movement Functions ***/
+function move(){
+    p(p1move.right);
+    p1move.right = true;
+    p(p1move.right);
+}
+
 
 /*** Keyboard integration ***/
 
@@ -95,32 +103,21 @@ function keyUp(event) {
 function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
-            p("left"); 
-            /** HERE ONLY THE RIGHT ARROW MOVES IT FOR SOME REASON
-             *  ALSO THE SPACESHIP BLINKS OUT AFTER MOVING IT RIGHT SOME PIXELS, MAYBE NODE OVERLAPPING?
-            **/
+            p("left");
             player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)-10);
-            console.log(player1.getAttribute("x"));
-            
-            //playerArray[0].setAttribute("x", playerArray[0].getAttribute("x")-10);
+            move();
             break;
         case 39 /* right arrow */: 
             p("right"); 
             player1.setAttribute("x", parseInt(player1.getAttribute("x"),10)+10);
-            console.log(player1.getAttribute("x"));
             break;
         case 38 /* up arrow */: 
             p("up");
             player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)-10);
-            console.log(player1.getAttribute("y"));
-            
-            //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")-10);
             break;
         case 40 /* down arrow */: 
             p("down"); 
             player1.setAttribute("y", parseInt(player1.getAttribute("y"),10)+10);
-            console.log(player1.getAttribute("y"));
-            //playerArray[0].setAttribute("y", playerArray[0].getAttribute("y")+10);
             break;
     }
 }
