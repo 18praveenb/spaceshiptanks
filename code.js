@@ -15,7 +15,7 @@ function objectLoaded() {
 window.onload = function(){
     console.log("Window width is "+window.innerWidth+" pixels");
     document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
-    setInterval(function(){move();},500);
+    setInterval(function(){move();},50);
 }
 
 function buildScene() {
