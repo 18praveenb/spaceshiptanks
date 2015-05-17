@@ -1,3 +1,4 @@
-# Spaceship Tanks: Reengineering  
-
-Hello and welcome to Spaceship Tanks, a turn based web game! View current development checkpoint goals [here](https://docs.google.com/document/d/1TEw6CzAde2VCFwxgVFuDKXhTJUOJbG-bqeQpIXw_f6o/edit?usp=sharing). Play the game [here](http://18praveenb.github.io/spaceshiptanks).
+# Spaceship Tanks
+[Play the game online](http://18praveenb.github.io/spaceshiptanks)  
+Coming eventually: design outline & todos on this readme file  
+Right now I'm working on the realtime branch. I will return to this branch eventually.
