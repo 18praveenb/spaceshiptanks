@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-p("hi");
+
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -54,7 +54,7 @@ function buildScene() {
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
-    setInterval(function(){update()}, 50);
+    setInterval(function(){update()}, 25);
 }
 
 /*** Helper functions ***/
@@ -133,8 +133,7 @@ function update(){
     var p1y = ga(p1.node, "y")*1 + p1.speed*p1.vy;
     var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
     var p2y = ga(p2.node, "y")*1 + p2.speed*p2.vy;
-    p(p1x);
-    p(p1y);
+    
     /* Check if outside bounds */
     if(p1x < 50){p1x = 50;}
     if(p1y < 50){p1y = 50;}
