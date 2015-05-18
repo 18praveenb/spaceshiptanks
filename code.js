@@ -188,22 +188,22 @@ function keyUp(event) {
 function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
-            p("left");
+            //p("left");
             p1.vx = -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */: 
-            p("right"); 
+            //p("right"); 
             p1.vx = 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */: 
-            p("up");
+            //p("up");
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 40 /* down arrow */: 
-            p("down"); 
+            //p("down"); 
             p1.vy= 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
