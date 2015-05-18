@@ -46,15 +46,15 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 1});
+    setStat({player: p1, key: "speed", value: 51});
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 2});
+    setStat({player: p2, key: "speed", value: 10});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
-    setInterval(function(){update()}, 10);
+    setInterval(function(){update()}, 50);
 }
 
 /*** Helper functions ***/
@@ -186,6 +186,8 @@ function keyUp(event) {
 }
 
 function keyDown(event) {
+    event.preventDefault(); /*stop keyboard scrolling of browser*/
+            
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             //p("left");
