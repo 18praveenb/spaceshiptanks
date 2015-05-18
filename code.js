@@ -1,26 +1,46 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-var player1;
-var player2;
-/** Dictionary of all movement aspects of players: node for the nodes, hor(horizontal) and ver(vertical) for how many pixels to move in each direction, speed for pixels moved per sec **/
-var p1move = {node: "", hor: 0, ver: 0, speed: 10};
-var p2move = {node: "", hor: 0, ver: 0, speed: 10};
 
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
 }
+/*** Player data & info ***/
+/* merged the movement into these objects */
+var p1 = {
+node: "none",
+health:0,
+attack:0,
+vx:0, /* x velocity */
+vy:0 /* y velocity */
+}
 
-window.onload = function(){
-    console.log("Window width is "+window.innerWidth+" pixels");
-    document.getElementById("scene").style.marginLeft = ((window.innerWidth-1000)/2)+"px";
-    setInterval(function(){move();},50);
+var p2 = {
+node:"none",
+health:0,
+attack:0,
+vx:0, /* x velocity */
+vy:0 /* y velocity */
+}
+
+/* Wow I forgot how this works for a while . . . maybe it should have comments */
+function setStat(params) {
+    /* get the p1 or p2 object and set its (health, attack, etc.) to whatever */
+    params.player[params.key] = params.value
+    /* generates a string "p1" or "p2" based on whether the player is the p1 object or the p2 object */
+    var player;
+    switch (params.player) {
+        case p1: player = "p1"; break;
+        case p2: player = "p2"; break;
+    }
+    /* set the corresponding item (health, attack . . . ) in the display table to the new value */
+    document.getElementById(player+"_"+params.key).textContent = params.value
 }
 
 function buildScene() {
-    p1move.node = createNode({svg:"spaceship", player:1, x:0, y:0});
-    p2move.node = createNode({svg:"spaceship", player:2, x:100, y:0});
+    p1.node = createNode({svg:"spaceship", player:1, x:0, y:0});
+    p2.node = createNode({svg:"spaceship", player:2, x:100, y:0});
     
     setStat({player: p1, key: "health", value: 20});
     setStat({player: p1, key: "attack", value: 1});
@@ -29,12 +49,34 @@ function buildScene() {
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
+    window.setInterval(update(), 1);
 }
 
 /*** Helper functions ***/
 
+/* Quicker way to write console.log */
 function p(str) {
     console.log(str)
+}
+
+/* Quicker way to write getAttribute */
+function ga(node, attr) {
+    return node.getAttribute(attr)
+}
+
+/* Quicker way to write setAttribute */
+function sa(node, attr, val) {
+    node.setAttribute(attr, val)
+}
+
+/* Quicker way to write getElementById */
+function gid(src, id) {
+    return src.getElementById(id)
+}
+
+/* Quicker way to write document.getElementById */
+function dgid(id) {
+    return document.getElementById(id)
 }
 
 function enumerate(array, block) {
@@ -63,7 +105,7 @@ function stringOfPropertiesOfObject(object) {
     return str;
 }
 
-/*** Node system ***/
+/*** Nodes ***/
 
 function createNode(parameters) {
     
@@ -71,32 +113,33 @@ function createNode(parameters) {
     
     node.setAttribute("x", parameters.x);
     node.setAttribute("y", parameters.y);
-    node.setAttribute("player", parameters.player)
+    node.setAttribute("player", parameters.player) /* negative numbers = walls, loot, etc. (will be decided later), 0 = computer controlled enemy, 1 = p1, 2 = p2 */
     node.setAttribute("id", "node_p"+parameters.player);
     
     scene.appendChild(node);
     return node;
 }
-/*** Movement Functions ***/
-function move(){
+
+/* Update will process movement of players, bullets, etc. as well as collision detection and other future stuff. Essentially a new frame */
+function update(){
     /* Future positions */
     var p1x = parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor;
     var p1y = parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver;
     var p2x = parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor;
     var p2y = parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver;
     /* Check if outside bounds */
-    if(p1x < 0){p1x = 0;}
-    if(p1y < 0){p1y = 0;}
+    if(p1x < 50){p1x = 50;}
+    if(p1y < 50){p1y = 50;}
     if(p1x > 950){p1x = 950;}
     if(p1y > 950){p1y = 950;}
     
-    if(p2x < 0){p2x = 0;}
-    if(p2y < 0){p2y = 0;}
+    if(p2x < 50){p2x = 50;}
+    if(p2y < 50){p2y = 50;}
     if(p2x > 950){p2x = 950;}
     if(p2y > 950){p2y = 950;}
     /* Set new positions */
-    p1move.node.setAttribute("x", p1x);
-    p1move.node.setAttribute("y", p1y);
+    p1.node.setAttribute("x", p1x);
+    p1.node.setAttribute("y", p1y);
     
     p2move.node.setAttribute("x", p2x);
     p2move.node.setAttribute("y", p2y);
@@ -168,28 +211,6 @@ function keyDown(event) {
             break;
         
     }
-}
-
-/*** Player data & info ***/
-
-var p1 = {
-health:0,
-attack:0,
-}
-
-var p2 = {
-health:0,
-attack:0,
-}
-
-function setStat(params) {
-    params.player[params.key] = params.value
-    var player;
-    switch (params.player) {
-    case p1: player = "p1"; break;
-    case p2: player = "p2"; break;
-    }
-    document.getElementById(player+"_"+params.key).textContent = params.value
 }
 
 /*
