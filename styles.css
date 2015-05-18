@@ -1,53 +1,57 @@
 /*
     TODO: Use CSS to animate the spaceships' moves, attacks, and deaths.
         Overhaul this document.
-        Move opacity controls to the SVG files themselves.
  */
-
 
 body {
     font-family: "Iceland", sans-serif;
-}
-
-table.stats {
-    background-color: white;
-    border: 3px solid black;
-    
-    bottom: 10px;
-    left: 10px;
-    width: 150px;
-    position: fixed;
-}
-
-#helper {
-    text-align: center;
-}
-
-th.stats {
-    font-size: 140%;
-}
-
-.key {
-    font-weight: bold;
-}
-
-.key::after {
-    content: ":";
-}
-
-.value {
-    text-align: left;
 }
 
 .hidden {
     visibility: hidden;
 }
 
+/*** Stats table ***/
+
+.stats {
+    text-align: center;
+}
+
+table.stats {
+    background-color: white;
+    border: groove 5px gray;
+    border-radius: 5px;
+    bottom: 10px;
+    left: 10px;
+    width: 150px;
+    position: fixed;
+}
+
+.stats.alert {
+    color: red;
+}
+
+.stats.title {
+    font-size: 140%;
+}
+
+.stats.key {
+    /* affects the prefixes to the player info stats e.g. the text "Player: " */
+}
+
+.stats.value {
+    /* affects the actual numbers for player info stats e.g. the "1" in "Player: 1"*/
+}
+
+.stats#helper {
+    text-align: center;
+}
+
+/*** SVGs ***/
+
 [highlight="none"] .highlight * {
     fill-opacity: 0;
 }
-
-/* TODO: Below fill opacities should be removed from here and specified in the SVGs themselves. */
 
 [type="unit"] .highlight * {
     fill-opacity: 0.2
@@ -99,16 +103,6 @@ th.stats {
     to {
         opacity: 0.2;
     }
-}
-
-svg {
-    margin-left: 140px;
-}
-
-table{
-    border: 5px solid black;
-    width: 140px;
-    height: 250px;
 }
 
 /*

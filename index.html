@@ -16,26 +16,25 @@
         <!-- Statistic table for unit hover -->
         <table class="stats">
             <tr>
+                <td class="stats alert" id="stats_alert"></td>
+            </tr>
+            <tr>
                 <th id="stats_title" class="stats title">Info</th>
             </tr>
             <tr id="helper">
                 <td>Hover over a unit for unit stats</td>
             </tr>
-            <tr id="stats_row_player" hidden>
-                <td class="stats key">Player</td>
-                <td id="stats_player" class="stat value"></td>
+            <tr id="stats_row_player" class="stats row player" hidden>
+                <td class="stats key">Player: <span id="stats_player" class="stats value" ></span></td>
             </tr>
-            <tr id="stats_row_health" hidden>
-                <td class="stats key">Health</td>
-                <td id="stats_health" class="stats value"></td>
+            <tr id="stats_row_health" class="stats row health" hidden>
+                <td class="stats key">Health: <span id="stats_health" class="stats value" ></span></td>
             </tr>
-            <tr id="stats_row_attack" hidden>
-                <td class="stats key">Attack</td>
-                <td id="stats_attack" class="stats value"></td>
+            <tr class="stats row attack" id="stats_row_attack" hidden>
+                <td class="stats key">Attack: <span id="stats_attack" class="stats value" ></span></td>
             </tr>
-            <tr id="stats_row_speed" hidden>
-                <td class="stats key">Speed</td>
-                <td id="stats_speed" class="stats value"></td>
+            <tr class="stats row speed" id="stats_row_speed" hidden>
+                <td class="stats key">Speed: <span id="stats_speed" class="stats value" ></span></td>
             </tr>
         </table>
         <!-- Invisible objects store SVGs so that the JS can access them -->

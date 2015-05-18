@@ -1,7 +1,6 @@
-var parameterArrays = {
-tile: [], /* Keys: type, svg, gridLocation */
-unit: [] /* Keys: type, svg, health, speed, player, attack, gridLocation */
-}
+/*** HTML Links and other fundamental stuff ***/
+
+var displayParameters = ["player", "health", "attack", "speed"]; /*This should match precisely with the list of display cells in the HTML and be in the same order. */
 
 var objectsNotLoaded = 2; /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
@@ -16,9 +15,14 @@ function buildScene() {
             createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});
         }
     }
-    createNode({type:"unit", svg:"spaceship", health:50, speed:2, attack:10, player:1, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship", health:50, speed:3, attack:9, player:2, gridLocation:{"x":6,"y":2}});
+    createNode({displayName: "Space Destroyer", type:"unit", svg:"spaceship", health:50, speed:2, attack:10, player:1, gridLocation:{"x":0,"y":2}});
+    createNode({displayName: "Why don't I get a cool title like Space Destroyer?", type:"unit", svg:"spaceship", health:50, speed:3, attack:9, player:2, gridLocation:{"x":6,"y":2}});
     updateTurnText();
+}
+
+var parameterArrays = {
+tile: [], /* Keys: type, svg, gridLocation */
+unit: [] /* Keys: type, svg, health, speed, player, attack, gridLocation */
 }
 
 /*** Helper functions ***/
@@ -31,11 +35,11 @@ function sa(node, attr, val) {
     node.setAttribute(attr, val)
 }
 
-function gebid(src, id) {
+function gid(src, id) {
     return src.getElementById(id)
 }
 
-function docbid(id) {
+function dgid(id) {
     return document.getElementById(id)
 }
 
@@ -66,14 +70,10 @@ function stringOfPropertiesOfObject(object) {
 }
 
 
-/*** Turn system ***/
+/*** Turns ***/
 
 var turn = 1;
 var currentPlayer = 1;
-
-function updateTurnText() {
-    document.getElementById("stats_title").textContent = "Player " + currentPlayer + "'s turn"
-}
 
 function finishTurn() {
     currentPlayer = (currentPlayer % 2) + 1;
@@ -81,7 +81,32 @@ function finishTurn() {
     updateTurnText();
 }
 
-/*** Grid point system ***/
+/*** Alert box ***/
+
+function alertInBox(alert, duration) {
+    dgid("helper").hidden = true;
+    dgid("stats_alert").textContent = alert;
+    hideBoxParameters();
+    setTimeout(endBoxAlert, duration);
+}
+
+function endBoxAlert() {
+    dgid("stats_alert").hidden = true;
+    updateTurnText();
+}
+
+function hideBoxParameters() {
+    enumerate(displayParameters, function(key) {
+              dgid("stats_"+key).textContent = "";
+              dgid("stats_row_"+key).hidden = true;
+              })
+}
+
+function updateTurnText() {
+    dgid("stats_title").textContent = "Player " + currentPlayer + "'s turn"
+}
+
+/*** Grid points ***/
 
 /* Converts between SVG scene coordinates and abstract grid coordinates */
 
@@ -144,6 +169,11 @@ function createNode(parameters) {
     //return(node); /* enable if the node is needed for anything */
 }
 
+function parametersForNode(node) {
+    var array = parameterArrays[node.getAttribute("type")];
+    return array[node.getAttribute("arrayNumber")]
+}
+
 function nodeClicked(event) {
     var location = parametersForNode(this).gridLocation
     if (selectedUnit == "none") {
@@ -152,50 +182,38 @@ function nodeClicked(event) {
             toggleSelectionOfUnit(this);
             }
             else {
-                alert("This unit belongs to player " + parametersForNode(this).player + ", and it's currently player " + currentPlayer + "'s turn. Only the current player's units can be selected!")
+                alertInBox("This unit belongs to player " + parametersForNode(this).player + ", and it's currently player " + currentPlayer + "'s turn. Only the current player's units can be selected!", 1000)
             }
         }
     }
     else {
         switch (unitMoveTypeForPoint(parametersForNode(this).gridLocation)) {
-            case "move": setGridLocation(selectedUnit, parametersForNode(this).gridLocation); break;
-            case "attack": attack(selectedUnit, unitAtPoint(location)); break;
+            case "move": setGridLocation(selectedUnit, parametersForNode(this).gridLocation); finishTurn(); break;
+            case "attack": attack(selectedUnit, unitAtPoint(location)); finishTurn(); break;
+            default: break;
         }
         toggleSelectionOfUnit(selectedUnit);
-        finishTurn();
     }
 }
 
 function nodeMouseOver(event) {
     if (this.getAttribute("type") == "unit") {
-        var params = parametersForNode(this)
-        for (key in {player: params.player, health: params.health, attack: params.attack, speed: params.speed}) {
-            docbid("stats_"+key).textContent = params[key]
-            docbid("stats_row_"+key).hidden = false;
-        }
-        docbid("helper").hidden = true;
+        var params = parametersForNode(this);
+        dgid("helper").hidden = true;
+        dgid("stats_title").textContent = params.displayName
+        enumerate(displayParameters, function(key){
+            dgid("stats_"+key).textContent = params[key]
+            dgid("stats_row_"+key).hidden = false;
+        })
     }
 }
 
 function nodeMouseOut(event) {
     updateTurnText();
-    docbid("helper").hidden = false;
-    docbid("stats_player").textContent = "";
-    docbid("stats_health").textContent = "";
-    docbid("stats_attack").textContent = "";
-    docbid("stats_speed").textContent = "";
-    docbid("stats_row_player").hidden = true;
-    docbid("stats_row_health").hidden = true;
-    docbid("stats_row_attack").hidden = true;
-    docbid("stats_row_speed").hidden = true;
+    dgid("helper").hidden = false;
 }
 
-function parametersForNode(node) {
-    var array = parameterArrays[node.getAttribute("type")];
-    return array[node.getAttribute("arrayNumber")]
-}
-
-/*** Tile system ***/
+/*** Tiles ***/
 
 function resetTileHighlighting() {
     function reset(tile) {
@@ -247,7 +265,7 @@ function unitMoveTypeForPoint(point) {
     return "none";
 }
 
-/*** Unit system ***/
+/*** Units ***/
 
 var selectedUnit = "none";
 
