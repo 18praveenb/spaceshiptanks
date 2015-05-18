@@ -46,15 +46,15 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 1});
+    setStat({player: p1, key: "speed", value: 4});
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 2});
+    setStat({player: p2, key: "speed", value: 6});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
-    window.setInterval(update(), 50);
+    window.setInterval(update, 10);
 }
 
 /*** Helper functions ***/
@@ -150,6 +150,11 @@ function update(){
     p1.node.setAttribute("y", p1y);
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
+    
+    /* Make the SVG scene the same size as the window
+    sa(scene, "width", window.innerWidth);
+    sa(scene, "height", window.innerHeight);
+    
 }
 
 
