@@ -46,11 +46,11 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 51});
+    setStat({player: p1, key: "speed", value: 10});
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 10});
+    setStat({player: p2, key: "speed", value: 20});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
@@ -186,28 +186,28 @@ function keyUp(event) {
 }
 
 function keyDown(event) {
-    event.preventDefault(); /*stop keyboard scrolling of browser*/
+    
             
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             //p("left");
             p1.vx = -1;
-            //event.preventDefault(); /*stop keyboard scrolling of browser*/
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */: 
             //p("right"); 
             p1.vx = 1;
-            //event.preventDefault(); /*stop keyboard scrolling of browser*/
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */: 
             //p("up");
             p1.vy= -1;
-            //event.preventDefault(); /*stop keyboard scrolling of browser*/
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 40 /* down arrow */: 
             //p("down"); 
             p1.vy= 1;
-            //event.preventDefault(); /*stop keyboard scrolling of browser*/
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
             
         case 65 /* A(left) */:
