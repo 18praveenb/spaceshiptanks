@@ -115,7 +115,7 @@ function makeUnitInfoVisible() {
 }
 
 function showTurnText() {
-    if showingAlert {return}
+    if (showingAlert) {return}
     dgid("stats_alert").hidden = true;
     dgid("helper").hidden = false;
     dgid("stats_title").hidden = false;
@@ -124,7 +124,7 @@ function showTurnText() {
 }
 
 function showInfo(unit) {
-    if showingAlert {return}
+    if (showingAlert) {return}
     dgid("stats_alert").hidden = true;
     var params = parametersForNode(unit);
     dgid("helper").hidden = true;
