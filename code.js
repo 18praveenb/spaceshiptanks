@@ -12,7 +12,7 @@ var p1 = {
 node: "none",
 health:0,
 attack:0,
-speed:0,
+speed:10,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
@@ -21,7 +21,7 @@ var p2 = {
 node:"none",
 health:0,
 attack:0,
-speed:0,
+speed:10,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
@@ -46,15 +46,15 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 1});
+    setStat({player: p1, key: "speed", value: 10});
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 2});
+    setStat({player: p2, key: "speed", value: 20});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
-    window.setInterval(update(), 50);
+    setInterval(function(){update()}, 50);
 }
 
 /*** Helper functions ***/
@@ -186,24 +186,26 @@ function keyUp(event) {
 }
 
 function keyDown(event) {
+    
+            
     switch (event.keyCode) {
         case 37 /* left arrow */: 
-            p("left");
+            //p("left");
             p1.vx = -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */: 
-            p("right"); 
+            //p("right"); 
             p1.vx = 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */: 
-            p("up");
+            //p("up");
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 40 /* down arrow */: 
-            p("down"); 
+            //p("down"); 
             p1.vy= 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
