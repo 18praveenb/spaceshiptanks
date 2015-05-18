@@ -26,7 +26,7 @@ vy:0 /* y velocity */
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
 function setStat(params) {
-    /* get the p1 or p2 object and set its (health, attack, etc.) to whatever */
+    /* get the p1 or p2 object and set its (health, attack, etc.) to whatevy */
     params.player[params.key] = params.value
     /* generates a string "p1" or "p2" based on whether the player is the p1 object or the p2 object */
     var player;
@@ -123,10 +123,10 @@ function createNode(parameters) {
 /* Update will process movement of players, bullets, etc. as well as collision detection and other future stuff. Essentially a new frame */
 function update(){
     /* Future positions */
-    var p1x = parseInt(p1move.node.getAttribute("x"),10)+p1move.speed*p1move.hor;
-    var p1y = parseInt(p1move.node.getAttribute("y"),10)+p1move.speed*p1move.ver;
-    var p2x = parseInt(p2move.node.getAttribute("x"),10)+p2move.speed*p2move.hor;
-    var p2y = parseInt(p2move.node.getAttribute("y"),10)+p2move.speed*p2move.ver;
+    var p1x = parseInt(p1.node.getAttribute("x"),10)+p1.speed*p1.vx;
+    var p1y = parseInt(p1.node.getAttribute("y"),10)+p1.speed*p1.vy;
+    var p2x = parseInt(p2.node.getAttribute("x"),10)+p2.speed*p2.vx;
+    var p2y = parseInt(p2.node.getAttribute("y"),10)+p2.speed*p2.vy;
     /* Check if outside bounds */
     if(p1x < 50){p1x = 50;}
     if(p1y < 50){p1y = 50;}
@@ -141,8 +141,8 @@ function update(){
     p1.node.setAttribute("x", p1x);
     p1.node.setAttribute("y", p1y);
     
-    p2move.node.setAttribute("x", p2x);
-    p2move.node.setAttribute("y", p2y);
+    p2.node.setAttribute("x", p2x);
+    p2.node.setAttribute("y", p2y);
 }
 
 
@@ -151,29 +151,29 @@ function update(){
 function keyUp(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
-            p1move.hor = 0;
+            p1.vx = 0;
             break;
         case 39 /* right arrow */:
-            p1move.hor = 0;
+            p1.vx = 0;
             break;
         case 38 /* up arrow */:
-            p1move.ver = 0;
+            p1.vy = 0;
             break;
         case 40 /* down arrow */:
-            p1move.ver = 0;
+            p1.vy = 0;
             break;
             
         case 65 /* A(left) */:
-            p2move.hor = 0;
+            p2.vx = 0;
             break;
         case 68 /* D(right) */:
-            p2move.hor = 0;
+            p2.vx = 0;
             break;
         case 87 /* W(up) */:
-            p2move.ver= 0;
+            p2.vy= 0;
             break;
         case 83 /* S(down) */:
-            p2move.ver= 0;
+            p2.vy= 0;
             break;
     }
 }
@@ -182,32 +182,32 @@ function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */: 
             p("left");
-            p1move.hor = -1;
+            p1.vx = -1;
             break;
         case 39 /* right arrow */: 
             p("right"); 
-            p1move.hor = 1;
+            p1.vx = 1;
             break;
         case 38 /* up arrow */: 
             p("up");
-            p1move.ver= -1;
+            p1.vy= -1;
             break;
         case 40 /* down arrow */: 
             p("down"); 
-            p1move.ver= 1;
+            p1.vy= 1;
             break;
             
         case 65 /* A(left) */:
-            p2move.hor = -1;
+            p2.vx = -1;
             break;
         case 68 /* D(right) */:
-            p2move.hor = 1;
+            p2.vx = 1;
             break;
         case 87 /* W(up) */:
-            p2move.ver= -1;
+            p2.vy= -1;
             break;
         case 83 /* S(down) */:
-            p2move.ver= 1;
+            p2.vy= 1;
             break;
         
     }
