@@ -12,7 +12,7 @@ var p1 = {
 node: "none",
 health:0,
 attack:0,
-speed:0,
+speed:10,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
@@ -21,7 +21,7 @@ var p2 = {
 node:"none",
 health:0,
 attack:0,
-speed:0,
+speed:10,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
