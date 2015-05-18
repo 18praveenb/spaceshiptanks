@@ -1,10 +1,10 @@
 body {
     font-family: "Iceland", sans-serif;
+    margin: 0px;
 }
 
 #scene {
     background-color: lime;
-    position: absolute;
 }
 
 table.stat {
@@ -29,7 +29,6 @@ th.stat {
 }
 
 .key {
-    font-weight: bold;
     text-align: center;
 }
 
