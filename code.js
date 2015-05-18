@@ -27,18 +27,22 @@ unit: [] /* Keys: type, svg, health, speed, player, attack, gridLocation */
 
 /*** Helper functions ***/
 
+/* Quicker way to write getAttribute */
 function ga(node, attr) {
     return node.getAttribute(attr)
 }
 
+/* Quicker way to write setAttribute */
 function sa(node, attr, val) {
     node.setAttribute(attr, val)
 }
 
+/* Quicker way to write getElementById */
 function gid(src, id) {
     return src.getElementById(id)
 }
 
+/* Quicker way to write document.getElementById */
 function dgid(id) {
     return document.getElementById(id)
 }
@@ -172,6 +176,8 @@ function createNode(parameters) {
     node.addEventListener("click", nodeClicked);
     node.addEventListener("mouseover", nodeMouseOver);
     node.addEventListener("mouseout", nodeMouseOut);
+    
+    node.setAttribute("highlight", "unit_idle");
     
     scene.appendChild(node);
     //return(node); /* enable if the node is needed for anything */

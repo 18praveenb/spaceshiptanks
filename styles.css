@@ -78,9 +78,26 @@ table.stats {
 }
 
 [highlight="unit_selected"] .highlight * {
+    animation-duration: 1s;
+    animation-name: pulse;
+    animation-iteration-count: infinite;
     -webkit-animation-duration: 1s;
     -webkit-animation-name: pulse;
     -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+    from {
+        fill-opacity: 0.2;
+    }
+    
+    50% {
+        fill-opacity: 0.35;
+    }
+    
+    to {
+        fill-opacity: 0.2;
+    }
 }
 
 @-webkit-keyframes pulse {
@@ -89,7 +106,7 @@ table.stats {
     }
     
     50% {
-        fill-opacity: 0.5;
+        fill-opacity: 0.35;
     }
     
     to {
@@ -98,11 +115,25 @@ table.stats {
 }
 
 .gun {
+    transform-origin: 15.5px 18px;
+    animation-duration: 5s;
+    animation-name: rotategun;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
     -webkit-transform-origin: 15.5px 18px;
     -webkit-animation-duration: 5s;
     -webkit-animation-name: rotategun;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: linear;
+}
+
+@keyframes rotategun {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @-webkit-keyframes rotategun {
