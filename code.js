@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-console.log("hi");
+
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -190,22 +190,22 @@ function keyDown(event) {
         case 37 /* left arrow */: 
             //p("left");
             p1.vx = -1;
-            event.preventDefault(); /*stop keyboard scrolling of browser*/
+            //event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */: 
             //p("right"); 
             p1.vx = 1;
-            event.preventDefault(); /*stop keyboard scrolling of browser*/
+            //event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */: 
             //p("up");
             p1.vy= -1;
-            event.preventDefault(); /*stop keyboard scrolling of browser*/
+            //event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 40 /* down arrow */: 
             //p("down"); 
             p1.vy= 1;
-            event.preventDefault(); /*stop keyboard scrolling of browser*/
+            //event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
             
         case 65 /* A(left) */:
