@@ -6,6 +6,7 @@ unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
 
 window.onload = function(){
+    /*
     document.getElementById("statsp1health").innerHTML=50;
     document.getElementById("statsp1speed").innerHTML=2;
     document.getElementById("statsp1attack").innerHTML=10;
@@ -13,6 +14,7 @@ window.onload = function(){
     document.getElementById("statsp2health").innerHTML=20;
     document.getElementById("statsp2speed").innerHTML=3;
     document.getElementById("statsp2attack").innerHTML=15;
+    */
 }
 
 var playerArray = Array();
@@ -164,12 +166,22 @@ function nodeMouseOver(event) {
     if (this.getAttribute("type") == "unit") {
         var params = parametersForNode(this)
         var shortlistParams = {"unit": params.svg, "speed": params.speed, "HP": params.HP, "attack": params.attack, "player": params.player}
-        document.getElementById("info").textContent = stringOfPropertiesOfObject(shortlistParams)
+        document.getElementById("info").textContent = stringOfPropertiesOfObject(shortlistParams);
+        document.getElementById("statsunit").innerHTML = params.svg.charAt(0).toUpperCase() + params.svg.slice(1);
+        document.getElementById("statshealth").innerHTML = params.HP;
+        document.getElementById("statsattack").innerHTML = params.attack;
+        document.getElementById("statsspeed").innerHTML = params.speed;
     }
 }
 
 function nodeMouseOut(event) {
     updateTurnText();
+    document.getElementById("statsunit").innerHTML = "";
+    document.getElementById("statshealth").innerHTML = "";
+    document.getElementById("statsattack").innerHTML = "";
+    document.getElementById("statsspeed").innerHTML = "";
+    
+    
 }
 
 function parametersForNode(node) {
