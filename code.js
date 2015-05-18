@@ -54,7 +54,7 @@ function buildScene() {
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
-    window.setInterval(update(), 1);
+    window.setInterval(update(), 50);
 }
 
 /*** Helper functions ***/
