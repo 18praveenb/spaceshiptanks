@@ -87,35 +87,52 @@ function finishTurn() {
 
 /*** Alert box ***/
 
+var showingAlert = false;
+
 function alertInBox(alert, duration) {
     dgid("helper").hidden = true;
     dgid("stats_title").hidden = true;
     dgid("stats_alert").hidden = false;
     dgid("stats_alert").textContent = alert;
     hideBoxParameters();
-    setTimeout(endBoxAlert, duration);
-}
-
-function endBoxAlert() {
-    dgid("stats_alert").hidden = true;
-    showTurnText();
+    if (duration) {
+        var showingAlert = true;
+        setTimeout(function() {showingAlert = false; showTurnText}, duration)
+    }
 }
 
 function hideBoxParameters() {
     enumerate(displayParameters, function(key) {
-              dgid("stats_"+key).textContent = "";
               dgid("stats_row_"+key).hidden = true;
               })
 }
 
+function makeUnitInfoVisible() {
+    dgid("stats_title").hidden = false;
+    enumerate(displayParameters, function(key) {
+              dgid("stats_row_"+key).hidden = false;
+              })
+}
+
 function showTurnText() {
+    if showingAlert {return}
+    dgid("stats_alert").hidden = true;
     dgid("helper").hidden = false;
     dgid("stats_title").hidden = false;
-    enumerate(displayParameters, function(param) {
-              dgid("stats_"+param).textContent = "";
-              dgid("stats_row_"+param).hidden = true;
-              })
+    hideBoxParameters();
     dgid("stats_title").textContent = "Player " + currentPlayer + "'s turn"
+}
+
+function showInfo(unit) {
+    if showingAlert {return}
+    dgid("stats_alert").hidden = true;
+    var params = parametersForNode(unit);
+    dgid("helper").hidden = true;
+    dgid("stats_title").textContent = params.displayName
+    enumerate(displayParameters, function(key){
+              dgid("stats_"+key).textContent = params[key]
+              dgid("stats_row_"+key).hidden = false;
+              })
 }
 
 /*** Grid points ***/
@@ -177,7 +194,12 @@ function createNode(parameters) {
     node.addEventListener("mouseover", nodeMouseOver);
     node.addEventListener("mouseout", nodeMouseOut);
     
-    node.setAttribute("highlight", "unit_idle");
+    if (node.type == "unit") {
+        node.setAttribute("highlight", "unit_idle");
+    }
+    else {
+        node.setAttribute("highlight", "none")
+    }
     
     scene.appendChild(node);
     //return(node); /* enable if the node is needed for anything */
@@ -196,7 +218,7 @@ function nodeClicked(event) {
             toggleSelectionOfUnit(this);
             }
             else {
-                alertInBox("You can't select this unit. It belongs to another player.", 2000)
+                alertInBox("You can't select this unit. It belongs to another player.")
             }
         }
     }
@@ -212,19 +234,12 @@ function nodeClicked(event) {
 
 function nodeMouseOver(event) {
     if (this.getAttribute("type") == "unit") {
-        var params = parametersForNode(this);
-        dgid("helper").hidden = true;
-        dgid("stats_title").textContent = params.displayName
-        enumerate(displayParameters, function(key){
-            dgid("stats_"+key).textContent = params[key]
-            dgid("stats_row_"+key).hidden = false;
-        })
+        showInfo(this);
     }
 }
 
 function nodeMouseOut(event) {
     showTurnText();
-    dgid("helper").hidden = false;
 }
 
 /*** Tiles ***/
