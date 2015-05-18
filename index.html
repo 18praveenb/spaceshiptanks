@@ -11,43 +11,49 @@
     </head>
     <body>
         <!-- Main SVG scene with units, tiles, etc. -->
-        <svg style = "border: 5px solid black" width="1000" height="1000" id="scene">
+        <svg width="1000" height="1000" id="scene">
         </svg>
         <!-- The new Stat tables -->
         <!-- Stat table for player 1 -->
-        <table class="stat p1 table">
+        <table class="stat p1">
             <tr>
                 <th class="stat p1 title">Player 1</th>
             </tr>
             <tr>
-              <td>
-                  <p class="stat p1 key">Health</p>
-                  <p id="p1_health" class="stat p1 value">health</p>
-              </td>
+                <td class="stat p1 key"> Health:
+                    <span id="p1_health" class="stat p1 value"></span>
+                </td>
             </tr>
             <tr>
-              <td>
-                  <p class="stat p1 key">Attack</p>
-                  <p id="p1_attack" class="stat p1 value">attack</p>
-              </td>
+                <td class="stat p1 key"> Attack:
+                    <span id="p1_attack" class="stat p1 value"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="stat p1 key"> Speed:
+                    <span id="p1_speed" class="stat p1 value"></span>
+                </td>
             </tr>
         </table>
 
         <!-- Stat table for player 2 -->
-        <table class="stat p2 box">
+        <table class="stat p2">
             <tr>
                 <th class="stat p2 title">Player 2</th>
             </tr>
             <tr>
-                <td>
-                    <p class="stat p2 key">Health</p>
-                    <p id="p2_health" class="stat p2 value">health</p>
+                <td class="stat p2 key"> Health:
+                    <span id="p2_health" class="stat p2 value"></span>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <p class="stat p2 key">Attack</p>
-                    <p id="p2_attack" class="stat p2 value">attack</span>
+                <td class="stat p2 key"> Attack:
+                    <span id="p2_attack" class="stat p2 value"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="stat p2 key"> Speed:
+                    <span id="p2_speed" class="stat p2 value"></span>
                 </td>
             </tr>
         </table>

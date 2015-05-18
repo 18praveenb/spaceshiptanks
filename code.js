@@ -12,6 +12,7 @@ var p1 = {
 node: "none",
 health:0,
 attack:0,
+speed:0,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
@@ -20,6 +21,7 @@ var p2 = {
 node:"none",
 health:0,
 attack:0,
+speed:0,
 vx:0, /* x velocity */
 vy:0 /* y velocity */
 }
@@ -42,10 +44,13 @@ function buildScene() {
     p1.node = createNode({svg:"spaceship", player:1, x:0, y:0});
     p2.node = createNode({svg:"spaceship", player:2, x:100, y:0});
     
-    setStat({player: p1, key: "health", value: 20});
+    setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
+    setStat({player: p1, key: "speed", value: 1});
+    
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
+    setStat({player: p2, key: "speed", value: 2});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
@@ -122,11 +127,13 @@ function createNode(parameters) {
 
 /* Update will process movement of players, bullets, etc. as well as collision detection and other future stuff. Essentially a new frame */
 function update(){
+    
     /* Future positions */
-    var p1x = parseInt(p1.node.getAttribute("x"),10)+p1.speed*p1.vx;
-    var p1y = parseInt(p1.node.getAttribute("y"),10)+p1.speed*p1.vy;
-    var p2x = parseInt(p2.node.getAttribute("x"),10)+p2.speed*p2.vx;
-    var p2y = parseInt(p2.node.getAttribute("y"),10)+p2.speed*p2.vy;
+    var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
+    var p1y = ga(p1.node, "y")*1 + p1.speed*p1.vy;
+    var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
+    var p2y = ga(p2.node, "y")*1 + p2.speed*p2.vy;
+    
     /* Check if outside bounds */
     if(p1x < 50){p1x = 50;}
     if(p1y < 50){p1y = 50;}
@@ -137,10 +144,10 @@ function update(){
     if(p2y < 50){p2y = 50;}
     if(p2x > 950){p2x = 950;}
     if(p2y > 950){p2y = 950;}
+    
     /* Set new positions */
     p1.node.setAttribute("x", p1x);
     p1.node.setAttribute("y", p1y);
-    
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
 }
@@ -183,18 +190,22 @@ function keyDown(event) {
         case 37 /* left arrow */: 
             p("left");
             p1.vx = -1;
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */: 
             p("right"); 
             p1.vx = 1;
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */: 
             p("up");
             p1.vy= -1;
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 40 /* down arrow */: 
             p("down"); 
             p1.vy= 1;
+            event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
             
         case 65 /* A(left) */:
