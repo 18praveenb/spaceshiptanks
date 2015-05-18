@@ -1,6 +1,6 @@
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
-unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
+unit: [] /* Keys: type, svg, health, speed, player, attack, gridLocation */
 }
 
 var objectsNotLoaded = 2; /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
@@ -16,12 +16,28 @@ function buildScene() {
             createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});
         }
     }
-    createNode({type:"unit", svg:"spaceship", HP:50, speed:2, attack:10, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship", HP:50 speed:3, attack:9, player:1, gridLocation:{"x":6,"y":2}});
+    createNode({type:"unit", svg:"spaceship", health:50, speed:2, attack:10, player:1, gridLocation:{"x":0,"y":2}});
+    createNode({type:"unit", svg:"spaceship", health:50, speed:3, attack:9, player:2, gridLocation:{"x":6,"y":2}});
     updateTurnText();
 }
 
 /*** Helper functions ***/
+
+function ga(node, attr) {
+    return node.getAttribute(attr)
+}
+
+function sa(node, attr, val) {
+    node.setAttribute(attr, val)
+}
+
+function gebid(src, id) {
+    return src.getElementById(id)
+}
+
+function docbid(id) {
+    return document.getElementById(id)
+}
 
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
@@ -53,15 +69,15 @@ function stringOfPropertiesOfObject(object) {
 /*** Turn system ***/
 
 var turn = 1;
-var currentPlayer = 0;
+var currentPlayer = 1;
 
 function updateTurnText() {
-    document.getElementById("info").textContent = "Turn " + turn + ", player " + (currentPlayer+1);
+    document.getElementById("stats_title").textContent = "Player " + currentPlayer + "'s turn"
 }
 
 function finishTurn() {
-    currentPlayer = (currentPlayer + 1) % 2;
-    if (currentPlayer == 0) {++turn}
+    currentPlayer = (currentPlayer % 2) + 1;
+    if (currentPlayer == 1) {++turn}
     updateTurnText();
 }
 
@@ -125,14 +141,19 @@ function createNode(parameters) {
     node.addEventListener("mouseout", nodeMouseOut);
     
     scene.appendChild(node);
-    //return(node);
+    //return(node); /* enable if the node is needed for anything */
 }
 
 function nodeClicked(event) {
     var location = parametersForNode(this).gridLocation
     if (selectedUnit == "none") {
-        if ((this.getAttribute("type") == "unit") && (parametersForNode(this).player == currentPlayer)) {
+        if ((this.getAttribute("type") == "unit")) {
+            if (parametersForNode(this).player == currentPlayer) {
             toggleSelectionOfUnit(this);
+            }
+            else {
+                alert("This unit belongs to player " + parametersForNode(this).player + ", and it's currently player " + currentPlayer + "'s turn. Only the current player's units can be selected!")
+            }
         }
     }
     else {
@@ -140,30 +161,33 @@ function nodeClicked(event) {
             case "move": setGridLocation(selectedUnit, parametersForNode(this).gridLocation); break;
             case "attack": attack(selectedUnit, unitAtPoint(location)); break;
         }
-        toggleSelectionOfUnit(selectedUnit)
+        toggleSelectionOfUnit(selectedUnit);
+        finishTurn();
     }
 }
 
 function nodeMouseOver(event) {
     if (this.getAttribute("type") == "unit") {
         var params = parametersForNode(this)
-        var shortlistParams = {"unit": params.svg, "speed": params.speed, "HP": params.HP, "attack": params.attack, "player": params.player}
-        document.getElementById("info").textContent = stringOfPropertiesOfObject(shortlistParams);
-        document.getElementById("statsunit").innerHTML = params.svg.charAt(0).toUpperCase() + params.svg.slice(1);
-        document.getElementById("statshealth").innerHTML = params.HP;
-        document.getElementById("statsattack").innerHTML = params.attack;
-        document.getElementById("statsspeed").innerHTML = params.speed;
+        for (key in {player: params.player, health: params.health, attack: params.attack, speed: params.speed}) {
+            docbid("stats_"+key).textContent = params[key]
+            docbid("stats_row_"+key).hidden = false;
+        }
+        docbid("helper").hidden = true;
     }
 }
 
 function nodeMouseOut(event) {
     updateTurnText();
-    document.getElementById("statsunit").innerHTML = "";
-    document.getElementById("statshealth").innerHTML = "";
-    document.getElementById("statsattack").innerHTML = "";
-    document.getElementById("statsspeed").innerHTML = "";
-    
-    
+    docbid("helper").hidden = false;
+    docbid("stats_player").textContent = "";
+    docbid("stats_health").textContent = "";
+    docbid("stats_attack").textContent = "";
+    docbid("stats_speed").textContent = "";
+    docbid("stats_row_player").hidden = true;
+    docbid("stats_row_health").hidden = true;
+    docbid("stats_row_attack").hidden = true;
+    docbid("stats_row_speed").hidden = true;
 }
 
 function parametersForNode(node) {
@@ -208,14 +232,16 @@ function unitAtPoint(point) {
 }
 
 function unitMoveTypeForPoint(point) {
-    var unit = unitAtPoint(point);
-    var difference = gridPointDifference(point, gridPointForNode(selectedUnit));
-    if (difference <= parametersForNode(selectedUnit).speed && difference > 0) {
-        if (unit == "none") {
-            return "move";
-        }
-        else {
-            return "attack";
+    if (selectedUnit != "none") {
+        var unit = unitAtPoint(point);
+        var difference = gridPointDifference(point, gridPointForNode(selectedUnit));
+        if (difference <= parametersForNode(selectedUnit).speed && difference > 0) {
+            if (unit == "none") {
+                return "move";
+            }
+            else {
+                return "attack";
+            }
         }
     }
     return "none";
@@ -247,17 +273,15 @@ function setGridLocation(unit, newGridLocation) {
     parameterArrays.unit[unit.getAttribute("arrayNumber")].gridLocation = newGridLocation;
     unit.setAttribute("x", locationForGridPoint(newGridLocation).x);
     unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
-    finishTurn();
 }
 
 function attack(from, to) {
-    finishTurn();
-    parametersForNode(to).HP -= parametersForNode(from).attack;
-    if (parametersForNode(to).HP <= 0) {
+    parametersForNode(to).health -= parametersForNode(from).attack;
+    if (parametersForNode(to).health <= 0) {
         to.remove();
-        parametersForNode(to).HP = 0;
+        parametersForNode(to).health = 0;
     }
-    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
+    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).health;
 }
 
 /*

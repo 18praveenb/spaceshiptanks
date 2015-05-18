@@ -10,60 +10,40 @@
         <link href="http://fonts.googleapis.com/css?family=Iceland" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <h1 style = "margin-left: 145px">Spaceship Tanks</h1>
         <!-- Main SVG scene with units, tiles, etc. -->
-        <svg style = "position: absolute" id="scene" width="350" height="250">
+        <svg width="350" height="250" id="scene">
         </svg>
-        
-        <!-- Info paragraph shows unit and turn information. -->
-        <p style = "position: absolute; margin-top:300px; margin-left: 140px" id="info"></p>
-        <p style = "position: absolute; margin-top:350px; margin-left: 140px"> View the source code and contribute
-            <a href="https://github.com/18praveenb/spaceshiptanks">here</a>
-        </p>
-        <!-- The new Stat tables -->
-        <!-- Stat table for player 1 -->
-        <table style = "position: absolute">
+        <!-- Statistic table for unit hover -->
+        <table class="stats">
             <tr>
-                <th style = "border: 5px solid black; border-bottom: none">Stats</th>  
+                <th id="stats_title" class="stats title">Info</th>
             </tr>
-            <tr>
-              <td><b>Unit:</b><span id = "statsunit"></span></td>
+            <tr id="helper">
+                <td>Hover over a unit for unit stats</td>
             </tr>
-            <tr>
-              <td><b>Health:</b><span id = "statshealth"></span></td>
+            <tr id="stats_row_player" hidden>
+                <td class="stats key">Player</td>
+                <td id="stats_player" class="stat value"></td>
             </tr>
-            <tr>
-                <td><b>Attack:</b><span id = "statsattack"></span></td>
+            <tr id="stats_row_health" hidden>
+                <td class="stats key">Health</td>
+                <td id="stats_health" class="stats value"></td>
             </tr>
-            <tr>
-                <td><b>Speed:</b><span id = "statsspeed"></span></td>
+            <tr id="stats_row_attack" hidden>
+                <td class="stats key">Attack</td>
+                <td id="stats_attack" class="stats value"></td>
             </tr>
-        </table>
-
-        <!-- Stat table for player 2 
-        <table style = "position: absolute; margin-left: 490px">
-            <tr>
-                <th style = "border: 5px solid black; border-bottom: none">Stats P2</th>
-            </tr>
-            <tr>
-                <td><b>Health:</b><span id = "statsp2health"></span></td>
-            </tr>
-            <tr>
-                <td><b>Attack:</b><span id = "statsp2attack"></span></td>
-            </tr>
-            <tr>
-                <td><b>Speed:</b><span id = "statsp2speed"></span></td>
+            <tr id="stats_row_speed" hidden>
+                <td class="stats key">Speed</td>
+                <td id="stats_speed" class="stats value"></td>
             </tr>
         </table>
-        -->
-
-        
-        
         <!-- Invisible objects store SVGs so that the JS can access them -->
-        <object onload="objectLoaded()" height="0" width="0" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
-        <object onload="objectLoaded()" height="0" width="0" id="grass" data="Resources/SVG/grass.svg"></object>
+        <object onload="objectLoaded()" class="hidden" id="spaceship" data="Resources/SVG/spaceship.svg" type="image/svg+xml"></object>
+        <object onload="objectLoaded()" class="hidden" id="grass" data="Resources/SVG/grass.svg"></object>
     </body>
 </html>
+
 
 <!--
 This is a poem
