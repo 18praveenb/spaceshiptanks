@@ -1,4 +1,4 @@
-/*** HTML Links and other fundamental stuff ***/
+/*** HTML links and other fundamental stuff ***/
 
 var displayParameters = ["player", "health", "attack", "speed"]; /*This should match precisely with the list of display cells in the HTML and be in the same order. */
 
@@ -17,7 +17,7 @@ function buildScene() {
     }
     createNode({displayName: "Space Destroyer", type:"unit", svg:"spaceship", health:50, speed:2, attack:10, player:1, gridLocation:{"x":0,"y":2}});
     createNode({displayName: "Why don't I get a cool title like Space Destroyer?", type:"unit", svg:"spaceship", health:50, speed:3, attack:9, player:2, gridLocation:{"x":6,"y":2}});
-    updateTurnText();
+    showTurnText();
 }
 
 var parameterArrays = {
@@ -78,13 +78,15 @@ var currentPlayer = 1;
 function finishTurn() {
     currentPlayer = (currentPlayer % 2) + 1;
     if (currentPlayer == 1) {++turn}
-    updateTurnText();
+    showTurnText();
 }
 
 /*** Alert box ***/
 
 function alertInBox(alert, duration) {
     dgid("helper").hidden = true;
+    dgid("stats_title").hidden = true;
+    dgid("stats_alert").hidden = false;
     dgid("stats_alert").textContent = alert;
     hideBoxParameters();
     setTimeout(endBoxAlert, duration);
@@ -92,7 +94,7 @@ function alertInBox(alert, duration) {
 
 function endBoxAlert() {
     dgid("stats_alert").hidden = true;
-    updateTurnText();
+    showTurnText();
 }
 
 function hideBoxParameters() {
@@ -102,7 +104,13 @@ function hideBoxParameters() {
               })
 }
 
-function updateTurnText() {
+function showTurnText() {
+    dgid("helper").hidden = false;
+    dgid("stats_title").hidden = false;
+    enumerate(displayParameters, function(param) {
+              dgid("stats_"+param).textContent = "";
+              dgid("stats_row_"+param).hidden = true;
+              })
     dgid("stats_title").textContent = "Player " + currentPlayer + "'s turn"
 }
 
@@ -182,7 +190,7 @@ function nodeClicked(event) {
             toggleSelectionOfUnit(this);
             }
             else {
-                alertInBox("This unit belongs to player " + parametersForNode(this).player + ", and it's currently player " + currentPlayer + "'s turn. Only the current player's units can be selected!", 1000)
+                alertInBox("You can't select this unit. It belongs to another player.", 2000)
             }
         }
     }
@@ -209,7 +217,7 @@ function nodeMouseOver(event) {
 }
 
 function nodeMouseOut(event) {
-    updateTurnText();
+    showTurnText();
     dgid("helper").hidden = false;
 }
 
@@ -228,8 +236,8 @@ function highlightTilesAroundUnit(unit) {
     function highlight(tile) {
         if (tile.getAttribute("type") == "tile") {
             switch (unitMoveTypeForPoint(parametersForNode(tile).gridLocation)) {
-                case "move": tile.setAttribute("highlight", "blue"); break;
-                case "attack": tile.setAttribute("highlight", "red"); break;
+                case "move": tile.setAttribute("highlight", "tile_move"); break;
+                case "attack": tile.setAttribute("highlight", "tile_attack"); break;
             }
         }
     }
@@ -272,7 +280,7 @@ var selectedUnit = "none";
 function toggleSelectionOfUnit(unit) {
     if (unit == selectedUnit) {
         selectedUnit = "none";
-        unit.setAttribute("highlight", "false");
+        unit.setAttribute("highlight", "unit_idle");
         resetTileHighlighting();
     }
     else {
@@ -281,7 +289,7 @@ function toggleSelectionOfUnit(unit) {
             toggleSelectionOfUnit(selectedUnit);
         }
         selectedUnit = unit;
-        unit.setAttribute("highlight", "true");
+        unit.setAttribute("highlight", "unit_selected");
         highlightTilesAroundUnit(unit);
     }
 }
@@ -293,13 +301,13 @@ function setGridLocation(unit, newGridLocation) {
     unit.setAttribute("y", locationForGridPoint(newGridLocation).y);
 }
 
+/* Currently lacking fancy animations :( */
 function attack(from, to) {
     parametersForNode(to).health -= parametersForNode(from).attack;
     if (parametersForNode(to).health <= 0) {
         to.remove();
         parametersForNode(to).health = 0;
     }
-    document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).health;
 }
 
 /*

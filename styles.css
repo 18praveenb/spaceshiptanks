@@ -1,7 +1,4 @@
-/*
-    TODO: Use CSS to animate the spaceships' moves, attacks, and deaths.
-        Overhaul this document.
- */
+/* TODO: Use CSS to animate the spaceships' moves, attacks, and deaths. This is the LAST item in the old Checkpoint 1 (which was a list of todo's that I made for myself to complete before adding new new features), and once it is implemented it will be time to draw up Checkpoint 2 and get started on implementing the strategy of the game! (or just work on the realtime spinoff for a while)  */
 
 body {
     font-family: "Iceland", sans-serif;
@@ -19,8 +16,7 @@ body {
 
 table.stats {
     background-color: white;
-    border: groove 5px gray;
-    border-radius: 5px;
+    border: outset 5px gray;
     bottom: 10px;
     left: 10px;
     width: 150px;
@@ -28,11 +24,12 @@ table.stats {
 }
 
 .stats.alert {
-    color: red;
+    color: #A00;
+    font-size: 110%;
 }
 
 .stats.title {
-    font-size: 140%;
+    font-size: 125%;
 }
 
 .stats.key {
@@ -53,29 +50,25 @@ table.stats {
     fill-opacity: 0;
 }
 
-[type="unit"] .highlight * {
-    fill-opacity: 0.2
-}
-
-[highlight="blue"] .highlight * {
-    fill-opacity: 0.4;
+[highlight="tile_move"] .highlight * {
+    fill-opacity: 0.2;
     fill: blue;
 }
 
-[highlight="red"] .highlight * {
-    fill-opacity: 0.6;
+[highlight="tile_attack"] .highlight * {
+    fill-opacity: 0.4;
     fill: red;
 }
 
-[highlight="true"] .highlight * {
-    fill-opacity: 1;
-}
-
-[player="0"] .highlight * {
-    fill: aqua;
+[highlight="unit_idle"] .highlight * {
+    fill-opacity: 0.2;
 }
 
 [player="1"] .highlight * {
+    fill: aqua;
+}
+
+[player="2"] .highlight * {
     fill: red;
 }
 
@@ -84,24 +77,40 @@ table.stats {
     user-select: none;
 }
 
-[highlight="true"] .highlight * {
+[highlight="unit_selected"] .highlight * {
+    -webkit-animation-duration: 1s;
+    -webkit-animation-name: pulse;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes pulse {
+    from {
+        fill-opacity: 0.2;
+    }
+    
+    50% {
+        fill-opacity: 0.5;
+    }
+    
+    to {
+        fill-opacity: 0.2;
+    }
+}
+
+.gun {
     -webkit-transform-origin: 15.5px 18px;
-    -webkit-animation-duration: 1.2s;
+    -webkit-animation-duration: 5s;
     -webkit-animation-name: rotategun;
     -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
 }
 
 @-webkit-keyframes rotategun {
     from {
-        opacity: 0.2;
+        -webkit-transform: rotate(0deg);
     }
-    
-    40% {
-        opacity: 0.6;
-    }
-    
     to {
-        opacity: 0.2;
+        -webkit-transform: rotate(360deg);
     }
 }
 
