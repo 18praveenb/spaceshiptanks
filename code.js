@@ -1,27 +1,10 @@
-/* test comment */
-console.log();
 var parameterArrays = {
 tile: [], /* Keys: type, svg, gridLocation */
 unit: [] /* Keys: type, svg, HP, speed, player, attack, gridLocation */
 }
 
-window.onload = function(){
-    /*
-    document.getElementById("statsp1health").innerHTML=50;
-    document.getElementById("statsp1speed").innerHTML=2;
-    document.getElementById("statsp1attack").innerHTML=10;
-    
-    document.getElementById("statsp2health").innerHTML=20;
-    document.getElementById("statsp2speed").innerHTML=3;
-    document.getElementById("statsp2attack").innerHTML=15;
-    */
-}
-
-var playerArray = Array();
-/* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
+var objectsNotLoaded = 2; /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
-var objectsNotLoaded = 2;
-
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -34,7 +17,7 @@ function buildScene() {
         }
     }
     createNode({type:"unit", svg:"spaceship", HP:50, speed:2, attack:10, player:0, gridLocation:{"x":0,"y":2}});
-    createNode({type:"unit", svg:"spaceship", HP:20, speed:3, attack:15, player:1, gridLocation:{"x":6,"y":2}});
+    createNode({type:"unit", svg:"spaceship", HP:50 speed:3, attack:9, player:1, gridLocation:{"x":6,"y":2}});
     updateTurnText();
 }
 
@@ -77,7 +60,6 @@ function updateTurnText() {
 }
 
 function finishTurn() {
-    
     currentPlayer = (currentPlayer + 1) % 2;
     if (currentPlayer == 0) {++turn}
     updateTurnText();
@@ -276,7 +258,6 @@ function attack(from, to) {
         parametersForNode(to).HP = 0;
     }
     document.getElementById("statsp"+(parametersForNode(to).player+1)+"health").innerHTML = parametersForNode(to).HP;
-    
 }
 
 /*
