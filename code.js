@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-p("hi");
+p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -147,8 +147,8 @@ function update(){
     var ymargin = ga(scene, "height")*1 - margin - 50;
 
     /* Set new angles */
-    p1.theta += p1.rotation_speed*p1.vr;
-    p2.theta += p2.rotation_speed*p2.vr;
+    p1.theta -= p1.rotation_speed*p1.vr;
+    p2.theta -= p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
