@@ -145,37 +145,36 @@ function update(){
     var margin = 10;
     var xmargin = ga(scene, "width")*1 - margin - 50;
     var ymargin = ga(scene, "height")*1 - margin - 50;
-    
-    /* Future positions */
-    //var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
-    var p1y = ga(p1.node, "y")*1 + p1.speed*p1.vy;
-    //var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
-    var p2y = ga(p2.node, "y")*1 + p2.speed*p2.vy;
-    
-    /* Check if outside bounds */
-    //if(p1x < margin){p1x = margin;}
-    if(p1y < margin){p1y = margin;}
-    //if(p1x > xmargin){p1x = xmargin;}
-    if(p1y > ymargin){p1y = ymargin;}
-    
-    //if(p2x < margin){p2x = margin;}
-    if(p2y < margin){p2y = margin;}
-    //if(p2x > xmargin){p2x = xmargin;}
-    if(p2y > ymargin){p2y = ymargin;}
-    
-    /* Set new positions */
-    //p1.node.setAttribute("x", p1x);
-    p1.node.setAttribute("y", p1y);
-    //p2.node.setAttribute("x", p2x);
-    p2.node.setAttribute("y", p2y);
-    
-    
-    
+
     /* Set new angles */
     p1.theta += p1.rotation_speed*p1.vr;
     p2.theta += p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
+    
+    /* Future positions */
+    var p1x = ga(p1.node, "x")*1 + p1.speed*(Math.cos(p1.theta*Math.PI/180))*p1.vy;
+    var p1y = ga(p1.node, "y")*1 + p1.speed*(Math.sin(p1.theta*Math.PI/180))*p1.vy;
+    var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy;
+    var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
+    
+    /* Check if outside bounds */
+    if(p1x < margin){p1x = margin;}
+    if(p1y < margin){p1y = margin;}
+    if(p1x > xmargin){p1x = xmargin;}
+    if(p1y > ymargin){p1y = ymargin;}
+    
+    if(p2x < margin){p2x = margin;}
+    if(p2y < margin){p2y = margin;}
+    if(p2x > xmargin){p2x = xmargin;}
+    if(p2y > ymargin){p2y = ymargin;}
+    
+    /* Set new positions */
+    p1.node.setAttribute("x", p1x);
+    p1.node.setAttribute("y", p1y);
+    p2.node.setAttribute("x", p2x);
+    p2.node.setAttribute("y", p2y);
+    
     
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
