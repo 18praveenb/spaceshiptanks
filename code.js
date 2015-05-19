@@ -13,7 +13,8 @@ node: "none",
 health:0,
 attack:0,
 speed:0,
-vx:0, /* x velocity */
+rotation_speed: 0, /* rotation speed */
+vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:0 /* rotated angle to vertical */
 }
@@ -23,7 +24,8 @@ node:"none",
 health:0,
 attack:0,
 speed:0,
-vx:0, /* x velocity */
+rotation_speed: 0, /* rotation speed */
+vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:0 /* rotated angle to vertical */
 }
@@ -165,7 +167,11 @@ function update(){
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
     
+    
+    
     /* Set new angles */
+    p1.theta += p1.rotation_speed*p1.vr;
+    p2.theta += p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
@@ -180,10 +186,10 @@ function update(){
 function keyUp(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
-            p1.vx = 0;
+            p1.vr = 0;
             break;
         case 39 /* right arrow */:
-            p1.vx = 0;
+            p1.vr = 0;
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
@@ -193,10 +199,10 @@ function keyUp(event) {
             break;
             
         case 65 /* A(left) */:
-            p2.vx = 0;
+            p2.rv = 0;
             break;
         case 68 /* D(right) */:
-            p2.vx = 0;
+            p2.rv = 0;
             break;
         case 87 /* W(up) */:
             p2.vy= 0;
@@ -210,11 +216,11 @@ function keyUp(event) {
 function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
-            p1.vx = -1;
+            p1.vr = -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */:
-            p1.vx = 1;
+            p1.vr = 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */:
@@ -227,10 +233,10 @@ function keyDown(event) {
             break;
             
         case 65 /* A(left) */:
-            p2.vx = -1;
+            p2.vr = -1;
             break;
         case 68 /* D(right) */:
-            p2.vx = 1;
+            p2.vr = 1;
             break;
         case 87 /* W(up) */:
             p2.vy= -1;
