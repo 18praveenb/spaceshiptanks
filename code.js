@@ -14,7 +14,8 @@ health:0,
 attack:0,
 speed:0,
 vx:0, /* x velocity */
-vy:0 /* y velocity */
+vy:0, /* y velocity */
+theta /* rotated angle to vertical */
 }
 
 var p2 = {
@@ -23,8 +24,10 @@ health:0,
 attack:0,
 speed:0,
 vx:0, /* x velocity */
-vy:0 /* y velocity */
+vy:0, /* y velocity */
+theta /* rotated angle to vertical */
 }
+
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
 function setStat(params) {
@@ -55,6 +58,9 @@ function buildScene() {
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
     window.setInterval(update, 20);
+    /* Set ids for the two spaceships */
+    document.getElementsByClassName("spaceship")[0].setAttribute("id","p1");
+    document.getElementsByClassName("spaceship")[1].setAttribute("id","p2");
 }
 
 /*** Helper functions ***/
@@ -84,6 +90,10 @@ function dgid(id) {
     return document.getElementById(id)
 }
 
+/* Rotate element */
+function rotat(id, degrees){
+    dgid(id).setAttribute("style","transform: rotate("+degrees+"deg); transform-origin: 25px 25px;");
+}
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
         /* The block can return a boolean value. Returning false ends enumeration. */
@@ -154,7 +164,7 @@ function update(){
     p1.node.setAttribute("y", p1y);
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
-    
+    dgid().style.webkitTransform = 'rotate('+deg+'deg)'; 
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
     sa(scene, "height", window.innerHeight);
