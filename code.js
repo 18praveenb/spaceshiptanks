@@ -145,26 +145,26 @@ function update(){
     var ymargin = ga(scene, "height")*1 - margin - 50;
     
     /* Future positions */
-    var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
+    //var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
     var p1y = ga(p1.node, "y")*1 + p1.speed*p1.vy;
-    var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
+    //var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
     var p2y = ga(p2.node, "y")*1 + p2.speed*p2.vy;
     
     /* Check if outside bounds */
-    if(p1x < margin){p1x = margin;}
+    //if(p1x < margin){p1x = margin;}
     if(p1y < margin){p1y = margin;}
-    if(p1x > xmargin){p1x = xmargin;}
+    //if(p1x > xmargin){p1x = xmargin;}
     if(p1y > ymargin){p1y = ymargin;}
     
-    if(p2x < margin){p2x = margin;}
+    //if(p2x < margin){p2x = margin;}
     if(p2y < margin){p2y = margin;}
-    if(p2x > xmargin){p2x = xmargin;}
+    //if(p2x > xmargin){p2x = xmargin;}
     if(p2y > ymargin){p2y = ymargin;}
     
     /* Set new positions */
-    p1.node.setAttribute("x", p1x);
+    //p1.node.setAttribute("x", p1x);
     p1.node.setAttribute("y", p1y);
-    p2.node.setAttribute("x", p2x);
+    //p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
     
     
