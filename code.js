@@ -164,7 +164,11 @@ function update(){
     p1.node.setAttribute("y", p1y);
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
-    dgid().style.webkitTransform = 'rotate('+deg+'deg)'; 
+    
+    /* Set new angles */
+    rotat("p1",p1.theta);
+    rotat("p2",p2.theta);
+    
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
     sa(scene, "height", window.innerHeight);
