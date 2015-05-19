@@ -96,7 +96,7 @@ function dgid(id) {
 
 /* Rotate element */
 function rotat(id, degrees){
-    dgid(id).setAttribute("style","transform: rotate("+degrees+"deg); transform-origin: 25px 25px;");
+    dgid(id).setAttribute("style","transform: rotate("+(90-degrees)+"deg); transform-origin: 25px 25px;");
 }
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
