@@ -52,12 +52,12 @@ function buildScene() {
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
     setStat({player: p1, key: "speed", value: 10});
-    p1.rotation_speed = 1.8; /* 90 degrees a second */
+    p1.rotation_speed = 3.6; /* 180 degrees a second */
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
     setStat({player: p2, key: "speed", value: 15});
-    p2.rotation_speed = 1.8;
+    p2.rotation_speed = 3.6;
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
@@ -201,10 +201,10 @@ function keyUp(event) {
             break;
             
         case 65 /* A(left) */:
-            p2.rv = 0;
+            p2.vr = 0;
             break;
         case 68 /* D(right) */:
-            p2.rv = 0;
+            p2.vr = 0;
             break;
         case 87 /* W(up) */:
             p2.vy= 0;
