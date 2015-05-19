@@ -52,10 +52,12 @@ function buildScene() {
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
     setStat({player: p1, key: "speed", value: 10});
+    setStat({player: p1, key: "rotation_speed", value:1.8});
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
     setStat({player: p2, key: "speed", value: 15});
+    setStat({player: p2, key: "rotation_speed", value:1.8});
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
