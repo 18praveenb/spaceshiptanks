@@ -13,7 +13,8 @@ node: "none",
 health:0,
 attack:0,
 speed:0,
-vx:0, /* x velocity */
+rotation_speed: 0, /* rotation speed */
+vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:0 /* rotated angle to vertical */
 }
@@ -23,7 +24,8 @@ node:"none",
 health:0,
 attack:0,
 speed:0,
-vx:0, /* x velocity */
+rotation_speed: 0, /* rotation speed */
+vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:0 /* rotated angle to vertical */
 }
@@ -50,10 +52,12 @@ function buildScene() {
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
     setStat({player: p1, key: "speed", value: 10});
+    p1.rotation_speed = 1.8; /* 90 degrees a second */
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
     setStat({player: p2, key: "speed", value: 15});
+    p2.rotation_speed = 1.8;
     
     window.addEventListener("keydown", keyDown);
     window.addEventListener("keyup", keyUp);
@@ -143,29 +147,33 @@ function update(){
     var ymargin = ga(scene, "height")*1 - margin - 50;
     
     /* Future positions */
-    var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
+    //var p1x = ga(p1.node, "x")*1 + p1.speed*p1.vx;
     var p1y = ga(p1.node, "y")*1 + p1.speed*p1.vy;
-    var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
+    //var p2x = ga(p2.node, "x")*1 + p2.speed*p2.vx;
     var p2y = ga(p2.node, "y")*1 + p2.speed*p2.vy;
     
     /* Check if outside bounds */
-    if(p1x < margin){p1x = margin;}
+    //if(p1x < margin){p1x = margin;}
     if(p1y < margin){p1y = margin;}
-    if(p1x > xmargin){p1x = xmargin;}
+    //if(p1x > xmargin){p1x = xmargin;}
     if(p1y > ymargin){p1y = ymargin;}
     
-    if(p2x < margin){p2x = margin;}
+    //if(p2x < margin){p2x = margin;}
     if(p2y < margin){p2y = margin;}
-    if(p2x > xmargin){p2x = xmargin;}
+    //if(p2x > xmargin){p2x = xmargin;}
     if(p2y > ymargin){p2y = ymargin;}
     
     /* Set new positions */
-    p1.node.setAttribute("x", p1x);
+    //p1.node.setAttribute("x", p1x);
     p1.node.setAttribute("y", p1y);
-    p2.node.setAttribute("x", p2x);
+    //p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
     
+    
+    
     /* Set new angles */
+    p1.theta += p1.rotation_speed*p1.vr;
+    p2.theta += p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
@@ -180,10 +188,10 @@ function update(){
 function keyUp(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
-            p1.vx = 0;
+            p1.vr = 0;
             break;
         case 39 /* right arrow */:
-            p1.vx = 0;
+            p1.vr = 0;
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
@@ -193,10 +201,10 @@ function keyUp(event) {
             break;
             
         case 65 /* A(left) */:
-            p2.vx = 0;
+            p2.rv = 0;
             break;
         case 68 /* D(right) */:
-            p2.vx = 0;
+            p2.rv = 0;
             break;
         case 87 /* W(up) */:
             p2.vy= 0;
@@ -210,11 +218,11 @@ function keyUp(event) {
 function keyDown(event) {
     switch (event.keyCode) {
         case 37 /* left arrow */:
-            p1.vx = -1;
+            p1.vr = -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 39 /* right arrow */:
-            p1.vx = 1;
+            p1.vr = 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 38 /* up arrow */:
@@ -227,10 +235,10 @@ function keyDown(event) {
             break;
             
         case 65 /* A(left) */:
-            p2.vx = -1;
+            p2.vr = -1;
             break;
         case 68 /* D(right) */:
-            p2.vx = 1;
+            p2.vr = 1;
             break;
         case 87 /* W(up) */:
             p2.vy= -1;
