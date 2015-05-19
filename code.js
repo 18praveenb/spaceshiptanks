@@ -15,7 +15,7 @@ attack:0,
 speed:0,
 vx:0, /* x velocity */
 vy:0, /* y velocity */
-theta /* rotated angle to vertical */
+theta:0 /* rotated angle to vertical */
 }
 
 var p2 = {
@@ -25,7 +25,7 @@ attack:0,
 speed:0,
 vx:0, /* x velocity */
 vy:0, /* y velocity */
-theta /* rotated angle to vertical */
+theta:0 /* rotated angle to vertical */
 }
 
 
