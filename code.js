@@ -16,7 +16,7 @@ speed:0,
 rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
-theta:0 /* rotated angle to vertical */
+theta:90 /* angle to horizontal */
 }
 
 var p2 = {
@@ -27,7 +27,7 @@ speed:0,
 rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
-theta:0 /* rotated angle to vertical */
+theta:90 /* angle to horizontal */
 }
 
 
