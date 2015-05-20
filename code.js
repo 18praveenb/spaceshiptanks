@@ -42,15 +42,15 @@ maxspeed:20
 
 function assignlethrusters(){
 /* Assign "thrust" class to thrusters */
-dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust1");
+dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust1");
+dgid("node_p1").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust1");
+dgid("node_p1").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust1");
 
-dgid("node_p2").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust2");
+dgid("node_p2").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust2");
+dgid("node_p2").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust2");
+dgid("node_p2").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust2");
 }
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
@@ -254,7 +254,7 @@ function keyUp(event) {
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
-            $(".thrust").attr("fill","#8C8C8C")
+            $(".thrust1").attr("fill","#8C8C8C")
             break;
         case 40 /* down arrow */:
             p1.vy = 0;
@@ -271,6 +271,7 @@ function keyUp(event) {
             break;
         case 87 /* W(up) */:
             p2.vy= 0;
+            $(".thrust2").attr("fill","#8C8C8C");
             break;
         case 83 /* S(down) */:
             p2.vy= 0;
@@ -292,7 +293,7 @@ function keyDown(event) {
         case 38 /* up arrow */:
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
-            $(".thrust").attr("fill","red");
+            $(".thrust1").attr("fill","red");
             break;
         case 40 /* down arrow */:
             p1.vy= 1;
@@ -313,6 +314,7 @@ function keyDown(event) {
             break;
         case 87 /* W(up) */:
             p2.vy= -1;
+            $(".thrust2").attr("fill","red");
             break;
         case 83 /* S(down) */:
             p2.vy= 1;
