@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-p("hiiiii");
+//p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -96,7 +96,7 @@ function dgid(id) {
 
 /* Rotate element */
 function rotat(id, degrees){
-    dgid(id).setAttribute("style","transform: rotate("+(90-degrees)+"deg); transform-origin: 25px 25px;");
+    dgid(id).setAttribute("style","-webkit-transform: rotate("+(90-degrees)+"deg); -webkit-transform-origin: 25px 25px;");
 }
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
