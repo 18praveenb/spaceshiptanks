@@ -105,10 +105,10 @@ function rotat(id, degrees){
 function circ(x, y, radius, color, underSpaceship){
     if(underSpaceship){
         /* Append to beginning of SVG so it is under spaceships */
-        dgid("scene").innerHTML = "<circle cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>"+dgid("scene").innerHTML;
+        dgid("scene").innerHTML = "<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>"+dgid("scene").innerHTML;
     }else {
         /* Append to end of SVG so it is over spaceships */
-        dgid("scene").innerHTML = dgid("scene").innerHTML+"<circle cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>";
+        dgid("scene").innerHTML = dgid("scene").innerHTML+"<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>";
     }
 }
 
@@ -259,6 +259,9 @@ function keyDown(event) {
             break;
         case 32 /* space */:
             p1.fire = 1;
+            break;
+        case 67 /* C button */:
+            $(".bullet").remove();
             break;
             
         case 65 /* A(left) */:
