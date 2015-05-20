@@ -103,6 +103,7 @@ function rotat(id, degrees){
 
 /* Add circle */
 function circ(x, y, radius, color, underSpaceship){
+    
     if(underSpaceship){
         /* Append to beginning of SVG so it is under spaceships */
         dgid("scene").innerHTML = "<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>"+dgid("scene").innerHTML;
@@ -195,7 +196,9 @@ function update(){
     sa(scene, "height", window.innerHeight);
     
     if(p1.fire == 1){
-    circ(ga(p1.node,"x"),ga(p1.node,"y"),4,"black",true);
+        var ex = ga(p1.node,"x")+25+Math.cos(p1.theta)*40;
+        var why = ga(p1.node,"y")+25+Math.sin(p1.theta)*40;
+        circ(ex,why,4,"black",true);
     }
     
     sa(dgid("node_p1"),"x",ga(p1.node,"x"));
