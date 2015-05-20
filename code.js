@@ -186,8 +186,8 @@ function update(){
         p2.speedy += Math.sin(p2.theta*Math.PI/180)*p1.acceleration*p2.vy;
     }
     
-    dgid("p1_speed").innerHTML = (Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))+"").substring(0,3);
-    dgid("p2_speed").innerHTML = (Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))+"").substring(0,3);
+    dgid("p1_speed").innerHTML = (Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))+"").substring(0,2);
+    dgid("p2_speed").innerHTML = (Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))+"").substring(0,2);
     
     /* Future positions */
     var p1x = ga(p1.node, "x")*1 + p1.speedx;
