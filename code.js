@@ -153,9 +153,9 @@ function update(){
     rotat("p2",p2.theta);
     
     /* Future positions */
-    var p1x = ga(p1.node, "x")*1 + p1.speed*(Math.cos(p1.theta*Math.PI/180))*p1.vy;
+    var p1x = ga(p1.node, "x")*1 + p1.speed*(Math.cos(p1.theta*Math.PI/180))*p1.vy*-1;
     var p1y = ga(p1.node, "y")*1 + p1.speed*(Math.sin(p1.theta*Math.PI/180))*p1.vy;
-    var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy;
+    var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy*-1;
     var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
     
     /* Check if outside bounds */
