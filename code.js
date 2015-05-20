@@ -40,6 +40,15 @@ speedy:0,
 maxspeed:20
 }
 
+dgid("node_p1").childNodes[1].childNodes[5].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[7].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[9].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[11].setAttribute("class","thrust");
+
+dgid("node_p2").childNodes[1].childNodes[5].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[7].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[9].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[11].setAttribute("class","thrust");
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
 function setStat(params) {
