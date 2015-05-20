@@ -9,7 +9,7 @@ body {
 }
 
 table.stat {
-    background-color: white;
+    background = rgba(255,255,255,0.8);
     border: 3px solid black;
     
     bottom:10px;
