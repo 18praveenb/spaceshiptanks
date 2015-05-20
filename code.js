@@ -32,7 +32,10 @@ rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:90, /* angle to horizontal */
-fire: 0 /* fire or not */
+fire: 0, /* fire or not */
+acceleration:0.2,
+speedx:0,
+speedy:0
 }
 
 
@@ -171,21 +174,21 @@ function update(){
     p2.theta -= p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
-    //if(p1.vy!=0){
+    
+    if(Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))<=p1.speed){
         p1.speedx += Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
         p1.speedy += Math.sin(p1.theta*Math.PI/180)*p1.acceleration*p1.vy;
-    /*}else {
-        if(p1.speedx>0){
-            p1.speedx -= Math.cos(p1.theta*Math.PI/180)*5;
-        }else if(p1.speedx<0){
-            
-        }
-    }*/
+    }
+    if(Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))<=p2.speed){
+        p2.speedx += Math.cos(p2.theta*Math.PI/180)*p1.acceleration*p2.vy*-1;
+        p2.speedy += Math.sin(p2.theta*Math.PI/180)*p1.acceleration*p2.vy;
+    }
+    
     /* Future positions */
     var p1x = ga(p1.node, "x")*1 + p1.speedx;
     var p1y = ga(p1.node, "y")*1 + p1.speedy;
-    var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy*-1;
-    var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
+    var p2x = ga(p2.node, "x")*1 + p2.speedx;
+    var p2y = ga(p2.node, "y")*1 + p2.speedy;
     
     /* Check if outside bounds */
     if(p1x < margin){p1x = margin;p1.speedx=p1.speedx*-4/5;}
@@ -193,10 +196,10 @@ function update(){
     if(p1x > xmargin){p1x = xmargin;p1.speedx=p1.speedx*-4/5;}
     if(p1y > ymargin){p1y = ymargin;p1.speedy=p1.speedy*-4/5;}
     
-    if(p2x < margin){p2x = margin;}
-    if(p2y < margin){p2y = margin;}
-    if(p2x > xmargin){p2x = xmargin;}
-    if(p2y > ymargin){p2y = ymargin;}
+    if(p2x < margin){p2x = margin;p2.speedx=p2.speedx*-4/5;}
+    if(p2y < margin){p2y = margin;p2.speedy=p2.speedy*-4/5;}
+    if(p2x > xmargin){p2x = xmargin;p2.speedx=p2.speedx*-4/5;}
+    if(p2y > ymargin){p2y = ymargin;p2.speedy=p2.speedy*-4/5;}
     
     /* Set new positions */
     p1.node.setAttribute("x", p1x);
