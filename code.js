@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-//p("hiiiii");
+p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -42,15 +42,15 @@ maxspeed:20
 
 window.onload = function(){
 /* Assign "thrust" class to thrusters */
-dgid("node_p1").childNodes[1].childNodes[5].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[7].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[9].setAttribute("class","thrust");
-dgid("node_p1").childNodes[1].childNodes[11].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
 
-dgid("node_p2").childNodes[1].childNodes[5].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[7].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[9].setAttribute("class","thrust");
-dgid("node_p2").childNodes[1].childNodes[11].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
 }
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
