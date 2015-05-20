@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-//p("hiiiii");
+p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -196,8 +196,8 @@ function update(){
     sa(scene, "height", window.innerHeight);
     
     if(p1.fire == 1){
-        var ex = ga(p1.node,"x")+25+Math.cos(p1.theta)*40;
-        var why = ga(p1.node,"y")+25+Math.sin(p1.theta)*40;
+        var ex = ga(p1.node,"x")*1+25+Math.cos(Math.PI/180*p1.theta)*40;
+        var why = ga(p1.node,"y")*1+25+Math.sin(Math.PI/180*p1.theta)*40;
         circ(ex,why,4,"black",true);
     }
     
