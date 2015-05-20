@@ -197,7 +197,7 @@ function update(){
     
     if(p1.fire == 1){
         var ex = ga(p1.node,"x")*1+25+Math.cos(Math.PI/180*p1.theta)*40;
-        var why = ga(p1.node,"y")*1+25+Math.sin(Math.PI/180*p1.theta)*40;
+        var why = ga(p1.node,"y")*1+25-Math.sin(Math.PI/180*p1.theta)*40;
         circ(ex,why,4,"black",true);
     }
     
