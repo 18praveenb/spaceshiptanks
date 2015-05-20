@@ -19,10 +19,12 @@ table.stat {
 
 table.stat.p1 {
     left: 10px;
+    background = rgba(255,255,255,0.8);
 }
 
 table.stat.p2 {
     right: 10px;
+    background = rgba(255,255,255,0.8);
 }
 
 th.stat {
