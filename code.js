@@ -184,8 +184,8 @@ function update(){
     if(p2y > ymargin){p2y = ymargin;}
     
     /* Set new positions */
-    p1.node.setAttribute("x", p1x);
-    p1.node.setAttribute("y", p1y);
+    dgid("node_p1").setAttribute("x", p1x);
+    dgid("node_p1").setAttribute("y", p1y);
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
     
