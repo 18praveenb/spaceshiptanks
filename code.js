@@ -203,6 +203,8 @@ function update(){
     
     sa(dgid("node_p1"),"x",ga(p1.node,"x"));
     sa(dgid("node_p1"),"y",ga(p1.node,"y"));
+    sa(dgid("node_p2"),"x",ga(p2.node,"x"));
+    sa(dgid("node_p2"),"y",ga(p2.node,"y"));
 }
 
 
