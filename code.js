@@ -16,7 +16,8 @@ speed:0,
 rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
-theta:90 /* angle to horizontal */
+theta:90, /* angle to horizontal */
+fire:0 /* fire or not */
 }
 
 var p2 = {
@@ -27,7 +28,8 @@ speed:0,
 rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
-theta:90 /* angle to horizontal */
+theta:90, /* angle to horizontal */
+fire: 0 /* fire or not */
 }
 
 
@@ -98,6 +100,18 @@ function dgid(id) {
 function rotat(id, degrees){
     dgid(id).setAttribute("style","-webkit-transform: rotate("+(90-degrees)+"deg); -webkit-transform-origin: 25px 25px;");
 }
+
+/* Add circle */
+function circ(x, y, radius, color, underSpaceship){
+    if(underSpaceship){
+        /* Append to beginning of SVG so it is under spaceships */
+        dgid("scene").innerHTML = "<circle cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>"+dgid("scene").innerHTML;
+    }else {
+        /* Append to end of SVG so it is over spaceships */
+        dgid("scene").innerHTML = dgid("scene").innerHTML+"<circle cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>";
+    }
+}
+
 function enumerate(array, block) {
     for (var i=0; i<array.length; ++i) {
         /* The block can return a boolean value. Returning false ends enumeration. */
@@ -179,6 +193,11 @@ function update(){
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
     sa(scene, "height", window.innerHeight);
+    
+    if(p1.fire == 1){
+    circ(ga(p1.node,"x"),ga(p1.node,"y"),4,"black",true);
+        
+    }
 }
 
 
@@ -198,6 +217,9 @@ function keyUp(event) {
         case 40 /* down arrow */:
             p1.vy = 0;
             break;
+        case 32 /* space */:
+            p1.fire = 0;
+            break;
             
         case 65 /* A(left) */:
             p2.vr = 0;
@@ -211,6 +233,7 @@ function keyUp(event) {
         case 83 /* S(down) */:
             p2.vy= 0;
             break;
+            
     }
 }
 
@@ -231,6 +254,9 @@ function keyDown(event) {
         case 40 /* down arrow */:
             p1.vy= 1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
+            break;
+        case 32 /* space */:
+            p1.fire = 1;
             break;
             
         case 65 /* A(left) */:
