@@ -17,7 +17,10 @@ rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:90, /* angle to horizontal */
-fire:0 /* fire or not */
+fire:0, /* fire or not */
+acceleration:0.2,
+speedx:0,
+speedy:0
 }
 
 var p2 = {
@@ -168,9 +171,17 @@ function update(){
     p2.theta -= p2.rotation_speed*p2.vr;
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
-    
+    //if(p1.vy!=0){
+        p1.speedx += Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
+    /*}else {
+        if(p1.speedx>0){
+            p1.speedx -= Math.cos(p1.theta*Math.PI/180)*5;
+        }else if(p1.speedx<0){
+            
+        }
+    }*/
     /* Future positions */
-    var p1x = ga(p1.node, "x")*1 + p1.speed*(Math.cos(p1.theta*Math.PI/180))*p1.vy*-1;
+    var p1x = ga(p1.node, "x")*1 + p1.speedx;
     var p1y = ga(p1.node, "y")*1 + p1.speed*(Math.sin(p1.theta*Math.PI/180))*p1.vy;
     var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy*-1;
     var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
