@@ -21,7 +21,7 @@ fire:0, /* fire or not */
 acceleration:0.2,
 speedx:0,
 speedy:0,
-maxspeed:10
+maxspeed:15
 }
 
 var p2 = {
@@ -37,7 +37,7 @@ fire: 0, /* fire or not */
 acceleration:0.2,
 speedx:0,
 speedy:0,
-maxspeed:15
+maxspeed:20
 }
 
 
