@@ -17,7 +17,11 @@ rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:90, /* angle to horizontal */
-fire:0 /* fire or not */
+fire:0, /* fire or not */
+acceleration:0.2,
+speedx:0,
+speedy:0,
+maxspeed:15
 }
 
 var p2 = {
@@ -29,9 +33,25 @@ rotation_speed: 0, /* rotation speed */
 vr:0, /* velocity rotation */
 vy:0, /* y velocity */
 theta:90, /* angle to horizontal */
-fire: 0 /* fire or not */
+fire: 0, /* fire or not */
+acceleration:0.2,
+speedx:0,
+speedy:0,
+maxspeed:20
 }
 
+function assignlethrusters(){
+/* Assign "thrust" class to thrusters */
+dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
+dgid("node_p1").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
+
+dgid("node_p2").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust");
+dgid("node_p2").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust");
+}
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
 function setStat(params) {
@@ -53,12 +73,12 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 10});
+    setStat({player: p1, key: "speed", value: 0});
     p1.rotation_speed = 3.6; /* 180 degrees a second */
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 15});
+    setStat({player: p2, key: "speed", value: 0});
     p2.rotation_speed = 3.6;
     
     window.addEventListener("keydown", keyDown);
@@ -67,6 +87,7 @@ function buildScene() {
     /* Set ids for the two spaceships */
     document.getElementsByClassName("spaceship")[0].setAttribute("id","p1");
     document.getElementsByClassName("spaceship")[1].setAttribute("id","p2");
+    assignlethrusters();
 }
 
 /*** Helper functions ***/
@@ -168,29 +189,40 @@ function update(){
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
+    if(Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))<=p1.maxspeed){
+        p1.speedx += Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
+        p1.speedy += Math.sin(p1.theta*Math.PI/180)*p1.acceleration*p1.vy;
+    }
+    if(Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))<=p2.maxspeed){
+        p2.speedx += Math.cos(p2.theta*Math.PI/180)*p1.acceleration*p2.vy*-1;
+        p2.speedy += Math.sin(p2.theta*Math.PI/180)*p1.acceleration*p2.vy;
+    }
+    
+    dgid("p1_speed").innerHTML = (Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))+"").substring(0,2);
+    dgid("p2_speed").innerHTML = (Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))+"").substring(0,2);
+    
     /* Future positions */
-    var p1x = ga(p1.node, "x")*1 + p1.speed*(Math.cos(p1.theta*Math.PI/180))*p1.vy*-1;
-    var p1y = ga(p1.node, "y")*1 + p1.speed*(Math.sin(p1.theta*Math.PI/180))*p1.vy;
-    var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy*-1;
-    var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
+    var p1x = ga(p1.node, "x")*1 + p1.speedx;
+    var p1y = ga(p1.node, "y")*1 + p1.speedy;
+    var p2x = ga(p2.node, "x")*1 + p2.speedx;
+    var p2y = ga(p2.node, "y")*1 + p2.speedy;
     
     /* Check if outside bounds */
-    if(p1x < margin){p1x = margin;}
-    if(p1y < margin){p1y = margin;}
-    if(p1x > xmargin){p1x = xmargin;}
-    if(p1y > ymargin){p1y = ymargin;}
+    if(p1x < margin){p1x = margin;p1.speedx=p1.speedx*-4/5;}
+    if(p1y < margin){p1y = margin;p1.speedy=p1.speedy*-4/5;}
+    if(p1x > xmargin){p1x = xmargin;p1.speedx=p1.speedx*-4/5;}
+    if(p1y > ymargin){p1y = ymargin;p1.speedy=p1.speedy*-4/5;}
     
-    if(p2x < margin){p2x = margin;}
-    if(p2y < margin){p2y = margin;}
-    if(p2x > xmargin){p2x = xmargin;}
-    if(p2y > ymargin){p2y = ymargin;}
+    if(p2x < margin){p2x = margin;p2.speedx=p2.speedx*-4/5;}
+    if(p2y < margin){p2y = margin;p2.speedy=p2.speedy*-4/5;}
+    if(p2x > xmargin){p2x = xmargin;p2.speedx=p2.speedx*-4/5;}
+    if(p2y > ymargin){p2y = ymargin;p2.speedy=p2.speedy*-4/5;}
     
     /* Set new positions */
     p1.node.setAttribute("x", p1x);
     p1.node.setAttribute("y", p1y);
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
-    
     
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
@@ -221,6 +253,7 @@ function keyUp(event) {
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
+            $(".thrust").attr("fill","#8C8C8C")
             break;
         case 40 /* down arrow */:
             p1.vy = 0;
@@ -258,6 +291,7 @@ function keyDown(event) {
         case 38 /* up arrow */:
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
+            $(".thrust").attr("fill","red");
             break;
         case 40 /* down arrow */:
             p1.vy= 1;
