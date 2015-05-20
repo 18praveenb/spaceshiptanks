@@ -40,7 +40,7 @@ speedy:0,
 maxspeed:20
 }
 
-window.onload = function(){
+function assignlethrusters(){
 /* Assign "thrust" class to thrusters */
 dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust");
 dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust");
@@ -87,6 +87,7 @@ function buildScene() {
     /* Set ids for the two spaceships */
     document.getElementsByClassName("spaceship")[0].setAttribute("id","p1");
     document.getElementsByClassName("spaceship")[1].setAttribute("id","p2");
+    assignlethrusters();
 }
 
 /*** Helper functions ***/
