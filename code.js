@@ -173,6 +173,7 @@ function update(){
     rotat("p2",p2.theta);
     //if(p1.vy!=0){
         p1.speedx += Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
+        p1.speedy += Math.sin(p1.theta*Math.PI/180)*p1.acceleration*p1.vy;
     /*}else {
         if(p1.speedx>0){
             p1.speedx -= Math.cos(p1.theta*Math.PI/180)*5;
@@ -182,15 +183,15 @@ function update(){
     }*/
     /* Future positions */
     var p1x = ga(p1.node, "x")*1 + p1.speedx;
-    var p1y = ga(p1.node, "y")*1 + p1.speed*(Math.sin(p1.theta*Math.PI/180))*p1.vy;
+    var p1y = ga(p1.node, "y")*1 + p1.speedy;
     var p2x = ga(p2.node, "x")*1 + p2.speed*(Math.cos(p2.theta*Math.PI/180))*p2.vy*-1;
     var p2y = ga(p2.node, "y")*1 + p2.speed*(Math.sin(p2.theta*Math.PI/180))*p2.vy;
     
     /* Check if outside bounds */
-    if(p1x < margin){p1x = margin;}
-    if(p1y < margin){p1y = margin;}
-    if(p1x > xmargin){p1x = xmargin;}
-    if(p1y > ymargin){p1y = ymargin;}
+    if(p1x < margin){p1x = margin;p1.speedx=p1.speedx*-4/5;}
+    if(p1y < margin){p1y = margin;p1.speedy=p1.speedy*-4/5;}
+    if(p1x > xmargin){p1x = xmargin;p1.speedx=p1.speedx*-4/5;}
+    if(p1y > ymargin){p1y = ymargin;p1.speedy=p1.speedy*-4/5;}
     
     if(p2x < margin){p2x = margin;}
     if(p2y < margin){p2y = margin;}
