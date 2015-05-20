@@ -99,6 +99,8 @@ function dgid(id) {
 /* Rotate element */
 function rotat(id, degrees){
     dgid(id).setAttribute("style","-webkit-transform: rotate("+(90-degrees)+"deg); -webkit-transform-origin: 25px 25px;");
+    dgid(id).setAttribute("style","-ms-transform: rotate("+(90-degrees)+"deg); -ms-transform-origin: 25px 25px;");
+    dgid(id).setAttribute("style","transform: rotate("+(90-degrees)+"deg); transform-origin: 25px 25px;");
 }
 
 /* Add circle */
