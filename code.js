@@ -212,7 +212,6 @@ function update(){
     p2.node.setAttribute("x", p2x);
     p2.node.setAttribute("y", p2y);
     
-    
     /* Make the SVG scene the same size as the window */
     sa(scene, "width", window.innerWidth);
     sa(scene, "height", window.innerHeight);
@@ -242,6 +241,7 @@ function keyUp(event) {
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
+            $(".thrust").attr("fill","#8C8C8C")
             break;
         case 40 /* down arrow */:
             p1.vy = 0;
@@ -279,6 +279,7 @@ function keyDown(event) {
         case 38 /* up arrow */:
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
+            $(".thrust").attr("fill","red");
             break;
         case 40 /* down arrow */:
             p1.vy= 1;
