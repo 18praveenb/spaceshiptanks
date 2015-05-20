@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-p("hiiiii");
+//p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -20,7 +20,8 @@ theta:90, /* angle to horizontal */
 fire:0, /* fire or not */
 acceleration:0.2,
 speedx:0,
-speedy:0
+speedy:0,
+maxspeed:10
 }
 
 var p2 = {
@@ -35,7 +36,8 @@ theta:90, /* angle to horizontal */
 fire: 0, /* fire or not */
 acceleration:0.2,
 speedx:0,
-speedy:0
+speedy:0,
+maxspeed:15
 }
 
 
@@ -59,12 +61,12 @@ function buildScene() {
     
     setStat({player: p1, key: "health", value: 25});
     setStat({player: p1, key: "attack", value: 1});
-    setStat({player: p1, key: "speed", value: 10});
+    setStat({player: p1, key: "speed", value: 0});
     p1.rotation_speed = 3.6; /* 180 degrees a second */
     
     setStat({player: p2, key: "health", value: 10});
     setStat({player: p2, key: "attack", value: 2});
-    setStat({player: p2, key: "speed", value: 15});
+    setStat({player: p2, key: "speed", value: 0});
     p2.rotation_speed = 3.6;
     
     window.addEventListener("keydown", keyDown);
@@ -175,14 +177,17 @@ function update(){
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
-    if(Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))<=p1.speed){
+    if(Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))<=p1.maxspeed){
         p1.speedx += Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
         p1.speedy += Math.sin(p1.theta*Math.PI/180)*p1.acceleration*p1.vy;
     }
-    if(Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))<=p2.speed){
+    if(Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))<=p2.maxspeed){
         p2.speedx += Math.cos(p2.theta*Math.PI/180)*p1.acceleration*p2.vy*-1;
         p2.speedy += Math.sin(p2.theta*Math.PI/180)*p1.acceleration*p2.vy;
     }
+    
+    dgid("p1_speed").innerHTML = (Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))+"").substring(0,3);
+    dgid("p2_speed").innerHTML = (Math.sqrt(Math.pow(p2.speedx,2)+Math.pow(p2.speedy,2))+"").substring(0,3);
     
     /* Future positions */
     var p1x = ga(p1.node, "x")*1 + p1.speedx;
