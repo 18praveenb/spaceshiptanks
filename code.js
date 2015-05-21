@@ -1,7 +1,7 @@
 /* Should equal the number of SVG objects in the HTML doc. This isn't being calculated automatically because that occasionally fails to work. */
 /* Props to my brother Pranav for this objectsLoaded idea. Before he suggested this, I was just implementing an n millisecond delay before loading the page. */
 var objectsNotLoaded = 2;
-//p("hiiiii");
+p("hiiiii");
 function objectLoaded() {
     --objectsNotLoaded;
     if (objectsNotLoaded == 0) {buildScene()}
@@ -140,7 +140,7 @@ function circ(x, y, radius, color, underSpaceship){
 function moveBullet(bullet){
     
     //if(ga(bullet,"class")=="bullet"){
-        console.log("bullet");
+        p(ga(bullet,"x"));
         //sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
     //}
 }
@@ -254,7 +254,7 @@ function update(){
     sa(dgid("node_p2"),"x",ga(p2.node,"x"));
     sa(dgid("node_p2"),"y",ga(p2.node,"y"));
     
-    enumerateChildNodes(dgid("scene"),moveBullet());
+    enumerateChildNodes(dgid("scene").childNodes[1],moveBullet());
 }
 
 
