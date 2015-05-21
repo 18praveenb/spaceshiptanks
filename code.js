@@ -129,10 +129,17 @@ function circ(x, y, radius, color, underSpaceship){
     
     if(underSpaceship){
         /* Append to beginning of SVG so it is under spaceships */
-        dgid("scene").innerHTML = "<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>"+dgid("scene").innerHTML;
+        dgid("scene").innerHTML = "<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"' vx='5' vy='5'></circle>"+dgid("scene").innerHTML;
     }else {
         /* Append to end of SVG so it is over spaceships */
         dgid("scene").innerHTML = dgid("scene").innerHTML+"<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>";
+    }
+}
+
+/* Move bullet */
+function moveBullet(bullet){
+    if(ga(bullet,"class")=="bullet"){
+        sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
     }
 }
 
@@ -244,6 +251,8 @@ function update(){
     sa(dgid("node_p1"),"y",ga(p1.node,"y"));
     sa(dgid("node_p2"),"x",ga(p2.node,"x"));
     sa(dgid("node_p2"),"y",ga(p2.node,"y"));
+    
+    enumerateChildNodes(dgid("scene"),moveBullet());
 }
 
 
