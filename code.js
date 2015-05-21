@@ -42,15 +42,16 @@ maxspeed:20
 
 function assignlethrusters(){
 /* Assign "thrust" class to thrusters */
-dgid("node_p1").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust1");
 dgid("node_p1").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust1");
 dgid("node_p1").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust1");
 dgid("node_p1").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust1");
+dgid("node_p1").childNodes[1].childNodes[13].childNodes[1].setAttribute("class","thrust1");
 
-dgid("node_p2").childNodes[1].childNodes[5].childNodes[1].setAttribute("class","thrust2");
 dgid("node_p2").childNodes[1].childNodes[7].childNodes[1].setAttribute("class","thrust2");
 dgid("node_p2").childNodes[1].childNodes[9].childNodes[1].setAttribute("class","thrust2");
 dgid("node_p2").childNodes[1].childNodes[11].childNodes[1].setAttribute("class","thrust2");
+dgid("node_p2").childNodes[1].childNodes[13].childNodes[1].setAttribute("class","thrust2");
+    
 }
 
 /* Wow I forgot how this works for a while . . . maybe it should have comments */
@@ -87,7 +88,7 @@ function buildScene() {
     /* Set ids for the two spaceships */
     document.getElementsByClassName("spaceship")[0].setAttribute("id","p1");
     document.getElementsByClassName("spaceship")[1].setAttribute("id","p2");
-    //assignlethrusters();
+    assignlethrusters();
 }
 
 /*** Helper functions ***/
