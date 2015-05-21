@@ -138,8 +138,10 @@ function circ(x, y, radius, color, underSpaceship){
 
 /* Move bullet */
 function moveBullet(bullet){
+    
     if(ga(bullet,"class")=="bullet"){
-        sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
+        console.log("bullet");
+        //sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
     }
 }
 
