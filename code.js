@@ -87,7 +87,7 @@ function buildScene() {
     /* Set ids for the two spaceships */
     document.getElementsByClassName("spaceship")[0].setAttribute("id","p1");
     document.getElementsByClassName("spaceship")[1].setAttribute("id","p2");
-    assignlethrusters();
+    //assignlethrusters();
 }
 
 /*** Helper functions ***/
