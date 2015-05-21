@@ -138,11 +138,11 @@ function circ(x, y, radius, color, underSpaceship){
 
 /* Move bullet */
 function moveBullet(bullet){
-    
-    //if(ga(bullet,"class")=="bullet"){
-        p(ga(bullet,"x"));
-        //sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
-    //}
+    for(var i = 0; i < dgid("scene").childNodes.length; i++){
+        if(ga(dgid("scene").childNodes[i],"class")=="bullet"){
+            sa(dgid("scene").childNodes[i],"x",(ga(dgid("scene").childNodes[i],"x")+ga(dgid("scene").childNodes[i],"vx")));
+        }
+    }
 }
 
 function enumerate(array, block) {
@@ -254,7 +254,7 @@ function update(){
     sa(dgid("node_p2"),"x",ga(p2.node,"x"));
     sa(dgid("node_p2"),"y",ga(p2.node,"y"));
     
-    enumerateChildNodes(dgid("scene").childNodes[1],moveBullet());
+    moveBullet();
 }
 
 
