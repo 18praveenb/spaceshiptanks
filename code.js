@@ -139,10 +139,10 @@ function circ(x, y, radius, color, underSpaceship){
 /* Move bullet */
 function moveBullet(bullet){
     
-    if(ga(bullet,"class")=="bullet"){
+    //if(ga(bullet,"class")=="bullet"){
         console.log("bullet");
         //sa(bullet,"x",(ga(bullet,"x")+ga(bullet,"vx")));
-    }
+    //}
 }
 
 function enumerate(array, block) {
