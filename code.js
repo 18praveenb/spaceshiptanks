@@ -124,28 +124,14 @@ function rotat(id, degrees){
     
 }
 
-/* Add circle */
-function circ(x, y, radius, color, underSpaceship){
-    
-    if(underSpaceship){
-        /* Append to beginning of SVG so it is under spaceships */
-        dgid("scene").innerHTML = "<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"' vx='5' vy='5'></circle>"+dgid("scene").innerHTML;
-    }else {
-        /* Append to end of SVG so it is over spaceships */
-        dgid("scene").innerHTML = dgid("scene").innerHTML+"<circle class = 'bullet' cx='"+x+"' cy='"+y+"' r='"+radius+"' fill='"+color+"'></circle>";
-    }
-}
-
 /* Move bullet */
 function moveBullets(){
     for(var i = 0; i < dgid("scene").childNodes.length; i++){
-        if((scene.childNodes[i].type == 1) && (ga(dgid("scene").childNodes[i],"class").slice(0, 5)=="bullet")){
+        if((scene.childNodes[i].type == 1) && (ga(dgid("scene").childNodes[i],"class").slice(0, 5)=="bullet")) {
             sa(dgid("scene").childNodes[i],"x",(ga(dgid("scene").childNodes[i],"x")+ga(dgid("scene").childNodes[i],"vx")));
         }
     }
 }
-
-/*** Nodes ***/
 
 function createNode(parameters) {
     
@@ -244,10 +230,11 @@ function keyUp(event) {
             break;
         case 38 /* up arrow */:
             p1.vy = 0;
-            $(".thrust1").attr("fill","#8C8C8C")
+            $(".thrust1").attr("thrust","none");
             break;
         case 40 /* down arrow */:
             p1.vy = 0;
+            $(".thrust1").attr("thrust","none");
             break;
         case 32 /* space */:
             p1.fire = 0;
@@ -261,10 +248,11 @@ function keyUp(event) {
             break;
         case 87 /* W(up) */:
             p2.vy= 0;
-            $(".thrust2").attr("fill","#8C8C8C");
+            $(".thrust2").attr("thrust", "none");
             break;
         case 83 /* S(down) */:
             p2.vy= 0;
+            $(".thrust2").attr("thrust", "none");
             break;
             
     }
@@ -283,10 +271,11 @@ function keyDown(event) {
         case 38 /* up arrow */:
             p1.vy= -1;
             event.preventDefault(); /*stop keyboard scrolling of browser*/
-            $(".thrust1").attr("fill","red");
+            $(".thrust1").attr("thrust","forward");
             break;
         case 40 /* down arrow */:
             p1.vy= 1;
+            $(".thrust1").attr("thrust", "backward");
             event.preventDefault(); /*stop keyboard scrolling of browser*/
             break;
         case 32 /* space */:
@@ -304,10 +293,11 @@ function keyDown(event) {
             break;
         case 87 /* W(up) */:
             p2.vy= -1;
-            $(".thrust2").attr("fill","red");
+            $(".thrust2").attr("thrust","forward");
             break;
         case 83 /* S(down) */:
             p2.vy= 1;
+            $(".thrust2").attr("thrust", "backward");
             break;
         
     }
