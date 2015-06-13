@@ -159,18 +159,27 @@ function update(){
     rotat("p1",p1.theta);
     rotat("p2",p2.theta);
     
+    /* accelerate */
     var p1sx = p1.speedx + Math.cos(p1.theta*Math.PI/180)*p1.acceleration*p1.vy*-1;
     var p1sy = p1.speedy + Math.sin(p1.theta*Math.PI/180)*p1.acceleration*p1.vy;
     var p2sx = p2.speedx + Math.cos(p2.theta*Math.PI/180)*p2.acceleration*p2.vy*-1;
     var p2sy = p2.speedy + Math.sin(p2.theta*Math.PI/180)*p2.acceleration*p2.vy;
     
-    if(Math.sqrt(Math.pow(p1sx,2)+Math.pow(p1sy,2))<=p1.maxspeed){
+    if(Math.sqrt(Math.pow(p1sx,2)+Math.pow(p1sy,2)) <= p1.maxspeed){
         p1.speedx = p1sx;
         p1.speedy = p1sy;
     }
-    if(Math.sqrt(Math.pow(p2sx,2)+Math.pow(p2sy,2))<=p2.maxspeed){
+    if(Math.sqrt(Math.pow(p2sx,2)+Math.pow(p2sy,2)) <= p2.maxspeed){
         p2.speedx = p2sx;
         p2.speedy = p2sy;
+    }
+    
+    if (p1.vy == -1) {
+        p1.speedy /= 2;
+    }
+    
+    if (p2.vy == -1) {
+        p1.speedy /= 2;
     }
     
     dgid("p1_speed").innerHTML = (Math.sqrt(Math.pow(p1.speedx,2)+Math.pow(p1.speedy,2))+"").substring(0,2);
@@ -206,7 +215,6 @@ function update(){
     if(p1.fire == 1){
         var ex = ga(p1.node,"x")*1+25+Math.cos(Math.PI/180*p1.theta)*40;
         var why = ga(p1.node,"y")*1+25-Math.sin(Math.PI/180*p1.theta)*40;
-        circ(ex,why,4,"black",true);
     }
     
     sa(dgid("node_p1"),"x",ga(p1.node,"x"));
