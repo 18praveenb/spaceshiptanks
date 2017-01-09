@@ -12,8 +12,8 @@ function objectLoaded() {
 function buildScene() {
 	for (var x = 0; x < 7; ++x) {
 		for (var y = 0; y < 5; ++y) {
-			if ((x == 3) && (y == 3)) {createNode({type:"addnew", svg:"addnew", gridLocation:{"x":x,"y":y}});}
-			else {createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});}
+			//if ((x == 3) && (y == 3)) {createNode({type:"addnew", svg:"addnew", gridLocation:{"x":x,"y":y}});}
+			/*else {*/createNode({type:"tile", svg:"grass", gridLocation:{"x":x,"y":y}});//}
 		}
 	}
 	createNode({displayName: "Space Destroyer", type:"unit", svg:"spaceship", health:50, speed:2, attack:10, player:1, gridLocation:{"x":0,"y":2}});
